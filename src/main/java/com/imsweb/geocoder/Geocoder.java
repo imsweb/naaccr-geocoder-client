@@ -147,11 +147,11 @@ public final class Geocoder {
 
             // read proxy information
             _proxyHost = props.getProperty("proxyHost");
-            if (_proxyHost == null)
+            if (_proxyHost == null && System.getenv(_ENV_PROXY_HOST_KEY) != null)
                 _proxyHost = System.getenv(_ENV_PROXY_HOST_KEY);
 
             _proxyPort = props.getProperty("proxyPort") != null ? Integer.valueOf(props.getProperty("proxyPort")) : null;
-            if (_proxyPort == null)
+            if (_proxyPort == null && System.getenv(_ENV_PROXY_PORT_KEY) != null)
                 _proxyPort = Integer.valueOf(System.getenv(_ENV_PROXY_PORT_KEY));
         }
 
