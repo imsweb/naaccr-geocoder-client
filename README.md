@@ -61,7 +61,7 @@ connection.
 Geocoder api = new Geocoder.Builder().connect();
 ```
 
-or the key can be supplied when constructing the instance.
+The URL or key can also be supplied when constructing the instance.
 
 ```java
 Geocoder api = new Geocoder.Builder().apiKey("your_api_key").connect();
