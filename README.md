@@ -1,7 +1,7 @@
-# naaccr-geocoding-client
+# naaccr-geocoder-client
 
-[![Build Status](https://travis-ci.org/imsweb/naaccr-geocoding-client.svg?branch=master)](https://travis-ci.org/imsweb/naaccr-geocoding-client)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoding-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoding-client)
+[![Build Status](https://travis-ci.org/imsweb/naaccr-geocoder-client.svg?branch=master)](https://travis-ci.org/imsweb/naaccr-geocoder-client)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client)
 
 A [NAACCR Geocoder](https://geo.naaccr.org) client for Java applications.  This library supports most of the APIs and
 makes them easy to incorporate into Java applications.
@@ -30,7 +30,7 @@ Download [the latest JAR][1] or grab via Maven:
 ```xml
 <dependency>
     <groupId>com.imsweb</groupId>
-    <artifactId>naaccr-geocoding-client</artifactId>
+    <artifactId>naaccr-geocoder-client</artifactId>
     <version>1.0</version>
 </dependency>
 ```
@@ -38,7 +38,7 @@ Download [the latest JAR][1] or grab via Maven:
 or via Gradle:
 
 ```
-compile 'com.imsweb:naaccr-geocoding-client:1.0'
+compile 'com.imsweb:naaccr-geocoder-client:1.0'
 ```
 
 ## Usage
@@ -61,7 +61,7 @@ connection.
 Geocoder api = new Geocoder.Builder().connect();
 ```
 
-The URL or key can also be supplied when constructing the instance.
+or the key can be supplied when constructing the instance.
 
 ```java
 Geocoder api = new Geocoder.Builder().apiKey("your_api_key").connect();
@@ -122,4 +122,4 @@ assertThat(census.getMsaFips(), is("4472"));
 assertThat(census.getPlaceFips(), is("44000"));
 ```
 
-[1]: http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=com.imsweb&a=naaccr-geocoding-client&v=LATEST
+[1]: http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=com.imsweb&a=naaccr-geocoder-client&v=LATEST
