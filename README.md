@@ -6,11 +6,7 @@
 A [NAACCR Geocoder](https://geo.naaccr.org) client for Java applications.  This library supports most of the APIs and
 makes them easy to incorporate into Java applications.
 
-## SEER
-
-The Surveillance, Epidemiology and End Results ([SEER](http://seer.cancer.gov)) Program is a premier source for cancer statistics 
-in the United States. The SEER Program collects information on incidence, prevalence and survival from specific geographic areas 
-representing 28 percent of the US population and reports on all these data plus cancer mortality data for the entire country.
+## Description
 
 From the [NAACCR Geocoder](https://geo.naaccr.org) website:
 
