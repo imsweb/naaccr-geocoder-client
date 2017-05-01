@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.imsweb'
-version = '1.0'
+version = '1.1'
 description = 'Java client library for NAACCR Geocoding Service'
 
 println "Starting build using ${Jvm.current()}"

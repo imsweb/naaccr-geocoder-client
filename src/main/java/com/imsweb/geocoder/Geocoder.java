@@ -72,7 +72,7 @@ public final class Geocoder {
     /**
      * Main geocoding method
      */
-    List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
+    public List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
         return GeocodeOutput.toResults(_geocodingService.geocode(input.toQueryParams()).execute().body());
     }
 
