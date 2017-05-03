@@ -39,7 +39,9 @@ compile 'com.imsweb:naaccr-geocoder-client:1.1'
 
 ## Usage
 
-This NAACCR geocoding service is provided as a service to NAACCR Full Member registries following the rules set forth on the 
+From the [NAACCR Geocoder](https://geo.naaccr.org) website:
+
+> This NAACCR geocoding service is provided as a service to NAACCR Full Member registries following the rules set forth on the 
 [usage rules page](https://geo.naaccr.org/About/UsageCosts.aspx). Please [contact](https://geo.naaccr.org/Support/ContactUs.aspx) 
 us if you need more information.
 
