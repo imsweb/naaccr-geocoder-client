@@ -26,13 +26,33 @@ public class GeocodeOutput {
     private String _naaccrGisCoordinateQualityName;
     private Double _matchScore;
     private String _matchType;
-    private String _featureMatchType;
-    private Integer _featureMatchCount;
     private String _matchingGeographyType;
     private Double _regionSize;
     private String _regionSizeUnit;
+    private String _interpolationType;
+    private String _interpolationSubType;
     private String _matchedLocationType;
+    private String _featureMatchType;
+    private Integer _featureMatchCount;
+    private String _featureMatchTypeNotes;
+    private String _tieHandlingStrategyType;
+    private String _featureMatchTypeTieBreakingNotes;
+    private String _featureMatchingSelectionMethod;
+    private String _featureMatchingSelectionMethodNotes;
     private Double _timeTaken;
+    private Address _matchAddress;
+    private Address _parsedAddress;
+    private Address _featureAddress;
+    private Double _fArea;
+    private String _fAreaType;
+    private String _fGeometrySrid;
+    private String _fGeometry;
+    private String _fSource;
+    private String _fVintage;
+    private String _fPrimaryIdField;
+    private String _fPrimaryIdValue;
+    private String _fSecondaryIdField;
+    private String _fSecondaryIdValue;
     private String _naaccrCensusTractCertaintyCode;
     private String _naaccrCensusTractCertaintyName;
     private Map<Integer, Census> _censusResults = new HashMap<>();
@@ -165,6 +185,30 @@ public class GeocodeOutput {
         _timeTaken = timeTaken;
     }
 
+    public Address getMatchAddress() {
+        return _matchAddress;
+    }
+
+    public void setMatchAddress(Address matchAddress) {
+        _matchAddress = matchAddress;
+    }
+
+    public Address getParsedAddress() {
+        return _parsedAddress;
+    }
+
+    public void setParsedAddress(Address parsedAddress) {
+        _parsedAddress = parsedAddress;
+    }
+
+    public Address getFeatureAddress() {
+        return _featureAddress;
+    }
+
+    public void setFeatureAddress(Address featureAddress) {
+        _featureAddress = featureAddress;
+    }
+
     public String getNaaccrCensusTractCertaintyCode() {
         return _naaccrCensusTractCertaintyCode;
     }
@@ -180,6 +224,144 @@ public class GeocodeOutput {
     void setNaaccrCensusTractCertaintyName(String naaccrCensusTractCertaintyName) {
         _naaccrCensusTractCertaintyName = naaccrCensusTractCertaintyName;
     }
+
+    public String getInterpolationType() {
+        return _interpolationType;
+    }
+
+    public void setInterpolationType(String interpolationType) {
+        _interpolationType = interpolationType;
+    }
+
+    public String getInterpolationSubType() {
+        return _interpolationSubType;
+    }
+
+    public void setInterpolationSubType(String interpolationSubType) {
+        _interpolationSubType = interpolationSubType;
+    }
+
+    public String getFeatureMatchTypeNotes() {
+        return _featureMatchTypeNotes;
+    }
+
+    public void setFeatureMatchTypeNotes(String featureMatchTypeNotes) {
+        _featureMatchTypeNotes = featureMatchTypeNotes;
+    }
+
+    public String getTieHandlingStrategyType() {
+        return _tieHandlingStrategyType;
+    }
+
+    public void setTieHandlingStrategyType(String tieHandlingStrategyType) {
+        _tieHandlingStrategyType = tieHandlingStrategyType;
+    }
+
+    public String getFeatureMatchTypeTieBreakingNotes() {
+        return _featureMatchTypeTieBreakingNotes;
+    }
+
+    public void setFeatureMatchTypeTieBreakingNotes(String featureMatchTypeTieBreakingNotes) {
+        _featureMatchTypeTieBreakingNotes = featureMatchTypeTieBreakingNotes;
+    }
+
+    public String getFeatureMatchingSelectionMethod() {
+        return _featureMatchingSelectionMethod;
+    }
+
+    public void setFeatureMatchingSelectionMethod(String featureMatchingSelectionMethod) {
+        _featureMatchingSelectionMethod = featureMatchingSelectionMethod;
+    }
+
+    public String getFeatureMatchingSelectionMethodNotes() {
+        return _featureMatchingSelectionMethodNotes;
+    }
+
+    public void setFeatureMatchingSelectionMethodNotes(String featureMatchingSelectionMethodNotes) {
+        _featureMatchingSelectionMethodNotes = featureMatchingSelectionMethodNotes;
+    }
+
+
+    public Double getfArea() {
+        return _fArea;
+    }
+
+    public void setfArea(Double fArea) {
+        _fArea = fArea;
+    }
+
+    public String getfAreaType() {
+        return _fAreaType;
+    }
+
+    public void setfAreaType(String fAreaType) {
+        _fAreaType = fAreaType;
+    }
+
+    public String getfGeometrySrid() {
+        return _fGeometrySrid;
+    }
+
+    public void setfGeometrySrid(String fGeometrySrid) {
+        _fGeometrySrid = fGeometrySrid;
+    }
+
+    public String getfGeometry() {
+        return _fGeometry;
+    }
+
+    public void setfGeometry(String fGeometry) {
+        _fGeometry = fGeometry;
+    }
+
+    public String getfSource() {
+        return _fSource;
+    }
+
+    public void setfSource(String fSource) {
+        _fSource = fSource;
+    }
+
+    public String getfVintage() {
+        return _fVintage;
+    }
+
+    public void setfVintage(String fVintage) {
+        _fVintage = fVintage;
+    }
+
+    public String getfPrimaryIdField() {
+        return _fPrimaryIdField;
+    }
+
+    public void setfPrimaryIdField(String fPrimaryIdField) {
+        _fPrimaryIdField = fPrimaryIdField;
+    }
+
+    public String getfPrimaryIdValue() {
+        return _fPrimaryIdValue;
+    }
+
+    public void setfPrimaryIdValue(String fPrimaryIdValue) {
+        _fPrimaryIdValue = fPrimaryIdValue;
+    }
+
+    public String getfSecondaryIdField() {
+        return _fSecondaryIdField;
+    }
+
+    public void setfSecondaryIdField(String fSecondaryIdField) {
+        _fSecondaryIdField = fSecondaryIdField;
+    }
+
+    public String getfSecondaryIdValue() {
+        return _fSecondaryIdValue;
+    }
+
+    public void setfSecondaryIdValue(String fSecondaryIdValue) {
+        _fSecondaryIdValue = fSecondaryIdValue;
+    }
+
 
     public Map<Integer, Census> getCensusResults() {
         return _censusResults;
@@ -198,9 +380,9 @@ public class GeocodeOutput {
                     .map(line -> {
                         GeocodeOutput result = new GeocodeOutput();
 
-                        String[] parts = resultString.split("\t");
+                        String[] parts = line.split("\t");
 
-                        if (parts.length < 16)
+                        if (parts.length < 116)
                             throw new IllegalStateException("Unknown format returned from API");
 
                         result.setTransactionId(value(parts[0]));
@@ -213,22 +395,44 @@ public class GeocodeOutput {
                         result.setNaaccrGisCoordinateQualityName(value(parts[6]));
                         result.setMatchScore(doubleValue(value(parts[7])));
                         result.setMatchType(value(parts[8]));
-                        result.setFeatureMatchType(value(parts[9]));
-                        result.setFeatureMatchCount(intValue(parts[10]));
-                        result.setMatchingGeographyType(value(parts[11]));
-                        result.setRegionSize(doubleValue(parts[12]));
-                        result.setRegionSizeUnit(value(parts[13]));
+                        result.setMatchingGeographyType(value(parts[9]));
+                        result.setRegionSize(doubleValue(parts[10]));
+                        result.setRegionSizeUnit(value(parts[11]));
+                        result.setInterpolationType(value(parts[12]));
+                        result.setInterpolationSubType(value(parts[13]));
                         result.setMatchedLocationType(value(parts[14]));
-                        result.setTimeTaken(doubleValue(parts[15]));
+                        result.setFeatureMatchType(value(parts[15]));
+                        result.setFeatureMatchCount(intValue(parts[16]));
+                        result.setFeatureMatchTypeNotes(value(parts[17]));
+                        result.setTieHandlingStrategyType(value(parts[18]));
+                        result.setFeatureMatchTypeTieBreakingNotes(value(parts[19]));
+                        result.setFeatureMatchingSelectionMethod(value(parts[20]));
+                        result.setFeatureMatchingSelectionMethodNotes(value(parts[21]));
+                        result.setTimeTaken(doubleValue(parts[22]));
+
+                        result.setMatchAddress(createAddress(parts, 23));
+                        result.setParsedAddress(createAddress(parts, 50));
+                        result.setFeatureAddress(createAddress(parts, 77));
+
+                        result.setfArea(doubleValue(parts[104]));
+                        result.setfAreaType(value(parts[105]));
+                        result.setfGeometrySrid(value(parts[106]));
+                        result.setfGeometry(value(parts[107]));
+                        result.setfSource(value(parts[108]));
+                        result.setfVintage(value(parts[109]));
+                        result.setfPrimaryIdField(value(parts[110]));
+                        result.setfPrimaryIdValue(value(parts[111]));
+                        result.setfSecondaryIdField(value(parts[112]));
+                        result.setfSecondaryIdValue(value(parts[113]));
 
                         // test if there are any census tracts returned
-                        if (parts.length > 17) {
-                            result.setNaaccrCensusTractCertaintyCode(value(parts[16]));
-                            result.setNaaccrCensusTractCertaintyName(value(parts[17]));
+                        if (parts.length > 117) {
+                            result.setNaaccrCensusTractCertaintyCode(value(parts[114]));
+                            result.setNaaccrCensusTractCertaintyName(value(parts[115]));
 
-                            addCensus(result, parts, 1990, 18);
-                            addCensus(result, parts, 2000, 29);
-                            addCensus(result, parts, 2010, 40);
+                            addCensus(result, parts, 1990, 116);
+                            addCensus(result, parts, 2000, 127);
+                            addCensus(result, parts, 2010, 138);
                         }
 
                         return result;
@@ -262,6 +466,43 @@ public class GeocodeOutput {
 
             result.getCensusResults().put(year, census);
         }
+    }
+
+    /**
+     * Helper method to add an address mapping to the result
+     */
+    private static Address createAddress(String[] parts, int position) {
+
+        Address address = new Address();
+        address.setNumber(value(parts[position]));
+        address.setNumberFractional(value(parts[position + 1]));
+        address.setPreDirectional(value(parts[position + 2]));
+        address.setPreQualifier(value(parts[position + 3]));
+        address.setPreType(value(parts[position + 4]));
+        address.setPreArticle(value(parts[position + 5]));
+        address.setName(value(parts[position + 6]));
+        address.setPostArticle(value(parts[position + 7]));
+        address.setPostQualifier(value(parts[position + 8]));
+        address.setSuffix(value(parts[position + 9]));
+        address.setPostDirectional(value(parts[position + 10]));
+        address.setSuiteType(value(parts[position + 11]));
+        address.setSuiteNumber(intValue(parts[position + 12]));
+        address.setPoBoxType(value(parts[position + 13]));
+        address.setPoBoxNumber(intValue(parts[position + 14]));
+        address.setCity(value(parts[position + 15]));
+        address.setConsolidatedCity(value(parts[position + 16]));
+        address.setMinorCivilDivision(value(parts[position + 17]));
+        address.setCountySubregion(value(parts[position + 18]));
+        address.setCounty(value(parts[position + 19]));
+        address.setState(value(parts[position + 20]));
+        address.setZip(value(parts[position + 21]));
+        address.setZipPlus1(value(parts[position + 22]));
+        address.setZipPlus2(value(parts[position + 23]));
+        address.setZipPlus3(value(parts[position + 24]));
+        address.setZipPlus4(value(parts[position + 25]));
+        address.setZipPlus5(value(parts[position + 26]));
+
+        return address;
     }
 
     /**

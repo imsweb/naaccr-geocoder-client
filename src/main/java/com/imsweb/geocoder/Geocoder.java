@@ -45,7 +45,8 @@ public final class Geocoder {
                             .newBuilder()
                             .addQueryParameter("apiKey", apiKey)    // always supply the API key
                             .addQueryParameter("format", "tsv")     // always parse from tsv
-                            .addQueryParameter("version", "4.01")   // set API version
+                            .addQueryParameter("verbose", "true")   // get verbose reply
+                            .addQueryParameter("version", "4.02")   // set API version
                             .build();
 
                     // add the api key to all requests
@@ -97,7 +98,6 @@ public final class Geocoder {
 
         /**
          * Return a list of user properties from the local .naaccr-geocoder file
-         * @return
          */
         private Properties getProperties() {
             Properties props = new Properties();
