@@ -3,6 +3,12 @@
  */
 package com.imsweb.geocoder;
 
+import com.imsweb.geocoder.exception.NotAuthorizedException;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Retrofit;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,13 +16,6 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.List;
 import java.util.Properties;
-
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import retrofit2.Retrofit;
-
-import com.imsweb.geocoder.exception.NotAuthorizedException;
 
 /**
  * Entry point for Geocoder.
@@ -104,23 +103,11 @@ public final class Geocoder {
 
             File config = new File(System.getProperty("user.home"), ".naaccr-geocoder");
             if (config.exists()) {
-                FileInputStream in = null;
-
-                try {
-                    in = new FileInputStream(config);
+                try (FileInputStream in = new FileInputStream(config)) {
                     props.load(in);
                 }
                 catch (IOException e) {
                     // error reading
-                }
-                finally {
-                    try {
-                        if (in != null)
-                            in.close();
-                    }
-                    catch (IOException e) {
-                        // do nothing if error closing stream
-                    }
                 }
             }
 
