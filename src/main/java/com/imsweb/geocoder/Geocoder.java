@@ -3,12 +3,6 @@
  */
 package com.imsweb.geocoder;
 
-import com.imsweb.geocoder.exception.NotAuthorizedException;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import retrofit2.Retrofit;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,6 +10,13 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.List;
 import java.util.Properties;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Retrofit;
+
+import com.imsweb.geocoder.exception.NotAuthorizedException;
 
 /**
  * Entry point for Geocoder.
@@ -28,6 +29,8 @@ public final class Geocoder {
      * Creates a client API root object
      * @param baseUrl base URL for API
      * @param apiKey API key
+     * @param proxyHost URL of proxy host
+     * @param proxyPort Proxy port
      */
     private Geocoder(String baseUrl, String apiKey, String proxyHost, Integer proxyPort) {
         if (!baseUrl.endsWith("/"))
@@ -71,6 +74,9 @@ public final class Geocoder {
 
     /**
      * Main geocoding method
+     * @param input input for API call
+     * @return results from the API call
+     * @throws IOException thrown if any problems occurred making API call including non-200 status codes
      */
     public List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
         return GeocodeOutput.toResults(_geocodingService.geocode(input.toQueryParams()).execute().body());
