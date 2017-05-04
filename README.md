@@ -79,12 +79,12 @@ input.setCensus(Boolean.TRUE);
 input.setCensusYear(Arrays.asList(1990, 2000, 2010));
 
 List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-assertEquals(1, results.size());
+assertThat(results.size(), is(1));
 
 GeocodeOutput output = results.get(0);
 assertThat(output.getTransactionId(), is(notNullValue()));
 assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-assertThat(output.getApiVersion(), is("4.1"));
+assertThat(output.getApiVersion(), is("4.2"));
 assertThat(output.getStatusCode(), is(200));
 assertThat(output.getLatitude(), is(34.0726));
 assertThat(output.getLongitude(), is(-118.398));
@@ -99,6 +99,51 @@ assertThat(output.getRegionSize(), is(0.0));
 assertThat(output.getRegionSizeUnit(), is("Meters"));
 assertThat(output.getMatchedLocationType(), is("LOCATION_TYPE_STREET_ADDRESS"));
 assertThat(output.getTimeTaken(), is(notNullValue()));
+
+assertThat(output.getMatchAddress().getNumber(), is("9355"));
+assertThat(output.getMatchAddress().getName(), is("BURTON"));
+assertThat(output.getMatchAddress().getSuffix(), is("WAY"));
+assertThat(output.getMatchAddress().getCity(), is("Beverly Hills"));
+assertThat(output.getMatchAddress().getState(), is("CA"));
+assertThat(output.getMatchAddress().getZip(), is("90210"));
+assertThat(output.getMatchAddress().getNumberFractional(), is(nullValue()));
+assertThat(output.getMatchAddress().getPreDirectional(), is(nullValue()));
+assertThat(output.getMatchAddress().getPreQualifier(), is(nullValue()));
+assertThat(output.getMatchAddress().getPreType(), is(nullValue()));
+assertThat(output.getMatchAddress().getPreArticle(), is(nullValue()));
+assertThat(output.getMatchAddress().getPostArticle(), is(nullValue()));
+assertThat(output.getMatchAddress().getPostQualifier(), is(nullValue()));
+assertThat(output.getMatchAddress().getPostDirectional(), is(nullValue()));
+assertThat(output.getMatchAddress().getSuiteType(), is(nullValue()));
+assertThat(output.getMatchAddress().getSuiteNumber(), is(nullValue()));
+assertThat(output.getMatchAddress().getConsolidatedCity(), is(nullValue()));
+assertThat(output.getMatchAddress().getMinorCivilDivision(), is(nullValue()));
+assertThat(output.getMatchAddress().getCounty(), is(nullValue()));
+assertThat(output.getMatchAddress().getCountySubregion(), is(nullValue()));
+assertThat(output.getMatchAddress().getZipPlus1(), is(nullValue()));
+assertThat(output.getMatchAddress().getZipPlus2(), is(nullValue()));
+assertThat(output.getMatchAddress().getZipPlus3(), is(nullValue()));
+assertThat(output.getMatchAddress().getZipPlus4(), is(nullValue()));
+assertThat(output.getMatchAddress().getZipPlus5(), is(nullValue()));
+
+assertThat(output.getInterpolationType(), is("ArealInterpolation"));
+assertThat(output.getInterpolationSubType(), is("ArealInterpolationGeometricCentroid"));
+assertThat(output.getFeatureMatchTypeNotes(), is(nullValue()));
+assertThat(output.getTieHandlingStrategyType(), is(nullValue())); 
+assertThat(output.getFeatureMatchTypeTieBreakingNotes(), is("FlipACoin"));
+assertThat(output.getFeatureMatchingSelectionMethod(), is("FeatureClassBased"));
+assertThat(output.getFeatureMatchingSelectionMethodNotes(), is(nullValue()));
+
+assertThat(output.getfArea(), is(0.0));
+assertThat(output.getfAreaType(), is("Meters"));
+assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2016"));
+assertThat(output.getfGeometrySrid(), is("4269"));
+assertThat(output.getfGeometry(), is(nullValue()));
+assertThat(output.getfVintage(), is("2016"));
+assertThat(output.getfPrimaryIdField(), is("POINT_ADDRESS_ID"));
+assertThat(output.getfPrimaryIdValue(), is("51710138"));
+assertThat(output.getfSecondaryIdField(), is("OBJECTID"));
+assertThat(output.getfSecondaryIdValue(), is("7559709"));
 
 assertThat(output.getNaaccrCensusTractCertaintyCode(), is("1"));
 assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceStreetAddress"));
