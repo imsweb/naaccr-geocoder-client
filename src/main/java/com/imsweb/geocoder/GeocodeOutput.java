@@ -405,8 +405,8 @@ public class GeocodeOutput {
                         result.setFeatureMatchCount(intValue(parts[16]));
                         result.setFeatureMatchTypeNotes(value(parts[17]));
                         result.setTieHandlingStrategyType(value(parts[18]));
-                        result.setFeatureMatchTypeTieBreakingNotes(value(parts[19]));
-                        result.setFeatureMatchingSelectionMethod(value(parts[20]));
+                        result.setFeatureMatchTypeTieBreakingNotes(value(parts[19]));       //These two seem to be reversed...
+                        result.setFeatureMatchingSelectionMethod(value(parts[20]));       //These two seem to be reversed...
                         result.setFeatureMatchingSelectionMethodNotes(value(parts[21]));
                         result.setTimeTaken(doubleValue(parts[22]));
 
