@@ -403,8 +403,14 @@ public class GeocoderTest {
         input.setZip("90007");
         input.setAllowTies(Boolean.TRUE);
         input.setTieBreakingStrategy(GeocodeInput.TieBreakingStrategy.REVERT_TO_HIERARCHY);
+        input.setMinScore("100");
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
+        assertEquals(1, results.size());
+
+        input.setMinScore("88");
+
+        results = new Geocoder.Builder().connect().geocode(input);
         assertEquals(5, results.size());
 
         // TODO test all the values

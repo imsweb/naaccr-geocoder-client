@@ -281,7 +281,6 @@ public class GeocodeOutput {
         _featureMatchingSelectionMethodNotes = featureMatchingSelectionMethodNotes;
     }
 
-
     public Double getfArea() {
         return _fArea;
     }
@@ -361,7 +360,6 @@ public class GeocodeOutput {
     public void setfSecondaryIdValue(String fSecondaryIdValue) {
         _fSecondaryIdValue = fSecondaryIdValue;
     }
-
 
     public Map<Integer, Census> getCensusResults() {
         return _censusResults;

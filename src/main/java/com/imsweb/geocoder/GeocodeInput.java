@@ -23,7 +23,10 @@ public class GeocodeInput {
     private TieBreakingStrategy _tieBreakingStrategy;
     private Boolean _census;
     private List<Integer> _censusYear;
+    private Boolean _geom;
     private Boolean _notStore;
+    private String _confidenceLevels;
+    private String _minScore;
 
     public String getStreetAddress() {
         return _streetAddress;
@@ -97,9 +100,32 @@ public class GeocodeInput {
         _notStore = notStore;
     }
 
+    public Boolean getGeom() {
+        return _geom;
+    }
+
+    public void setGeom(Boolean geom) {
+        _geom = geom;
+    }
+
+    public String getConfidenceLevels() {
+        return _confidenceLevels;
+    }
+
+    public void setConfidenceLevels(String confidenceLevels) {
+        _confidenceLevels = confidenceLevels;
+    }
+
+    public String getMinScore() {
+        return _minScore;
+    }
+
+    public void setMinScore(String minScore) {
+        _minScore = minScore;
+    }
+
     /**
      * Convert to a map of parameters for the API call
-     * @return
      */
     Map<String, String> toQueryParams() {
         Map<String, String> params = new HashMap<>();
@@ -129,8 +155,15 @@ public class GeocodeInput {
                 params.put("censusYear", "allAvailable");
         }
 
+        if (getGeom() != null)
+            params.put("geom", getGeom() ? "true" : "false");
         if (getNotStore() != null)
             params.put("notStore", getNotStore() ? "true" : "false");
+
+        if (getConfidenceLevels() != null)
+            params.put("ConfidenceLevels", getConfidenceLevels());
+        if (getMinScore() != null)
+            params.put("MinScore", getMinScore());
 
         return params;
     }
