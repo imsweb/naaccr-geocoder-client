@@ -9,11 +9,14 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 
 import com.imsweb.geocoder.exception.NotAuthorizedException;
@@ -22,6 +25,10 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
  * Entry point for Geocoder.
  */
 public final class Geocoder {
+
+    private static final String _GEOCODER_FORMAT = "tsv";
+    private static final String _GEOCODER_VERSION = "4.02";
+    private static final String _GEOCODER_VERBOSE = "true";
 
     private GeocodingService _geocodingService;
 
@@ -44,9 +51,6 @@ public final class Geocoder {
                     HttpUrl url = original.url()
                             .newBuilder()
                             .addQueryParameter("apiKey", apiKey)    // always supply the API key
-                            .addQueryParameter("format", "tsv")     // always parse from tsv
-                            .addQueryParameter("verbose", "true")   // get verbose reply
-                            .addQueryParameter("version", "4.02")   // set API version
                             .build();
 
                     // add the api key to all requests
@@ -74,7 +78,16 @@ public final class Geocoder {
      * Main geocoding method
      */
     public List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
-        return GeocodeOutput.toResults(_geocodingService.geocode(input.toQueryParams()).execute().body());
+        Call<ResponseBody> call = getCall(input);
+        return GeocodeOutput.toResults(call);
+    }
+
+    private Call<ResponseBody> getCall(GeocodeInput input) throws IOException {
+        Map<String, String> params = input.toQueryParams();
+        params.put("format", _GEOCODER_FORMAT);
+        params.put("version", _GEOCODER_VERSION);
+        params.put("verbose", _GEOCODER_VERBOSE);
+        return _geocodingService.geocode(params);
     }
 
     /**
