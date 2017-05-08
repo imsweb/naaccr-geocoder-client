@@ -3,13 +3,14 @@
  */
 package com.imsweb.geocoder;
 
-import com.imsweb.geocoder.exception.BadRequestException;
-import com.imsweb.geocoder.exception.NotAuthorizedException;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.imsweb.geocoder.exception.BadRequestException;
+import com.imsweb.geocoder.exception.NotAuthorizedException;
 
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -63,6 +64,8 @@ public class GeocoderTest {
         assertThat(results.size(), is(1));
         assertThat(results.get(0).getCensusResults().size(), is(0));
         GeocodeOutput output = results.get(0);
+        assertThat(output.getUrl(),             // Should contain all parameters except the API Key
+                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_02.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.02&verbose=true"));
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
         assertThat(output.getApiVersion(), is("4.2"));
@@ -411,6 +414,28 @@ public class GeocoderTest {
     }
 
     @Test
+    public void testCallWithGeom() throws IOException {
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("PO Box 221");
+        input.setCity("Beverly Hills");
+        input.setState("CA");
+        input.setZip("90210");
+        input.setGeom(Boolean.FALSE);
+
+        List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
+        GeocodeOutput output = results.get(0);
+
+        assertThat(output.getfGeometry(), is(nullValue()));
+
+        input.setGeom(Boolean.TRUE);
+        results = new Geocoder.Builder().connect().geocode(input);
+        output = results.get(0);
+        assertThat(output.getfGeometry(), is(notNullValue()));
+
+    }
+
+    @Test
     public void testCallWithMultipleResults() throws IOException {
         GeocodeInput input = new GeocodeInput();
 
@@ -420,8 +445,14 @@ public class GeocoderTest {
         input.setZip("90007");
         input.setAllowTies(Boolean.TRUE);
         input.setTieBreakingStrategy(GeocodeInput.TieBreakingStrategy.REVERT_TO_HIERARCHY);
+        input.setMinScore("100");
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(1));
+
+        input.setMinScore("88");
+
+        results = new Geocoder.Builder().connect().geocode(input);
         assertThat(results.size(), is(5));
 
         // TODO test all the values

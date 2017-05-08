@@ -12,11 +12,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 import com.imsweb.geocoder.exception.BadRequestException;
 
 public class GeocodeOutput {
 
+    private String url;
     private String _transactionId;
     private String _apiVersion;
     private Integer _statusCode;
@@ -56,6 +58,14 @@ public class GeocodeOutput {
     private String _naaccrCensusTractCertaintyCode;
     private String _naaccrCensusTractCertaintyName;
     private Map<Integer, Census> _censusResults = new HashMap<>();
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getTransactionId() {
         return _transactionId;
@@ -281,7 +291,6 @@ public class GeocodeOutput {
         _featureMatchingSelectionMethodNotes = featureMatchingSelectionMethodNotes;
     }
 
-
     public Double getfArea() {
         return _fArea;
     }
@@ -362,12 +371,13 @@ public class GeocodeOutput {
         _fSecondaryIdValue = fSecondaryIdValue;
     }
 
-
     public Map<Integer, Census> getCensusResults() {
         return _censusResults;
     }
 
-    static List<GeocodeOutput> toResults(ResponseBody body) throws IOException {
+    static List<GeocodeOutput> toResults(Call<ResponseBody> call) throws IOException {
+        String url = call.request().url().toString();
+        ResponseBody body = call.execute().body();
         String resultString = body.string().trim();
 
         if (resultString.isEmpty())
@@ -377,7 +387,7 @@ public class GeocodeOutput {
 
         try (BufferedReader reader = new BufferedReader(new StringReader(resultString))) {
             return reader.lines()
-                    .map(line -> {
+                    .map((String line) -> {
                         GeocodeOutput result = new GeocodeOutput();
 
                         String[] parts = line.split("\t");
@@ -385,6 +395,7 @@ public class GeocodeOutput {
                         if (parts.length < 116)
                             throw new IllegalStateException("Unknown format returned from API");
 
+                        result.setUrl(url);
                         result.setTransactionId(value(parts[0]));
                         result.setApiVersion(value(parts[1]));
                         result.setStatusCode(intValue(parts[2]));
