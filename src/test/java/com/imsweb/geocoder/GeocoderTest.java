@@ -47,7 +47,7 @@ public class GeocoderTest {
         assertEquals(0, results.get(0).getCensusResults().size());
         GeocodeOutput output = results.get(0);
         assertThat(output.getUrl(),             // Should contain all parameters except the API Key
-                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedAdvanced_V04_02.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.02&verbose=true"));
+                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_02.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.02&verbose=true"));
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
         assertThat(output.getApiVersion(), is("4.2"));
@@ -393,6 +393,28 @@ public class GeocoderTest {
         assertThat(census.getMetDivFips(), is("31084"));
         assertThat(census.getMsaFips(), is("4472"));
         assertThat(census.getPlaceFips(), is("44000"));
+    }
+
+    @Test
+    public void testCallWithGeom() throws IOException {
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("PO Box 221");
+        input.setCity("Beverly Hills");
+        input.setState("CA");
+        input.setZip("90210");
+        input.setGeom(Boolean.FALSE);
+
+        List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
+        GeocodeOutput output = results.get(0);
+
+        assertThat(output.getfGeometry(), is(nullValue()));
+
+        input.setGeom(Boolean.TRUE);
+        results = new Geocoder.Builder().connect().geocode(input);
+        output = results.get(0);
+        assertThat(output.getfGeometry(), is(notNullValue()));
+
     }
 
     @Test
