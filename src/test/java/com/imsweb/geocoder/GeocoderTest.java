@@ -3,14 +3,13 @@
  */
 package com.imsweb.geocoder;
 
+import com.imsweb.geocoder.exception.BadRequestException;
+import com.imsweb.geocoder.exception.NotAuthorizedException;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
-import org.junit.Test;
-
-import com.imsweb.geocoder.exception.BadRequestException;
-import com.imsweb.geocoder.exception.NotAuthorizedException;
 
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -18,7 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertEquals;
 
 public class GeocoderTest {
 
@@ -33,6 +31,25 @@ public class GeocoderTest {
     }
 
     @Test
+    public void testBuilder() throws IOException {
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("9355 Burton Way");
+        input.setCity("Beverly Hills");
+        input.setState("CA");
+        input.setZip("90210");
+        input.setNotStore(Boolean.FALSE);
+
+        List<GeocodeOutput> results = new Geocoder.Builder()
+                .url("https://geo.naaccr.org/Services/Geocode/WebService")
+                .proxyHost(null)
+                .proxyPort(null)
+                .connect().geocode(input);
+
+        assertThat(results.size(), is(1));
+    }
+
+    @Test
     public void testCallWithoutCensus() throws IOException {
         GeocodeInput input = new GeocodeInput();
 
@@ -43,8 +60,8 @@ public class GeocoderTest {
         input.setNotStore(Boolean.FALSE);
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertEquals(1, results.size());
-        assertEquals(0, results.get(0).getCensusResults().size());
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getCensusResults().size(), is(0));
         GeocodeOutput output = results.get(0);
         assertThat(output.getUrl(),             // Should contain all parameters except the API Key
                 is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_02.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.02&verbose=true"));
@@ -181,7 +198,7 @@ public class GeocoderTest {
         input.setCensusYear(Arrays.asList(1990, 2000, 2010));
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertEquals(1, results.size());
+        assertThat(results.size(), is(1));
 
         GeocodeOutput output = results.get(0);
         assertThat(output.getTransactionId(), is(notNullValue()));
@@ -332,7 +349,7 @@ public class GeocoderTest {
         input.setCensusYear(Arrays.asList(1990, 2000, 2010));
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertEquals(1, results.size());
+        assertThat(results.size(), is(1));
 
         GeocodeOutput output = results.get(0);
         assertThat(output.getTransactionId(), is(notNullValue()));
@@ -435,7 +452,7 @@ public class GeocoderTest {
         input.setMinScore("88");
 
         results = new Geocoder.Builder().connect().geocode(input);
-        assertEquals(5, results.size());
+        assertEquals(5, results.size());1
 
         // TODO test all the values
         GeocodeOutput output = results.get(0);

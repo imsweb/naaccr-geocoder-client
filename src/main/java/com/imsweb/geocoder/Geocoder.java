@@ -36,6 +36,8 @@ public final class Geocoder {
      * Creates a client API root object
      * @param baseUrl base URL for API
      * @param apiKey API key
+     * @param proxyHost URL of proxy host
+     * @param proxyPort Proxy port
      */
     private Geocoder(String baseUrl, String apiKey, String proxyHost, Integer proxyPort) {
         if (!baseUrl.endsWith("/"))
@@ -76,6 +78,9 @@ public final class Geocoder {
 
     /**
      * Main geocoding method
+     * @param input input for API call
+     * @return results from the API call
+     * @throws IOException thrown if any problems occurred making API call including non-200 status codes
      */
     public List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
         Call<ResponseBody> call = getCall(input);
@@ -117,23 +122,11 @@ public final class Geocoder {
 
             File config = new File(System.getProperty("user.home"), ".naaccr-geocoder");
             if (config.exists()) {
-                FileInputStream in = null;
-
-                try {
-                    in = new FileInputStream(config);
+                try (FileInputStream in = new FileInputStream(config)) {
                     props.load(in);
                 }
                 catch (IOException e) {
                     // error reading
-                }
-                finally {
-                    try {
-                        if (in != null)
-                            in.close();
-                    }
-                    catch (IOException e) {
-                        // do nothing if error closing stream
-                    }
                 }
             }
 

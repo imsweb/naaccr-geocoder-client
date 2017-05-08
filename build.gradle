@@ -4,11 +4,13 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'findbugs'
-    id 'com.bmuschko.nexus' version '2.3.1'
+    id 'jacoco'
+    id 'com.bmuschko.nexus' version '2.3.1'         // prepares and copies artifacts to Sonotype OSS
+    id "io.codearte.nexus-staging" version "0.8.0"  // logs into Sonotype OSS and does a "Close" and "Release"
 }
 
 group = 'com.imsweb'
-version = '1.1'
+version = '1.2'
 description = 'Java client library for NAACCR Geocoding Service'
 
 println "Starting build using ${Jvm.current()}"
@@ -61,6 +63,13 @@ findbugs {
     excludeFilter = file("config/findbugs/findbugs-exclude.xml")
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
 // Gradle wrapper, this allows to build the project without having to install Gradle!
 task wrapper(type: Wrapper) {
     gradleVersion = '3.5'
@@ -96,6 +105,3 @@ modifyPom {
         }
     }
 }
-
-
-
