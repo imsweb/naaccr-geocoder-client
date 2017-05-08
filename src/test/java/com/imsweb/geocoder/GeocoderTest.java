@@ -3,13 +3,14 @@
  */
 package com.imsweb.geocoder;
 
-import com.imsweb.geocoder.exception.BadRequestException;
-import com.imsweb.geocoder.exception.NotAuthorizedException;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.imsweb.geocoder.exception.BadRequestException;
+import com.imsweb.geocoder.exception.NotAuthorizedException;
 
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -447,12 +448,12 @@ public class GeocoderTest {
         input.setMinScore("100");
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertEquals(1, results.size());
+        assertThat(results.size(), is(1));
 
         input.setMinScore("88");
 
         results = new Geocoder.Builder().connect().geocode(input);
-        assertEquals(5, results.size());1
+        assertThat(results.size(), is(5));
 
         // TODO test all the values
         GeocodeOutput output = results.get(0);
