@@ -11,6 +11,7 @@ import java.net.Proxy;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -39,7 +40,7 @@ public final class Geocoder {
      * @param proxyHost URL of proxy host
      * @param proxyPort Proxy port
      */
-    private Geocoder(String baseUrl, String apiKey, String proxyHost, Integer proxyPort) {
+    private Geocoder(String baseUrl, String apiKey, String proxyHost, Integer proxyPort, Long connectTimeout, Long readTimeout) {
         if (!baseUrl.endsWith("/"))
             baseUrl += "/";
 
@@ -65,6 +66,8 @@ public final class Geocoder {
                     return chain.proceed(request);
                 })
                 .proxy(proxyHost != null ? new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort)) : null)
+                .connectTimeout(connectTimeout, TimeUnit.SECONDS)
+                .readTimeout(readTimeout, TimeUnit.SECONDS)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -113,6 +116,8 @@ public final class Geocoder {
         private String _apiKey;
         private String _proxyHost;
         private Integer _proxyPort;
+        private Long _connectTimeout = 10L;
+        private Long _readTimeout = 10L;
 
         /**
          * Return a list of user properties from the local .naaccr-geocoder file
@@ -181,8 +186,18 @@ public final class Geocoder {
             return this;
         }
 
+        public Builder connectTimeout(long seconds) {
+            _connectTimeout = seconds;
+            return this;
+        }
+
+        public Builder readTimeout(long seconds) {
+            _readTimeout = seconds;
+            return this;
+        }
+
         public Geocoder connect() {
-            return new Geocoder(_url, _apiKey, _proxyHost, _proxyPort);
+            return new Geocoder(_url, _apiKey, _proxyHost, _proxyPort, _connectTimeout, _readTimeout);
         }
     }
 
