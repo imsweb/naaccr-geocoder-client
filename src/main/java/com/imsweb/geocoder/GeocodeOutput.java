@@ -531,7 +531,12 @@ public class GeocodeOutput {
     private static Integer intValue(String value) {
         if (value == null || value.isEmpty())
             return null;
-        return Integer.valueOf(value);
+        try {
+            return Integer.valueOf(value);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     /**
@@ -540,6 +545,11 @@ public class GeocodeOutput {
     private static Double doubleValue(String value) {
         if (value == null || value.isEmpty())
             return null;
-        return Double.valueOf(value);
+        try {
+            return Double.valueOf(value);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
     }
 }
