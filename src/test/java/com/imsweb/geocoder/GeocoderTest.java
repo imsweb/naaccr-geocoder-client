@@ -375,13 +375,13 @@ public class GeocoderTest {
         assertThat(output.getMatchAddress().getName(), is(nullValue()));
         assertThat(output.getMatchAddress().getSuffix(), is(nullValue()));
         assertThat(output.getMatchAddress().getPoBoxType(), is("PO BOX"));
-        assertThat(output.getMatchAddress().getPoBoxNumber(), is(221));
+        assertThat(output.getMatchAddress().getPoBoxNumber(), is("221"));
         assertThat(output.getMatchAddress().getCity(), is("Beverly Hills"));
         assertThat(output.getMatchAddress().getState(), is("CA"));
         assertThat(output.getMatchAddress().getZip(), is("90210"));
 
         assertThat(output.getParsedAddress().getPoBoxType(), is("PO BOX"));
-        assertThat(output.getParsedAddress().getPoBoxNumber(), is(221));
+        assertThat(output.getParsedAddress().getPoBoxNumber(), is("221"));
         assertThat(output.getParsedAddress().getCity(), is("Beverly Hills"));
         assertThat(output.getParsedAddress().getState(), is("CA"));
         assertThat(output.getParsedAddress().getZip(), is("90210"));

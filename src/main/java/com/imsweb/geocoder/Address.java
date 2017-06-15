@@ -17,9 +17,9 @@ public class Address {
     private String _suffix;
     private String _postDirectional;
     private String _suiteType;
-    private Integer _suiteNumber;
+    private String _suiteNumber;
     private String _poBoxType;
-    private Integer _poBoxNumber;
+    private String _poBoxNumber;
     private String _city;
     private String _consolidatedCity;
     private String _minorCivilDivision;
@@ -129,11 +129,11 @@ public class Address {
         _suiteType = suiteType;
     }
 
-    public Integer getSuiteNumber() {
+    public String getSuiteNumber() {
         return _suiteNumber;
     }
 
-    public void setSuiteNumber(Integer suiteNumber) {
+    public void setSuiteNumber(String suiteNumber) {
         _suiteNumber = suiteNumber;
     }
 
@@ -145,11 +145,11 @@ public class Address {
         _poBoxType = poBoxType;
     }
 
-    public Integer getPoBoxNumber() {
+    public String getPoBoxNumber() {
         return _poBoxNumber;
     }
 
-    public void setPoBoxNumber(Integer poBoxNumber) {
+    public void setPoBoxNumber(String poBoxNumber) {
         _poBoxNumber = poBoxNumber;
     }
 
