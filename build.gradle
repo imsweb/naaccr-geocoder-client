@@ -31,6 +31,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
 
     testCompile 'junit:junit:4.11'
+    testCompile 'junit-addons:junit-addons:1.4'
     testCompile 'com.jcabi:jcabi-matchers:1.3'
 }
 

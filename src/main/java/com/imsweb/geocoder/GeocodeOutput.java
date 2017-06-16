@@ -497,9 +497,9 @@ public class GeocodeOutput {
         address.setSuffix(value(parts[position + 9]));
         address.setPostDirectional(value(parts[position + 10]));
         address.setSuiteType(value(parts[position + 11]));
-        address.setSuiteNumber(intValue(parts[position + 12]));
+        address.setSuiteNumber(value(parts[position + 12]));
         address.setPoBoxType(value(parts[position + 13]));
-        address.setPoBoxNumber(intValue(parts[position + 14]));
+        address.setPoBoxNumber(value(parts[position + 14]));
         address.setCity(value(parts[position + 15]));
         address.setConsolidatedCity(value(parts[position + 16]));
         address.setMinorCivilDivision(value(parts[position + 17]));
@@ -531,7 +531,12 @@ public class GeocodeOutput {
     private static Integer intValue(String value) {
         if (value == null || value.isEmpty())
             return null;
-        return Integer.valueOf(value);
+        try {
+            return Integer.valueOf(value);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     /**
@@ -540,6 +545,11 @@ public class GeocodeOutput {
     private static Double doubleValue(String value) {
         if (value == null || value.isEmpty())
             return null;
-        return Double.valueOf(value);
+        try {
+            return Double.valueOf(value);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
     }
 }
