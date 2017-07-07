@@ -58,6 +58,7 @@ public class GeocodeOutput {
     private String _naaccrCensusTractCertaintyCode;
     private String _naaccrCensusTractCertaintyName;
     private Map<Integer, Census> _censusResults = new HashMap<>();
+    private String _microMatchStatus;
 
     public String getUrl() {
         return url;
@@ -375,6 +376,14 @@ public class GeocodeOutput {
         return _censusResults;
     }
 
+    public String getMicroMatchStatus() {
+        return _microMatchStatus;
+    }
+
+    public void setMicroMatchStatus(String microMatchStatus) {
+        _microMatchStatus = microMatchStatus;
+    }
+
     static List<GeocodeOutput> toResults(Call<ResponseBody> call) throws IOException {
         String url = call.request().url().toString();
         ResponseBody body = call.execute().body();
@@ -392,7 +401,7 @@ public class GeocodeOutput {
 
                         String[] parts = line.split("\t");
 
-                        if (parts.length < 116)
+                        if (parts.length < 117)
                             throw new IllegalStateException("Unknown format returned from API");
 
                         result.setUrl(url);
@@ -444,8 +453,10 @@ public class GeocodeOutput {
                             addCensus(result, parts, 1990, 116);
                             addCensus(result, parts, 2000, 127);
                             addCensus(result, parts, 2010, 138);
+
                         }
 
+                        result.setMicroMatchStatus(value(parts[parts.length-1]));
                         return result;
                     })
                     .collect(Collectors.toList());

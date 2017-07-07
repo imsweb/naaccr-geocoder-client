@@ -28,7 +28,7 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
 public final class Geocoder {
 
     private static final String _GEOCODER_FORMAT = "tsv";
-    private static final String _GEOCODER_VERSION = "4.02";
+    private static final String _GEOCODER_VERSION = "4.03";
     private static final String _GEOCODER_VERBOSE = "true";
 
     private GeocodingService _geocodingService;

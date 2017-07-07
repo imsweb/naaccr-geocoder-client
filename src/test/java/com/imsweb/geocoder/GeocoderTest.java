@@ -65,10 +65,10 @@ public class GeocoderTest {
         assertThat(results.get(0).getCensusResults().size(), is(0));
         GeocodeOutput output = results.get(0);
         assertThat(output.getUrl(),             // Should contain all parameters except the API Key
-                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_02.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.02&verbose=true"));
+                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedAdvanced_V04_03.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.03&verbose=true"));
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
+        assertThat(output.getApiVersion(), is("4.3"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0726));
         assertThat(output.getLongitude(), is(-118.398));
@@ -204,7 +204,7 @@ public class GeocoderTest {
         GeocodeOutput output = results.get(0);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
+        assertThat(output.getApiVersion(), is("4.3"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0726));
         assertThat(output.getLongitude(), is(-118.398));
@@ -348,6 +348,7 @@ public class GeocoderTest {
         input.setZip("90210");
         input.setCensus(Boolean.TRUE);
         input.setCensusYear(Arrays.asList(1990, 2000, 2010));
+        input.setMinScore("59");        // Contemporary with version 4.03 release, PO Box matches are scored at 60
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
         assertThat(results.size(), is(1));
@@ -355,14 +356,14 @@ public class GeocoderTest {
         GeocodeOutput output = results.get(0);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
+        assertThat(output.getApiVersion(), is("4.3"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.096629));
         assertThat(output.getLongitude(), is(-118.412426));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("10"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("POBoxZIPCentroid"));
         assertThat(output.getMatchScore(), is(notNullValue()));
-        assertThat(output.getMatchType(), is("Exact"));
+        assertThat(output.getMatchType(), is("Relaxed;Soundex"));
         assertThat(output.getFeatureMatchType(), is("Success"));
         assertThat(output.getFeatureMatchCount(), is(1));
         assertThat(output.getMatchingGeographyType(), is("USPSZip"));
@@ -422,17 +423,16 @@ public class GeocoderTest {
         input.setState("CA");
         input.setZip("90210");
         input.setGeom(Boolean.FALSE);
+        input.setMinScore("59");
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
         GeocodeOutput output = results.get(0);
-
         assertThat(output.getfGeometry(), is(nullValue()));
 
         input.setGeom(Boolean.TRUE);
         results = new Geocoder.Builder().connect().geocode(input);
         output = results.get(0);
         assertThat(output.getfGeometry(), is(notNullValue()));
-
     }
 
     @Test
@@ -453,13 +453,13 @@ public class GeocoderTest {
         input.setMinScore("88");
 
         results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(5));
+        assertThat(results.size(), is(4));
 
         // TODO test all the values
         GeocodeOutput output = results.get(0);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
+        assertThat(output.getApiVersion(), is("4.3"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0524962825713));
         assertThat(output.getLongitude(), is(-118.243276120669));
@@ -485,7 +485,7 @@ public class GeocoderTest {
         output = results.get(1);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
+        assertThat(output.getApiVersion(), is("4.3"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0513205964793));
         assertThat(output.getLongitude(), is(-118.244366353744));
@@ -511,7 +511,7 @@ public class GeocoderTest {
         output = results.get(2);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
+        assertThat(output.getApiVersion(), is("4.3"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0524982197878));
         assertThat(output.getLongitude(), is(-118.243245915375));
@@ -537,7 +537,7 @@ public class GeocoderTest {
         output = results.get(3);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
+        assertThat(output.getApiVersion(), is("4.3"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0520118400004));
         assertThat(output.getLongitude(), is(-118.243701713254));
@@ -549,32 +549,6 @@ public class GeocoderTest {
         assertThat(output.getFeatureMatchCount(), is(2));
         assertThat(output.getMatchingGeographyType(), is("StreetSegment"));
         assertThat(output.getRegionSize(), is(3756.62068773806));
-        assertThat(output.getRegionSizeUnit(), is("Meters"));
-        assertThat(output.getMatchedLocationType(), is("LOCATION_TYPE_STREET_ADDRESS"));
-        assertThat(output.getTimeTaken(), is(notNullValue()));
-
-        assertThat(output.getMatchAddress().getNumber(), is("123"));
-        assertThat(output.getMatchAddress().getName(), is("MAIN"));
-        assertThat(output.getMatchAddress().getSuffix(), is("ST"));
-        assertThat(output.getMatchAddress().getCity(), is("LOS ANGELES"));
-        assertThat(output.getMatchAddress().getState(), is("CA"));
-        assertThat(output.getMatchAddress().getZip(), is("90007"));
-
-        output = results.get(4);
-        assertThat(output.getTransactionId(), is(notNullValue()));
-        assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.2"));
-        assertThat(output.getStatusCode(), is(200));
-        assertThat(output.getLatitude(), is(34.026525));
-        assertThat(output.getLongitude(), is(-118.282408));
-        assertThat(output.getNaaccrGisCoordinateQualityCode(), is("09"));
-        assertThat(output.getNaaccrGisCoordinateQualityName(), is("AddressZIPCentroid"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
-        assertThat(output.getMatchType(), is("Exact"));
-        assertThat(output.getFeatureMatchType(), is("Success"));
-        assertThat(output.getFeatureMatchCount(), is(1));
-        assertThat(output.getMatchingGeographyType(), is("USPSZip"));
-        assertThat(output.getRegionSize(), is(0.0));
         assertThat(output.getRegionSizeUnit(), is("Meters"));
         assertThat(output.getMatchedLocationType(), is("LOCATION_TYPE_STREET_ADDRESS"));
         assertThat(output.getTimeTaken(), is(notNullValue()));
