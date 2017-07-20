@@ -36,7 +36,7 @@ public class GeocodingInputTest {
         assertEquals("false", queryParams.get("notStore"));
         assertEquals("true", queryParams.get("census"));
         assertEquals("allAvailable", queryParams.get("censusYear"));
-        assertEquals("true", queryParams.get("ShouldDoExhaustiveSearch"));
+        assertEquals("true", queryParams.get("shouldDoExhaustiveSearch"));
     }
 
 }

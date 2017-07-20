@@ -170,11 +170,11 @@ public class GeocodeInput {
             params.put("notStore", getNotStore() ? "true" : "false");
 
         if (getConfidenceLevels() != null)
-            params.put("ConfidenceLevels", getConfidenceLevels());
+            params.put("confidenceLevels", getConfidenceLevels());
         if (getMinScore() != null)
-            params.put("MinScore", getMinScore());
+            params.put("minScore", getMinScore());
         if (getShouldDoExhaustiveSearch() != null)
-            params.put("ShouldDoExhaustiveSearch", getShouldDoExhaustiveSearch() ? "true" : "false");
+            params.put("shouldDoExhaustiveSearch", getShouldDoExhaustiveSearch() ? "true" : "false");
 
         return params;
     }
