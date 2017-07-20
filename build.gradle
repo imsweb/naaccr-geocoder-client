@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'com.imsweb'
-version = '1.5'
+version = '1.6'
 description = 'Java client library for NAACCR Geocoding Service'
 
 println "Starting build using ${Jvm.current()}"
@@ -77,7 +77,7 @@ if (version.endsWith('-SNAPSHOT'))
 
 // Gradle wrapper, this allows to build the project without having to install Gradle!
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.0'
+    gradleVersion = '4.0.1'
 }
 
 modifyPom {
