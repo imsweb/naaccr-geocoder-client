@@ -65,7 +65,7 @@ public class GeocoderTest {
         assertThat(results.get(0).getCensusResults().size(), is(0));
         GeocodeOutput output = results.get(0);
         assertThat(output.getUrl(),             // Should contain all parameters except the API Key
-                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedAdvanced_V04_03.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.03&verbose=true"));
+                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_03.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.03&verbose=true"));
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
         assertThat(output.getApiVersion(), is("4.3"));

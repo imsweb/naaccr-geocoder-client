@@ -24,10 +24,9 @@ public class GeocodingInputTest {
         input.setTieBreakingStrategy(FLIP_A_COIN);
         input.setCensus(Boolean.TRUE);
         input.setShouldDoExhaustiveSearch(Boolean.TRUE);
-        input.setSoundexAttributes("city");
 
         Map<String, String> queryParams = input.toQueryParams();
-        assertEquals(12, queryParams.size());
+        assertEquals(10, queryParams.size());
         assertEquals("3901 Calverton Blvd", queryParams.get("streetAddress"));
         assertEquals("Calverton", queryParams.get("city"));
         assertEquals("MD", queryParams.get("state"));
@@ -38,9 +37,6 @@ public class GeocodingInputTest {
         assertEquals("true", queryParams.get("census"));
         assertEquals("allAvailable", queryParams.get("censusYear"));
         assertEquals("true", queryParams.get("ShouldDoExhaustiveSearch"));
-        assertEquals("true", queryParams.get("sou"));
-        assertEquals("city", queryParams.get("souatts"));
-
     }
 
 }

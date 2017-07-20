@@ -28,13 +28,6 @@ public class GeocodeInput {
     private String _confidenceLevels;
     private String _minScore;
     private Boolean _shouldDoExhaustiveSearch;
-    private Boolean _shouldUseRelaxation;
-    private String _relaxedAttributes;
-    private Boolean allowSubstringMatching;
-    private Boolean allowSoundex;
-    private String soundexAttributes;
-    private String featureMatchingHierarchy;
-    private String referenceDataSources;
 
     public String getStreetAddress() {
         return _streetAddress;
@@ -140,62 +133,6 @@ public class GeocodeInput {
         _shouldDoExhaustiveSearch = shouldDoExhaustiveSearch;
     }
 
-    public Boolean getShouldUseRelaxation() {
-        return _shouldUseRelaxation;
-    }
-
-    public void setShouldUseRelaxation(Boolean shouldUseRelaxation) {
-        this._shouldUseRelaxation = shouldUseRelaxation;
-    }
-
-    public String getRelaxedAttributes() {
-        return _relaxedAttributes;
-    }
-
-    public void setRelaxedAttributes(String relaxedAttributes) {
-        this._relaxedAttributes = relaxedAttributes;
-    }
-
-    public Boolean getAllowSubstringMatching() {
-        return allowSubstringMatching;
-    }
-
-    public void setAllowSubstringMatching(Boolean allowSubstringMatching) {
-        this.allowSubstringMatching = allowSubstringMatching;
-    }
-
-    public Boolean getAllowSoundex() {
-        return allowSoundex;
-    }
-
-    public void setAllowSoundex(Boolean allowSoundex) {
-        this.allowSoundex = allowSoundex;
-    }
-
-    public String getSoundexAttributes() {
-        return soundexAttributes;
-    }
-
-    public void setSoundexAttributes(String soundexAttributes) {
-        this.soundexAttributes = soundexAttributes;
-    }
-
-    public String getFeatureMatchingHierarchy() {
-        return featureMatchingHierarchy;
-    }
-
-    public void setFeatureMatchingHierarchy(String featureMatchingHierarchy) {
-        this.featureMatchingHierarchy = featureMatchingHierarchy;
-    }
-
-    public String getReferenceDataSources() {
-        return referenceDataSources;
-    }
-
-    public void setReferenceDataSources(String referenceDataSources) {
-        this.referenceDataSources = referenceDataSources;
-    }
-
     /**
      * Convert to a map of parameters for the API call
      */
@@ -238,25 +175,6 @@ public class GeocodeInput {
             params.put("MinScore", getMinScore());
         if (getShouldDoExhaustiveSearch() != null)
             params.put("ShouldDoExhaustiveSearch", getShouldDoExhaustiveSearch() ? "true" : "false");
-
-        if (getShouldUseRelaxation() != null && !getShouldUseRelaxation())
-            params.put("r", "false");
-        else if (getRelaxedAttributes() != null) {
-            params.put("r", "true");
-            params.put("ratts", getRelaxedAttributes());
-        }
-        if (getAllowSubstringMatching() != null)
-            params.put("sub", getAllowSubstringMatching() ? "true" : "false");
-        if (getAllowSoundex() != null && !getAllowSoundex())
-            params.put("sou", "false");
-        else if (getSoundexAttributes() != null) {
-            params.put("sou", "true");
-            params.put("souatts", getSoundexAttributes());
-        }
-        if (getFeatureMatchingHierarchy() != null)
-            params.put("h", getFeatureMatchingHierarchy());
-        if (getReferenceDataSources() != null)
-            params.put("refs", getReferenceDataSources());
 
         return params;
     }
