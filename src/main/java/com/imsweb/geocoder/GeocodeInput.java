@@ -27,6 +27,7 @@ public class GeocodeInput {
     private Boolean _notStore;
     private String _confidenceLevels;
     private String _minScore;
+    private Boolean _shouldDoExhaustiveSearch;
 
     public String getStreetAddress() {
         return _streetAddress;
@@ -124,6 +125,14 @@ public class GeocodeInput {
         _minScore = minScore;
     }
 
+    public Boolean getShouldDoExhaustiveSearch() {
+        return _shouldDoExhaustiveSearch;
+    }
+
+    public void setShouldDoExhaustiveSearch(Boolean shouldDoExhaustiveSearch) {
+        _shouldDoExhaustiveSearch = shouldDoExhaustiveSearch;
+    }
+
     /**
      * Convert to a map of parameters for the API call
      */
@@ -161,9 +170,11 @@ public class GeocodeInput {
             params.put("notStore", getNotStore() ? "true" : "false");
 
         if (getConfidenceLevels() != null)
-            params.put("ConfidenceLevels", getConfidenceLevels());
+            params.put("confidenceLevels", getConfidenceLevels());
         if (getMinScore() != null)
-            params.put("MinScore", getMinScore());
+            params.put("minScore", getMinScore());
+        if (getShouldDoExhaustiveSearch() != null)
+            params.put("shouldDoExhaustiveSearch", getShouldDoExhaustiveSearch() ? "true" : "false");
 
         return params;
     }
