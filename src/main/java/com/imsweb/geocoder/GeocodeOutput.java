@@ -19,7 +19,7 @@ import com.imsweb.geocoder.exception.BadRequestException;
 
 public class GeocodeOutput {
 
-    private String url;
+    private String _url;
     private String _transactionId;
     private String _apiVersion;
     private Integer _statusCode;
@@ -62,11 +62,11 @@ public class GeocodeOutput {
     private String _microMatchStatus;
 
     public String getUrl() {
-        return url;
+        return _url;
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        _url = url;
     }
 
     public String getTransactionId() {
