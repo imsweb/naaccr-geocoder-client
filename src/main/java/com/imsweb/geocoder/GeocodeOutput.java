@@ -402,7 +402,7 @@ public class GeocodeOutput {
 
                         String[] parts = line.split("\t");
 
-                        if (parts.length < 117)
+                        if (parts.length < 116)
                             throw new IllegalStateException("Unknown format returned from API");
 
                         result.setUrl(url);
