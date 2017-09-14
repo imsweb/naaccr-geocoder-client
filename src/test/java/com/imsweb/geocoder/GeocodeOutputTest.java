@@ -12,7 +12,7 @@ public class GeocodeOutputTest {
 
     // The important behavior in the GeocodeOutput class is tested in GeocoderTest, but wanted a test for some of the helper methods
     @Test
-    public void testIntValue() throws Throwable {
+    public void testIntValue() {
         Class<?>[] clazz = {String.class};
         try {
             Object[] param = {"7"};
