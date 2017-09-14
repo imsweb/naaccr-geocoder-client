@@ -6,6 +6,7 @@ package com.imsweb.geocoder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -390,7 +391,7 @@ public class GeocodeOutput {
         String resultString = body.string().trim();
 
         if (resultString.isEmpty())
-            throw new IllegalStateException("Empty response returned from API");
+            return Collections.emptyList();
         if (resultString.startsWith("invalid request - "))
             throw new BadRequestException("API indicated invalid request; could indicate API key issue");
 
@@ -401,7 +402,7 @@ public class GeocodeOutput {
 
                         String[] parts = line.split("\t");
 
-                        if (parts.length < 117)
+                        if (parts.length < 116)
                             throw new IllegalStateException("Unknown format returned from API");
 
                         result.setUrl(url);

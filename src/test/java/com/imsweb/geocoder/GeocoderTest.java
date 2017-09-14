@@ -448,12 +448,12 @@ public class GeocoderTest {
         input.setMinScore("100");
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(1));
+        assertThat(results.size(), is(0));
 
         input.setMinScore("88");
 
         results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(4));
+        assertThat(results.size(), is(8));
 
         // TODO test all the values
         GeocodeOutput output = results.get(0);
