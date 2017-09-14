@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
 
     testCompile 'junit:junit:4.11'
     testCompile 'junit-addons:junit-addons:1.4'
