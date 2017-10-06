@@ -4,11 +4,11 @@
 package com.imsweb.geocoder;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class GeocodeInput {
+
+    private static final String _currentCensus = "2010";
 
     public enum TieBreakingStrategy {
         FLIP_A_COIN,         // choose and return one of the ties at random
@@ -22,7 +22,7 @@ public class GeocodeInput {
     private Boolean _allowTies;
     private TieBreakingStrategy _tieBreakingStrategy;
     private Boolean _census;
-    private List<Integer> _censusYear;
+    private Boolean _currentCensusYearOnly;
     private Boolean _geom;
     private Boolean _notStore;
     private String _confidenceLevels;
@@ -85,12 +85,12 @@ public class GeocodeInput {
         _census = census;
     }
 
-    public List<Integer> getCensusYear() {
-        return _censusYear;
+    public Boolean getCurrentCensusYearOnly() {
+        return _currentCensusYearOnly;
     }
 
-    public void setCensusYear(List<Integer> censusYear) {
-        _censusYear = censusYear;
+    public void setCurrentCensusYearOnly(Boolean currentCensusYearOnly) {
+        _currentCensusYearOnly = currentCensusYearOnly;
     }
 
     public Boolean getNotStore() {
@@ -158,10 +158,10 @@ public class GeocodeInput {
         // census settings
         if (Boolean.TRUE.equals(getCensus())) {
             params.put("census", "true");
-            if (getCensusYear() != null && getCensusYear().size() > 0)
-                params.put("censusYear", getCensusYear().stream().map(Object::toString).collect(Collectors.joining("|")));
+            if (Boolean.TRUE.equals(getCurrentCensusYearOnly()))
+                params.put("censusYear", _currentCensus);
             else
-                params.put("censusYear", "allAvailable");
+                params.put("censusYear", "allAvailable");   // default to allAvailable
         }
 
         if (getGeom() != null)
