@@ -4,7 +4,6 @@
 package com.imsweb.geocoder;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -196,7 +195,7 @@ public class GeocoderTest {
         input.setState("CA");
         input.setZip("90210");
         input.setCensus(Boolean.TRUE);
-        input.setCensusYear(Arrays.asList(1990, 2000, 2010));
+        input.setCurrentCensusYearOnly(false);
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
         assertThat(results.size(), is(1));
@@ -347,7 +346,7 @@ public class GeocoderTest {
         input.setState("CA");
         input.setZip("90210");
         input.setCensus(Boolean.TRUE);
-        input.setCensusYear(Arrays.asList(1990, 2000, 2010));
+        input.setCurrentCensusYearOnly(false);
         input.setMinScore("59");        // Contemporary with version 4.03 release, PO Box matches are scored at 60
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
@@ -448,7 +447,7 @@ public class GeocoderTest {
         input.setMinScore("100");
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(0));
+        assertThat(results.size(), is(1));
 
         input.setMinScore("88");
 
@@ -560,4 +559,5 @@ public class GeocoderTest {
         assertThat(output.getMatchAddress().getState(), is("CA"));
         assertThat(output.getMatchAddress().getZip(), is("90007"));
     }
+
 }

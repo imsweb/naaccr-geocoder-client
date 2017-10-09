@@ -456,8 +456,10 @@ public class GeocodeOutput {
                             addCensus(result, parts, 2010, 138);
 
                         }
-
-                        result.setMicroMatchStatus(value(parts[parts.length-1]));
+                        if (parts.length == 117)
+                            result.setMicroMatchStatus(value(parts[116]));
+                        if (parts.length == 150)
+                            result.setMicroMatchStatus(value(parts[149]));
                         return result;
                     })
                     .collect(Collectors.toList());
