@@ -4,8 +4,10 @@
 package com.imsweb.geocoder;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.imsweb.geocoder.exception.BadRequestException;
@@ -558,6 +560,76 @@ public class GeocoderTest {
         assertThat(output.getMatchAddress().getCity(), is("LOS ANGELES"));
         assertThat(output.getMatchAddress().getState(), is("CA"));
         assertThat(output.getMatchAddress().getZip(), is("90007"));
+    }
+
+    @Test
+    public void testResponseLength() throws IOException {
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("9355 Burton Way");
+        input.setCity("Beverly Hills");
+        input.setState("CA");
+        input.setZip("90210");
+        input.setCensus(Boolean.FALSE);
+        input.setAllowTies(Boolean.FALSE);
+
+        String result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
+        List<String> lines = Arrays.asList(result.split("\r\n"));
+        Assert.assertEquals(1, lines.size());
+        String[] parts = lines.get(0).split("\t");
+        Assert.assertEquals(117, parts.length);
+
+        input.setCensus(Boolean.TRUE);
+        input.setCurrentCensusYearOnly(Boolean.TRUE);
+        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
+        lines = Arrays.asList(result.split("\r\n"));
+        Assert.assertEquals(1, lines.size());
+        parts = lines.get(0).split("\t");
+        Assert.assertEquals(150, parts.length);
+
+        input.setCurrentCensusYearOnly(Boolean.FALSE);
+        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
+        lines = Arrays.asList(result.split("\r\n"));
+        Assert.assertEquals(1, lines.size());
+        parts = lines.get(0).split("\t");
+        Assert.assertEquals(150, parts.length);
+
+        input.setCensus(Boolean.FALSE);
+        input.setAllowTies(Boolean.TRUE);
+        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
+        lines = Arrays.asList(result.split("\r\n"));
+        Assert.assertEquals(3, lines.size());
+        parts = lines.get(0).split("\t");
+        Assert.assertEquals(117, parts.length);
+        parts = lines.get(1).split("\t");
+        Assert.assertEquals(116, parts.length);
+        parts = lines.get(2).split("\t");
+        Assert.assertEquals(116, parts.length);
+
+        input.setCensus(Boolean.TRUE);
+        input.setCurrentCensusYearOnly(Boolean.TRUE);
+        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
+        lines = Arrays.asList(result.split("\r\n"));
+        Assert.assertEquals(3, lines.size());
+        parts = lines.get(0).split("\t");
+        Assert.assertEquals(150, parts.length);
+        parts = lines.get(1).split("\t");
+        Assert.assertEquals(149, parts.length);
+        parts = lines.get(2).split("\t");
+        Assert.assertEquals(149, parts.length);
+        input.setCensus(Boolean.TRUE);
+        input.setCurrentCensusYearOnly(Boolean.TRUE);
+
+        input.setCurrentCensusYearOnly(Boolean.FALSE);
+        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
+        lines = Arrays.asList(result.split("\r\n"));
+        Assert.assertEquals(3, lines.size());
+        parts = lines.get(0).split("\t");
+        Assert.assertEquals(150, parts.length);
+        parts = lines.get(1).split("\t");
+        Assert.assertEquals(149, parts.length);
+        parts = lines.get(2).split("\t");
+        Assert.assertEquals(149, parts.length);
     }
 
 }
