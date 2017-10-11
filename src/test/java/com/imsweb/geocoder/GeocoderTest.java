@@ -577,7 +577,17 @@ public class GeocoderTest {
         results = new Geocoder.Builder().connect().geocode(input);
         assertThat(results.size(), is(8));
 
+        // Documentation says default minScore is 88; that does not seem to be true - it may be 60?
+        input.setMinScore(null);
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(11));
+
+        // ZIP-level matches score no higher than 60
         input.setMinScore("60");
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(11));
+
+        input.setMinScore("0");
         results = new Geocoder.Builder().connect().geocode(input);
         assertThat(results.size(), is(11));
 
