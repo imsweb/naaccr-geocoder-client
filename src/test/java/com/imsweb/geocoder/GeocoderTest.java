@@ -17,6 +17,7 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -261,6 +262,8 @@ public class GeocoderTest {
         assertThat(output.getParsedAddress().getCity(), is("Beverly Hills"));
         assertThat(output.getParsedAddress().getState(), is("CA"));
         assertThat(output.getParsedAddress().getZip(), is("90210"));
+        assertThat(output.getParsedAddress().getPoBoxType(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPoBoxNumber(), is(nullValue()));
         assertThat(output.getParsedAddress().getNumberFractional(), is(nullValue()));
         assertThat(output.getParsedAddress().getPreDirectional(), is(nullValue()));
         assertThat(output.getParsedAddress().getPreQualifier(), is(nullValue()));
@@ -287,6 +290,8 @@ public class GeocoderTest {
         assertThat(output.getFeatureAddress().getCity(), is("Beverly Hills"));
         assertThat(output.getFeatureAddress().getState(), is("CA"));
         assertThat(output.getFeatureAddress().getZip(), is("90210"));
+        assertThat(output.getFeatureAddress().getPoBoxType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPoBoxNumber(), is(nullValue()));
         assertThat(output.getFeatureAddress().getNumberFractional(), is(nullValue()));
         assertThat(output.getFeatureAddress().getPreDirectional(), is(nullValue()));
         assertThat(output.getFeatureAddress().getPreQualifier(), is(nullValue()));
@@ -314,12 +319,11 @@ public class GeocoderTest {
         assertThat(output.getFeatureMatchTypeTieBreakingNotes(), is("FlipACoin"));       //These two seem to be reversed...
         assertThat(output.getFeatureMatchingSelectionMethod(), is("FeatureClassBased"));
         assertThat(output.getFeatureMatchingSelectionMethodNotes(), is(nullValue()));
-
         assertThat(output.getfArea(), is(0.0));
         assertThat(output.getfAreaType(), is("Meters"));
-        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2016"));
         assertThat(output.getfGeometrySrid(), is("4269"));
         assertThat(output.getfGeometry(), is(nullValue()));
+        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2016"));
         assertThat(output.getfVintage(), is("2016"));
         assertThat(output.getfPrimaryIdField(), is("POINT_ADDRESS_ID"));
         assertThat(output.getfPrimaryIdValue(), is("51710138"));
@@ -381,7 +385,8 @@ public class GeocoderTest {
         input.setState("CA");
         input.setZip("90210");
         input.setCensus(Boolean.TRUE);
-        input.setCurrentCensusYearOnly(false);
+        input.setCurrentCensusYearOnly(Boolean.TRUE);
+        input.setGeom(Boolean.TRUE);
         input.setMinScore("59");        // Contemporary with version 4.03 release, PO Box matches are scored at 60
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
@@ -396,7 +401,7 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.412426));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("10"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("POBoxZIPCentroid"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
+        assertThat(output.getMatchScore(), is(60.0));
         assertThat(output.getMatchType(), is("Relaxed;Soundex"));
         assertThat(output.getFeatureMatchType(), is("Success"));
         assertThat(output.getFeatureMatchCount(), is(1));
@@ -414,31 +419,109 @@ public class GeocoderTest {
         assertThat(output.getMatchAddress().getCity(), is("Beverly Hills"));
         assertThat(output.getMatchAddress().getState(), is("CA"));
         assertThat(output.getMatchAddress().getZip(), is("90210"));
+        assertThat(output.getMatchAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreType(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getMatchAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getMatchAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getMatchAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getMatchAddress().getCounty(), is(nullValue()));
+        assertThat(output.getMatchAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus5(), is(nullValue()));
 
+        assertThat(output.getParsedAddress().getNumber(), is(nullValue()));
+        assertThat(output.getParsedAddress().getName(), is(nullValue()));
+        assertThat(output.getParsedAddress().getSuffix(), is(nullValue()));
         assertThat(output.getParsedAddress().getPoBoxType(), is("PO BOX"));
         assertThat(output.getParsedAddress().getPoBoxNumber(), is("221"));
         assertThat(output.getParsedAddress().getCity(), is("Beverly Hills"));
         assertThat(output.getParsedAddress().getState(), is("CA"));
         assertThat(output.getParsedAddress().getZip(), is("90210"));
+        assertThat(output.getParsedAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreType(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getParsedAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getParsedAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getParsedAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getParsedAddress().getCounty(), is(nullValue()));
+        assertThat(output.getParsedAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus5(), is(nullValue()));
 
+        assertThat(output.getFeatureAddress().getNumber(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getName(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuffix(), is(nullValue()));
         assertThat(output.getFeatureAddress().getCity(), is("Beverly Hills"));
         assertThat(output.getFeatureAddress().getState(), is("CA"));
         assertThat(output.getFeatureAddress().getZip(), is("90210"));
+        assertThat(output.getFeatureAddress().getPoBoxType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPoBoxNumber(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getCounty(), is("Los Angeles"));
+        assertThat(output.getFeatureAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus5(), is(nullValue()));
 
+        assertThat(output.getInterpolationType(), is("ArealInterpolation"));
+        assertThat(output.getInterpolationSubType(), is("ArealInterpolationGeometricCentroid"));
+        assertThat(output.getFeatureMatchTypeNotes(), is(nullValue()));
+        assertThat(output.getTieHandlingStrategyType(), is(nullValue()));                      //These two seem to be reversed...
+        assertThat(output.getFeatureMatchTypeTieBreakingNotes(), is("FlipACoin"));       //These two seem to be reversed...
+        assertThat(output.getFeatureMatchingSelectionMethod(), is("FeatureClassBased"));
+        assertThat(output.getFeatureMatchingSelectionMethodNotes(), is(nullValue()));
+        assertThat(output.getfArea(), is(0.0));
+        assertThat(output.getfAreaType(), is("Meters"));
+        assertThat(output.getfGeometrySrid(), is("4269"));
+        assertThat(output.getfGeometry(), is("<?xml version=\"1.0\" encoding=\"utf-8\"?><Point xmlns=\"http://www.opengis.net/gml\"><pos>34.096629 -118.412426</pos></Point>"));
         assertThat(output.getfSource(), is("SOURCE_NAME_ZIPCODEDOWNLOAD_ZIPS2013"));
+        assertThat(output.getfVintage(), is("2013"));
+        assertThat(output.getfPrimaryIdField(), is("ZIPCode"));
+        assertThat(output.getfPrimaryIdValue(), is("90210"));
+        assertThat(output.getfSecondaryIdField(), is(nullValue()));
+        assertThat(output.getfSecondaryIdValue(), is(nullValue()));
 
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("5"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("POBoxZIP"));
         assertThat(output.getMicroMatchStatus(), is("Non-Match"));
 
-        assertThat(output.getCensusResults().keySet(), containsInAnyOrder(1990, 2000, 2010));
-
+        assertThat(output.getCensusResults().keySet(), contains(2010));
         Census census = output.getCensusResults().get(2010);
-
         assertThat(census.getTract(), is("2611.01"));
         assertThat(census.getCountyFips(), is("037"));
         assertThat(census.getStateFips(), is("06"));
-
         assertThat(census.getBlock(), is("2004"));
         assertThat(census.getBlockGroup(), is("2"));
         assertThat(census.getCbsaFips(), is("31100"));
