@@ -583,7 +583,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(0.0));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("98"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("Unknown"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(0.0));
         assertThat(output.getMatchType(), is(nullValue()));
         assertThat(output.getFeatureMatchType(), is("Unmatchable"));
@@ -721,7 +720,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.243276120669));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -875,7 +873,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.244366353744));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -1026,7 +1023,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-123.601206653876));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(81.9526627218935));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -1144,7 +1140,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-123.598250584357));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(81.9526627218935));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -1265,7 +1260,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.243245915375));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -1419,7 +1413,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.243701713254));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -1573,7 +1566,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.243245915375));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -1727,7 +1719,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.243701713254));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -1881,7 +1872,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.243245915375));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -2035,7 +2025,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.243701713254));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("03"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("StreetSegmentInterpolation"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(89.9408284023669));
         assertThat(output.getMatchType(), is("Relaxed"));
         assertThat(output.getFeatureMatchType(), is("Ambiguous"));
@@ -2191,7 +2180,6 @@ public class GeocoderTest {
         assertThat(output.getLongitude(), is(-118.282408));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("09"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("AddressZIPCentroid"));
-        assertThat(output.getMatchScore(), is(notNullValue()));
         assertThat(output.getMatchScore(), is(60.0));
         assertThat(output.getMatchType(), is("Relaxed;Soundex"));
         assertThat(output.getFeatureMatchCount(), is(1));
@@ -2329,6 +2317,463 @@ public class GeocoderTest {
         assertThat(c2010.getPlaceFips(), is("44000"));
         assertThat(c2010.getStateFips(), is("06"));
         assertThat(output.getMicroMatchStatus(), is(nullValue()));
+    }
+
+    @Test
+    public void testShouldDoExhaustiveSearch() throws IOException {
+
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("123 main street");
+        input.setCity("los angeles");
+        input.setState("ca");
+        input.setZip("90007");
+        input.setAllowTies(Boolean.TRUE);
+        input.setCensus(Boolean.TRUE);
+        input.setShouldDoExhaustiveSearch(Boolean.FALSE);
+
+        List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(11));
+
+        input.setShouldDoExhaustiveSearch(Boolean.TRUE);
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(13));
+
+        GeocodeOutput output = results.get(0);
+        assertThat(output.getLatitude(), is(34.0524962825713));
+        assertThat(output.getLongitude(), is(-118.243276120669));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(1);
+        assertThat(output.getLatitude(), is(34.0513205964793));
+        assertThat(output.getLongitude(), is(-118.244366353744));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(2);
+        assertThat(output.getLatitude(), is(44.3813890555208));
+        assertThat(output.getLongitude(), is(-123.601206653876));
+        assertThat(output.getRegionSize(), is(6136.06739354366));
+
+        output = results.get(3);
+        assertThat(output.getLatitude(), is(44.3819822636306));
+        assertThat(output.getLongitude(), is(-123.598250584357));
+        assertThat(output.getMatchScore(), is(81.9526627218935));
+
+        output = results.get(4);
+        assertThat(output.getLatitude(), is(34.0524982197878));
+        assertThat(output.getLongitude(), is(-118.243245915375));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(5);
+        assertThat(output.getLatitude(), is(34.0520118400004));
+        assertThat(output.getLongitude(), is(-118.243701713254));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(6);
+        assertThat(output.getLatitude(), is(34.0524982197878));
+        assertThat(output.getLongitude(), is(-118.243245915375));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(7);
+        assertThat(output.getLatitude(), is(34.0520118400004));
+        assertThat(output.getLongitude(), is(-118.243701713254));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(8);
+        assertThat(output.getLatitude(), is(34.0524982197878));
+        assertThat(output.getLongitude(), is(-118.243245915375));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(9);
+        assertThat(output.getLatitude(), is(34.0520118400004));
+        assertThat(output.getLongitude(), is(-118.243701713254));
+        assertThat(output.getMatchScore(), is(89.9408284023669));
+
+        output = results.get(10);
+        assertThat(output.getLatitude(), is(34.026525));
+        assertThat(output.getLongitude(), is(-118.282408));
+        assertThat(output.getMatchScore(), is(60.0));
+
+        output = results.get(11);
+        assertThat(output.getCensusResults(), is(notNullValue()));
+        assertThat(output.getCensusResults().size(), is(3));
+        Census c1990 = output.getCensusResults().get(1990);
+        Census c2000 = output.getCensusResults().get(2000);
+        Census c2010 = output.getCensusResults().get(2010);
+        assertThat(output.getTransactionId(), is(notNullValue()));
+        assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
+        assertThat(output.getApiVersion(), is("4.3"));
+        assertThat(output.getStatusCode(), is(200));
+        assertThat(output.getLatitude(), is(34.0274757653511));
+        assertThat(output.getLongitude(), is(-118.28500498509));
+        assertThat(output.getNaaccrGisCoordinateQualityCode(), is("09"));
+        assertThat(output.getNaaccrGisCoordinateQualityName(), is("AddressZIPCentroid"));
+        assertThat(output.getMatchScore(), is(60.0));
+        assertThat(output.getMatchType(), is("Relaxed;Soundex"));
+        assertThat(output.getFeatureMatchCount(), is(1));
+        assertThat(output.getMatchingGeographyType(), is("ZCTA"));
+        assertThat(output.getRegionSize(), is(7071702.66315505));
+        assertThat(output.getRegionSizeUnit(), is("Meters"));
+        assertThat(output.getMatchedLocationType(), is("LOCATION_TYPE_STREET_ADDRESS"));
+        assertThat(output.getInterpolationType(), is("ArealInterpolation"));
+        assertThat(output.getInterpolationSubType(), is("ArealInterpolationGeometricCentroid"));
+        assertThat(output.getFeatureMatchType(), is("Success"));
+        assertThat(output.getFeatureMatchTypeNotes(), is(nullValue()));
+        assertThat(output.getFeatureMatchTypeTieBreakingNotes(), is("ReturnAll"));       //These two seem to be reversed...
+        assertThat(output.getTieHandlingStrategyType(), is(nullValue()));                      //These two seem to be reversed...
+        assertThat(output.getFeatureMatchingSelectionMethod(), is("FeatureClassBased"));
+        assertThat(output.getFeatureMatchingSelectionMethodNotes(), is(nullValue()));
+        assertThat(output.getTimeTaken(), is(notNullValue()));
+        assertThat(output.getMatchAddress().getNumber(), is("123"));
+        assertThat(output.getMatchAddress().getName(), is("MAIN"));
+        assertThat(output.getMatchAddress().getSuffix(), is("ST"));
+        assertThat(output.getMatchAddress().getCity(), is("LOS ANGELES"));
+        assertThat(output.getMatchAddress().getState(), is("CA"));
+        assertThat(output.getMatchAddress().getZip(), is("90007"));
+        assertThat(output.getMatchAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreType(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getMatchAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getMatchAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getMatchAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getMatchAddress().getCounty(), is(nullValue()));
+        assertThat(output.getMatchAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus5(), is(nullValue()));
+        assertThat(output.getParsedAddress().getNumber(), is("123"));
+        assertThat(output.getParsedAddress().getName(), is("MAIN"));
+        assertThat(output.getParsedAddress().getSuffix(), is("ST"));
+        assertThat(output.getParsedAddress().getCity(), is("LOS ANGELES"));
+        assertThat(output.getParsedAddress().getState(), is("CA"));
+        assertThat(output.getParsedAddress().getZip(), is("90007"));
+        assertThat(output.getParsedAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreType(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getParsedAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getParsedAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getParsedAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getParsedAddress().getCounty(), is(nullValue()));
+        assertThat(output.getParsedAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus5(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getNumber(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getName(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuffix(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getCity(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getState(), is("CA"));
+        assertThat(output.getFeatureAddress().getZip(), is("90007"));
+        assertThat(output.getFeatureAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getCounty(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus5(), is(nullValue()));
+        assertThat(output.getfArea(), is(7071702.66315505));
+        assertThat(output.getfAreaType(), is("Meters"));
+        assertThat(output.getfGeometry(), is(nullValue()));
+        assertThat(output.getfGeometrySrid(), is("4269"));
+        assertThat(output.getfSource(), is("SOURCE_CENSUS_2010_ZCTAS"));
+        assertThat(output.getfVintage(), is("2010"));
+        assertThat(output.getfPrimaryIdField(), is("zcta5ce10"));
+        assertThat(output.getfPrimaryIdValue(), is("90007"));
+        assertThat(output.getfSecondaryIdField(), is(nullValue()));
+        assertThat(output.getfSecondaryIdValue(), is(nullValue()));
+        assertThat(output.getNaaccrCensusTractCertaintyCode(), is("4"));
+        assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceZIP"));
+        assertThat(c1990.getBlock(), is(nullValue()));
+        assertThat(c1990.getBlockGroup(), is(nullValue()));
+        assertThat(c1990.getTract(), is("2219.00"));
+        assertThat(c1990.getCountyFips(), is("037"));
+        assertThat(c1990.getCbsaFips(), is(nullValue()));
+        assertThat(c1990.getCbsaMicro(), is(nullValue()));
+        assertThat(c1990.getMcdFips(), is(nullValue()));
+        assertThat(c1990.getMetDivFips(), is(nullValue()));
+        assertThat(c1990.getMsaFips(), is(nullValue()));
+        assertThat(c1990.getPlaceFips(), is(nullValue()));
+        assertThat(c1990.getStateFips(), is("06"));
+        assertThat(c2000.getBlock(), is("1000"));
+        assertThat(c2000.getBlockGroup(), is("1"));
+        assertThat(c2000.getTract(), is("2219.00"));
+        assertThat(c2000.getCountyFips(), is("037"));
+        assertThat(c2000.getCbsaFips(), is("31100"));
+        assertThat(c2000.getCbsaMicro(), is("0"));
+        assertThat(c2000.getMcdFips(), is("91750"));
+        assertThat(c2000.getMetDivFips(), is("31084"));
+        assertThat(c2000.getMsaFips(), is("4472"));
+        assertThat(c2000.getPlaceFips(), is("44000"));
+        assertThat(c2000.getStateFips(), is("06"));
+        assertThat(c2010.getBlock(), is("1000"));
+        assertThat(c2010.getBlockGroup(), is("1"));
+        assertThat(c2010.getTract(), is("2219.00"));
+        assertThat(c2010.getCountyFips(), is("037"));
+        assertThat(c2010.getCbsaFips(), is("31100"));
+        assertThat(c2010.getCbsaMicro(), is("0"));
+        assertThat(c2010.getMcdFips(), is("91750"));
+        assertThat(c2010.getMetDivFips(), is("31084"));
+        assertThat(c2010.getMsaFips(), is("4472"));
+        assertThat(c2010.getPlaceFips(), is("44000"));
+        assertThat(c2010.getStateFips(), is("06"));
+        assertThat(output.getMicroMatchStatus(), is(nullValue()));
+
+        output = results.get(12);
+        assertThat(output.getCensusResults(), is(notNullValue()));
+        assertThat(output.getCensusResults().size(), is(3));
+        c1990 = output.getCensusResults().get(1990);
+        c2000 = output.getCensusResults().get(2000);
+        c2010 = output.getCensusResults().get(2010);
+        assertThat(output.getTransactionId(), is(notNullValue()));
+        assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
+        assertThat(output.getApiVersion(), is("4.3"));
+        assertThat(output.getStatusCode(), is(200));
+        assertThat(output.getLatitude(), is(34.1048222944659));
+        assertThat(output.getLongitude(), is(-118.411047253741));
+        assertThat(output.getNaaccrGisCoordinateQualityCode(), is("11"));
+        assertThat(output.getNaaccrGisCoordinateQualityName(), is("CityCentroid"));
+        assertThat(output.getMatchScore(), is(50.0));
+        assertThat(output.getMatchType(), is("Relaxed;Soundex"));
+        assertThat(output.getFeatureMatchCount(), is(1));
+        assertThat(output.getMatchingGeographyType(), is("City"));
+        assertThat(output.getRegionSize(), is(1362450954.90824));
+        assertThat(output.getRegionSizeUnit(), is("Meters"));
+        assertThat(output.getMatchedLocationType(), is("LOCATION_TYPE_STREET_ADDRESS"));
+        assertThat(output.getInterpolationType(), is("ArealInterpolation"));
+        assertThat(output.getInterpolationSubType(), is("ArealInterpolationGeometricCentroid"));
+        assertThat(output.getFeatureMatchType(), is("Success"));
+        assertThat(output.getFeatureMatchTypeNotes(), is(nullValue()));
+        assertThat(output.getFeatureMatchTypeTieBreakingNotes(), is("ReturnAll"));       //These two seem to be reversed...
+        assertThat(output.getTieHandlingStrategyType(), is(nullValue()));                      //These two seem to be reversed...
+        assertThat(output.getFeatureMatchingSelectionMethod(), is("FeatureClassBased"));
+        assertThat(output.getFeatureMatchingSelectionMethodNotes(), is(nullValue()));
+        assertThat(output.getTimeTaken(), is(notNullValue()));
+        assertThat(output.getMatchAddress().getNumber(), is("123"));
+        assertThat(output.getMatchAddress().getName(), is("MAIN"));
+        assertThat(output.getMatchAddress().getSuffix(), is("ST"));
+        assertThat(output.getMatchAddress().getCity(), is("LOS ANGELES"));
+        assertThat(output.getMatchAddress().getState(), is("CA"));
+        assertThat(output.getMatchAddress().getZip(), is("90007"));
+        assertThat(output.getMatchAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreType(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getMatchAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getMatchAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getMatchAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getMatchAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getMatchAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getMatchAddress().getCounty(), is(nullValue()));
+        assertThat(output.getMatchAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getMatchAddress().getZipPlus5(), is(nullValue()));
+        assertThat(output.getParsedAddress().getNumber(), is("123"));
+        assertThat(output.getParsedAddress().getName(), is("MAIN"));
+        assertThat(output.getParsedAddress().getSuffix(), is("ST"));
+        assertThat(output.getParsedAddress().getCity(), is("LOS ANGELES"));
+        assertThat(output.getParsedAddress().getState(), is("CA"));
+        assertThat(output.getParsedAddress().getZip(), is("90007"));
+        assertThat(output.getParsedAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreType(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getParsedAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getParsedAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getParsedAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getParsedAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getParsedAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getParsedAddress().getCounty(), is(nullValue()));
+        assertThat(output.getParsedAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getParsedAddress().getZipPlus5(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getNumber(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreDirectional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getName(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuffix(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getCity(), is("Los Angeles"));
+        assertThat(output.getFeatureAddress().getState(), is("CA"));
+        assertThat(output.getFeatureAddress().getZip(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getNumberFractional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreQualifier(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPreArticle(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostArticle(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostQualifier(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getPostDirectional(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuiteType(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getSuiteNumber(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getConsolidatedCity(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getMinorCivilDivision(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getCounty(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getCountySubregion(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus1(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus2(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus3(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus4(), is(nullValue()));
+        assertThat(output.getFeatureAddress().getZipPlus5(), is(nullValue()));
+        assertThat(output.getfArea(), is(1362450954.90824));
+        assertThat(output.getfAreaType(), is("Meters"));
+        assertThat(output.getfGeometry(), is(nullValue()));
+        assertThat(output.getfGeometrySrid(), is("4269"));
+        assertThat(output.getfSource(), is("SOURCE_CENSUS_2010_PLACES"));
+        assertThat(output.getfVintage(), is("2010"));
+        assertThat(output.getfPrimaryIdField(), is("placeFp10"));
+        assertThat(output.getfPrimaryIdValue(), is("44000"));
+        assertThat(output.getfSecondaryIdField(), is("placeNs10"));
+        assertThat(output.getfSecondaryIdValue(), is("02410877"));
+        assertThat(output.getNaaccrCensusTractCertaintyCode(), is("9"));
+        assertThat(output.getNaaccrCensusTractCertaintyName(), is("Missing"));
+        assertThat(c1990.getBlock(), is(nullValue()));
+        assertThat(c1990.getBlockGroup(), is(nullValue()));
+        assertThat(c1990.getTract(), is("2611.01"));
+        assertThat(c1990.getCountyFips(), is("037"));
+        assertThat(c1990.getCbsaFips(), is(nullValue()));
+        assertThat(c1990.getCbsaMicro(), is(nullValue()));
+        assertThat(c1990.getMcdFips(), is(nullValue()));
+        assertThat(c1990.getMetDivFips(), is(nullValue()));
+        assertThat(c1990.getMsaFips(), is(nullValue()));
+        assertThat(c1990.getPlaceFips(), is(nullValue()));
+        assertThat(c1990.getStateFips(), is("06"));
+        assertThat(c2000.getBlock(), is("2007"));
+        assertThat(c2000.getBlockGroup(), is("2"));
+        assertThat(c2000.getTract(), is("2611.01"));
+        assertThat(c2000.getCountyFips(), is("037"));
+        assertThat(c2000.getCbsaFips(), is("31100"));
+        assertThat(c2000.getCbsaMicro(), is("0"));
+        assertThat(c2000.getMcdFips(), is("91750"));
+        assertThat(c2000.getMetDivFips(), is("31084"));
+        assertThat(c2000.getMsaFips(), is("4472"));
+        assertThat(c2000.getPlaceFips(), is("44000"));
+        assertThat(c2000.getStateFips(), is("06"));
+        assertThat(c2010.getBlock(), is("2004"));
+        assertThat(c2010.getBlockGroup(), is("2"));
+        assertThat(c2010.getTract(), is("2611.01"));
+        assertThat(c2010.getCountyFips(), is("037"));
+        assertThat(c2010.getCbsaFips(), is("31100"));
+        assertThat(c2010.getCbsaMicro(), is("0"));
+        assertThat(c2010.getMcdFips(), is("91750"));
+        assertThat(c2010.getMetDivFips(), is("31084"));
+        assertThat(c2010.getMsaFips(), is("4472"));
+        assertThat(c2010.getPlaceFips(), is("44000"));
+        assertThat(c2010.getStateFips(), is("06"));
+        assertThat(output.getMicroMatchStatus(), is(nullValue()));
+
+        input = new GeocodeInput();
+
+        input.setStreetAddress("9355 Burton Way");
+        input.setCity("Beverly Hills");
+        input.setState("CA");
+        input.setZip("90210");
+        input.setNotStore(Boolean.FALSE);
+        input.setCensus(Boolean.TRUE);
+        input.setShouldDoExhaustiveSearch(Boolean.FALSE);
+
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(1));
+
+        output = results.get(0);
+        assertThat(output.getLatitude(), is(34.0726));
+        assertThat(output.getLongitude(), is(-118.398));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        input.setShouldDoExhaustiveSearch(Boolean.TRUE);
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(11));
+
+        output = results.get(0);
+        assertThat(output.getLatitude(), is(34.0726));
+        assertThat(output.getLongitude(), is(-118.398));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(1);
+        assertThat(output.getLatitude(), is(34.07261));
+        assertThat(output.getLongitude(), is(-118.39796));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(2);
+        assertThat(output.getLatitude(), is(34.0723600000001));
+        assertThat(output.getLongitude(), is(-118.39811));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(3);
+        assertThat(output.getLatitude(), is(34.0723980881172));
+        assertThat(output.getLongitude(), is(-118.398433526357));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(4);
+        assertThat(output.getLatitude(), is(34.0724312845563));
+        assertThat(output.getLongitude(), is(-118.397420607361));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(5);
+        assertThat(output.getLatitude(), is(34.0724377236992));
+        assertThat(output.getLongitude(), is(-118.398010629918));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(6);
+        assertThat(output.getLatitude(), is(34.0724377236992));
+        assertThat(output.getLongitude(), is(-118.398010629918));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(7);
+        assertThat(output.getLatitude(), is(34.0723980881172));
+        assertThat(output.getLongitude(), is(-118.398433526357));
+        assertThat(output.getMatchScore(), is(98.9940828402367));
+
+        output = results.get(8);
+        assertThat(output.getLatitude(), is(34.096629));
+        assertThat(output.getLongitude(), is(-118.412426));
+        assertThat(output.getMatchScore(), is(60.0));
+
+        output = results.get(9);
+        assertThat(output.getLatitude(), is(34.1010589094986));
+        assertThat(output.getLongitude(), is(-118.414726947598));
+        assertThat(output.getMatchScore(), is(60.0));
+
+        output = results.get(10);
+        assertThat(output.getLatitude(), is(34.0785606402012));
+        assertThat(output.getLongitude(), is(-118.40211337558));
+        assertThat(output.getMatchScore(), is(50.0));
     }
 
     @Test
