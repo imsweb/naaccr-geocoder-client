@@ -2777,6 +2777,34 @@ public class GeocoderTest {
     }
 
     @Test
+    public void testConfidenceLevels() throws IOException {
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("9355 Burton Way");
+        input.setCity("Beverly Hills");
+        input.setState("CA");
+        input.setZip("90210");
+        input.setNotStore(Boolean.FALSE);
+        input.setCensus(Boolean.FALSE);
+        input.setAllowTies(Boolean.TRUE);
+
+        List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(3));
+
+        input.setConfidenceLevels("8");
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(3));
+
+        input.setConfidenceLevels("5");
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(3));
+
+        input.setConfidenceLevels("1");
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(3));
+    }
+
+    @Test
     public void testResponseLength() throws IOException {
         GeocodeInput input = new GeocodeInput();
 
