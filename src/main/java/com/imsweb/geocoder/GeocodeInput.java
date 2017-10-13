@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class GeocodeInput {
 
-    private static final String _currentCensus = "2010";
+    private static final String _CURRENT_CENSUS = "2010";
 
     public enum TieBreakingStrategy {
         FLIP_A_COIN,         // choose and return one of the ties at random
@@ -159,7 +159,7 @@ public class GeocodeInput {
         if (Boolean.TRUE.equals(getCensus())) {
             params.put("census", "true");
             if (Boolean.TRUE.equals(getCurrentCensusYearOnly()))
-                params.put("censusYear", _currentCensus);
+                params.put("censusYear", _CURRENT_CENSUS);
             else
                 params.put("censusYear", "allAvailable");   // default to allAvailable
         }
