@@ -90,7 +90,7 @@ public final class Geocoder {
         return GeocodeOutput.toResults(call);
     }
 
-    private Call<ResponseBody> getCall(GeocodeInput input) throws IOException {
+    Call<ResponseBody> getCall(GeocodeInput input) throws IOException {
         Map<String, String> params = input.toQueryParams();
         params.put("format", _GEOCODER_FORMAT);
         params.put("version", _GEOCODER_VERSION);

@@ -445,16 +445,14 @@ public class GeocodeOutput {
                         result.setfPrimaryIdValue(value(parts[111]));
                         result.setfSecondaryIdField(value(parts[112]));
                         result.setfSecondaryIdValue(value(parts[113]));
+                        result.setNaaccrCensusTractCertaintyCode(value(parts[114]));
+                        result.setNaaccrCensusTractCertaintyName(value(parts[115]));
 
                         // test if there are any census tracts returned
                         if (parts.length > 117) {
-                            result.setNaaccrCensusTractCertaintyCode(value(parts[114]));
-                            result.setNaaccrCensusTractCertaintyName(value(parts[115]));
-
                             addCensus(result, parts, 1990, 116);
                             addCensus(result, parts, 2000, 127);
                             addCensus(result, parts, 2010, 138);
-
                         }
                         if (parts.length == 117)
                             result.setMicroMatchStatus(value(parts[116]));
