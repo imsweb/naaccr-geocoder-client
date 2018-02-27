@@ -28,7 +28,7 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
 public final class Geocoder {
 
     private static final String _GEOCODER_FORMAT = "tsv";
-    private static final String _GEOCODER_VERSION = "4.03";
+    private static final String _GEOCODER_VERSION = "4.04";
     private static final String _GEOCODER_VERBOSE = "true";
 
     private GeocodingService _geocodingService;
@@ -104,7 +104,7 @@ public final class Geocoder {
     public static class Builder {
 
         // default base URL
-        private static final String _GEOCODER_URL = "https://geo.naaccr.org/Services/Geocode/WebService";
+        private static final String _GEOCODER_URL = "https://naaccr-geo-dev.geoservices.tamu.edu/Services/Geocode/WebService";
 
         // environment variable for URL and API key
         private static final String _ENV_URL = "GEOCODER_URL";

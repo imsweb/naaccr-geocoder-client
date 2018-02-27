@@ -68,10 +68,10 @@ public class GeocoderTest {
         GeocodeOutput output = results.get(0);
         assertThat(output.getCensusResults().size(), is(0));
         assertThat(output.getUrl(),             // Should contain all parameters except the API Key
-                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_03.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.03&verbose=true"));
+                is("https://naaccr-geo-dev.geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_04.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.04&verbose=true"));
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.3"));
+        assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0726));
         assertThat(output.getLongitude(), is(-118.398));
@@ -195,6 +195,8 @@ public class GeocoderTest {
 
         assertThat(output.getCensusResults().keySet().isEmpty(), is(true));
         assertThat(output.getMicroMatchStatus(), is("Match"));
+        assertThat(output.getPenaltyCode(), is("MMMMMMMMMMMMM1"));
+        assertThat(output.getPenaltyCodeSummary(), is("MMMMMMMMMMMMMM"));
     }
 
     @Test
@@ -214,7 +216,7 @@ public class GeocoderTest {
         GeocodeOutput output = results.get(0);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.3"));
+        assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0726));
         assertThat(output.getLongitude(), is(-118.398));
@@ -333,6 +335,8 @@ public class GeocoderTest {
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("1"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceStreetAddress"));
         assertThat(output.getMicroMatchStatus(), is("Match"));
+        assertThat(output.getPenaltyCode(), is("MMMMMMMMMMMMM1"));
+        assertThat(output.getPenaltyCodeSummary(), is("MMMMMMMMMMMMMM"));
 
         assertThat(output.getCensusResults().keySet(), containsInAnyOrder(1990, 2000, 2010));
 
@@ -395,7 +399,7 @@ public class GeocoderTest {
         GeocodeOutput output = results.get(0);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.3"));
+        assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.096629));
         assertThat(output.getLongitude(), is(-118.412426));
@@ -516,6 +520,8 @@ public class GeocoderTest {
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("5"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("POBoxZIP"));
         assertThat(output.getMicroMatchStatus(), is("Non-Match"));
+        assertThat(output.getPenaltyCode(), is("413MMMMMMMMMM2"));
+        assertThat(output.getPenaltyCodeSummary(), is("FMMMMMMMMMMMMM"));
 
         assertThat(output.getCensusResults().keySet(), contains(2010));
         Census census = output.getCensusResults().get(2010);
@@ -577,7 +583,7 @@ public class GeocoderTest {
         assertThat(output.getCensusResults().size(), is(0));
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("2.94"));     // Different version number for no match?
+        assertThat(output.getApiVersion(), is("4.4"));     // Different version number for no match?
         assertThat(output.getStatusCode(), is(500));
         assertThat(output.getLatitude(), is(0.0));
         assertThat(output.getLongitude(), is(0.0));
@@ -2333,31 +2339,31 @@ public class GeocoderTest {
         input.setShouldDoExhaustiveSearch(Boolean.FALSE);
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(11));
+        assertThat(results.size(), is(13));
 
         input.setShouldDoExhaustiveSearch(Boolean.TRUE);
         results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(13));
+        assertThat(results.size(), is(15));
 
         GeocodeOutput output = results.get(0);
+        assertThat(output.getLatitude(), is(37.4693199000000));
+        assertThat(output.getLongitude(), is(-122.429362700000));
+        assertThat(output.getMatchScore(), is(63.3136094674556));
+
+        output = results.get(1);
+        assertThat(output.getLatitude(), is(39.1235872000000));
+        assertThat(output.getLongitude(), is(-121.617250300000));
+        assertThat(output.getMatchScore(), is(63.3136094674556));
+
+        output = results.get(2);
         assertThat(output.getLatitude(), is(34.0513205964793));
         assertThat(output.getLongitude(), is(-118.244366353744));
         assertThat(output.getMatchScore(), is(89.9408284023669));
 
-        output = results.get(1);
+        output = results.get(3);
         assertThat(output.getLatitude(), is(34.0524962825713));
         assertThat(output.getLongitude(), is(-118.243276120669));
         assertThat(output.getMatchScore(), is(89.9408284023669));
-
-        output = results.get(2);
-        assertThat(output.getLatitude(), is(44.3813890555208));
-        assertThat(output.getLongitude(), is(-123.601206653876));
-        assertThat(output.getRegionSize(), is(6136.06739354366));
-
-        output = results.get(3);
-        assertThat(output.getLatitude(), is(44.3819822636306));
-        assertThat(output.getLongitude(), is(-123.598250584357));
-        assertThat(output.getMatchScore(), is(81.9526627218935));
 
         output = results.get(4);
         assertThat(output.getLatitude(), is(34.0524982197878));
@@ -2390,11 +2396,21 @@ public class GeocoderTest {
         assertThat(output.getMatchScore(), is(89.9408284023669));
 
         output = results.get(10);
+        assertThat(output.getLatitude(), is(44.3813890555208));
+        assertThat(output.getLongitude(), is(-123.601206653876));
+        assertThat(output.getRegionSize(), is(6136.06739354366));
+
+        output = results.get(11);
+        assertThat(output.getLatitude(), is(44.3819822636306));
+        assertThat(output.getLongitude(), is(-123.598250584357));
+        assertThat(output.getMatchScore(), is(81.9526627218935));
+
+        output = results.get(12);
         assertThat(output.getLatitude(), is(34.026525));
         assertThat(output.getLongitude(), is(-118.282408));
         assertThat(output.getMatchScore(), is(60.0));
 
-        output = results.get(11);
+        output = results.get(13);
         assertThat(output.getCensusResults(), is(notNullValue()));
         assertThat(output.getCensusResults().size(), is(3));
         Census c1990 = output.getCensusResults().get(1990);
@@ -2402,7 +2418,7 @@ public class GeocoderTest {
         Census c2010 = output.getCensusResults().get(2010);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.3"));
+        assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.0274757653511));
         assertThat(output.getLongitude(), is(-118.28500498509));
@@ -2545,8 +2561,10 @@ public class GeocoderTest {
         assertThat(c2010.getPlaceFips(), is("44000"));
         assertThat(c2010.getStateFips(), is("06"));
         assertThat(output.getMicroMatchStatus(), is(nullValue()));
+        assertThat(output.getPenaltyCode(), is(nullValue()));
+        assertThat(output.getPenaltyCodeSummary(), is(nullValue()));
 
-        output = results.get(12);
+        output = results.get(14);
         assertThat(output.getCensusResults(), is(notNullValue()));
         assertThat(output.getCensusResults().size(), is(3));
         c1990 = output.getCensusResults().get(1990);
@@ -2554,7 +2572,7 @@ public class GeocoderTest {
         c2010 = output.getCensusResults().get(2010);
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
-        assertThat(output.getApiVersion(), is("4.3"));
+        assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
         assertThat(output.getLatitude(), is(34.1048222944659));
         assertThat(output.getLongitude(), is(-118.411047253741));
@@ -2697,6 +2715,8 @@ public class GeocoderTest {
         assertThat(c2010.getPlaceFips(), is("44000"));
         assertThat(c2010.getStateFips(), is("06"));
         assertThat(output.getMicroMatchStatus(), is(nullValue()));
+        assertThat(output.getPenaltyCode(), is(nullValue()));
+        assertThat(output.getPenaltyCodeSummary(), is(nullValue()));
 
         input = new GeocodeInput();
 
@@ -2780,28 +2800,28 @@ public class GeocoderTest {
     public void testConfidenceLevels() throws IOException {
         GeocodeInput input = new GeocodeInput();
 
-        input.setStreetAddress("9355 Burton Way");
-        input.setCity("Beverly Hills");
-        input.setState("CA");
-        input.setZip("90210");
-        input.setNotStore(Boolean.FALSE);
+        input.setStreetAddress("123 main street");
+        input.setCity("los angeles");
+        input.setState("ca");
+        input.setZip("90007");
+        input.setAllowTies(Boolean.TRUE);
         input.setCensus(Boolean.FALSE);
         input.setAllowTies(Boolean.TRUE);
 
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(3));
+        assertThat(results.size(), is(13));
 
         input.setConfidenceLevels("8");
         results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(3));
+        assertThat(results.size(), is(13));
 
         input.setConfidenceLevels("5");
         results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(3));
+        assertThat(results.size(), is(13));
 
         input.setConfidenceLevels("1");
         results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(3));
+        assertThat(results.size(), is(11));
     }
 
     @Test
@@ -2819,7 +2839,7 @@ public class GeocoderTest {
         List<String> lines = Arrays.asList(result.split("\r\n"));
         Assert.assertEquals(1, lines.size());
         String[] parts = lines.get(0).split("\t");
-        Assert.assertEquals(117, parts.length);
+        Assert.assertEquals(119, parts.length);
 
         input.setCensus(Boolean.TRUE);
         input.setCurrentCensusYearOnly(Boolean.TRUE);
@@ -2827,51 +2847,15 @@ public class GeocoderTest {
         lines = Arrays.asList(result.split("\r\n"));
         Assert.assertEquals(1, lines.size());
         parts = lines.get(0).split("\t");
-        Assert.assertEquals(150, parts.length);
+        Assert.assertEquals(152, parts.length);
 
         input.setCurrentCensusYearOnly(Boolean.FALSE);
         result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
         lines = Arrays.asList(result.split("\r\n"));
         Assert.assertEquals(1, lines.size());
         parts = lines.get(0).split("\t");
-        Assert.assertEquals(150, parts.length);
+        Assert.assertEquals(152, parts.length);
 
-        input.setCensus(Boolean.FALSE);
-        input.setAllowTies(Boolean.TRUE);
-        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
-        lines = Arrays.asList(result.split("\r\n"));
-        Assert.assertEquals(3, lines.size());
-        parts = lines.get(0).split("\t");
-        Assert.assertEquals(117, parts.length);
-        parts = lines.get(1).split("\t");
-        Assert.assertEquals(116, parts.length);
-        parts = lines.get(2).split("\t");
-        Assert.assertEquals(116, parts.length);
-
-        input.setCensus(Boolean.TRUE);
-        input.setCurrentCensusYearOnly(Boolean.TRUE);
-        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
-        lines = Arrays.asList(result.split("\r\n"));
-        Assert.assertEquals(3, lines.size());
-        parts = lines.get(0).split("\t");
-        Assert.assertEquals(150, parts.length);
-        parts = lines.get(1).split("\t");
-        Assert.assertEquals(149, parts.length);
-        parts = lines.get(2).split("\t");
-        Assert.assertEquals(149, parts.length);
-        input.setCensus(Boolean.TRUE);
-        input.setCurrentCensusYearOnly(Boolean.TRUE);
-
-        input.setCurrentCensusYearOnly(Boolean.FALSE);
-        result = new Geocoder.Builder().connect().getCall(input).execute().body().string().trim();
-        lines = Arrays.asList(result.split("\r\n"));
-        Assert.assertEquals(3, lines.size());
-        parts = lines.get(0).split("\t");
-        Assert.assertEquals(150, parts.length);
-        parts = lines.get(1).split("\t");
-        Assert.assertEquals(149, parts.length);
-        parts = lines.get(2).split("\t");
-        Assert.assertEquals(149, parts.length);
     }
 
 }

@@ -18,7 +18,7 @@ public interface GeocodingService {
      * @param searchParams A Map of query parameters.
      * @return a GeocodingResult
      */
-    @GET("GeocoderWebServiceHttpNonParsedDetailed_V04_03.aspx")
+    @GET("GeocoderWebServiceHttpNonParsedDetailed_V04_04.aspx")
     Call<ResponseBody> geocode(@QueryMap Map<String, String> searchParams);
 
 }

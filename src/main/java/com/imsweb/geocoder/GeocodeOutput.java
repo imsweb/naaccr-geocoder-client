@@ -60,6 +60,8 @@ public class GeocodeOutput {
     private String _naaccrCensusTractCertaintyName;
     private Map<Integer, Census> _censusResults = new HashMap<>();
     private String _microMatchStatus;
+    private String _penaltyCode;
+    private String _penaltyCodeSummary;
 
     public String getUrl() {
         return _url;
@@ -385,6 +387,22 @@ public class GeocodeOutput {
         _microMatchStatus = microMatchStatus;
     }
 
+    public String getPenaltyCode() {
+        return _penaltyCode;
+    }
+
+    public void setPenaltyCode(String penaltyCode) {
+        _penaltyCode = penaltyCode;
+    }
+
+    public String getPenaltyCodeSummary() {
+        return _penaltyCodeSummary;
+    }
+
+    public void setPenaltyCodeSummary(String penaltyCodeSummary) {
+        _penaltyCodeSummary = penaltyCodeSummary;
+    }
+
     static List<GeocodeOutput> toResults(Call<ResponseBody> call) throws IOException {
         String url = call.request().url().toString();
         ResponseBody body = call.execute().body();
@@ -449,15 +467,21 @@ public class GeocodeOutput {
                         result.setNaaccrCensusTractCertaintyName(value(parts[115]));
 
                         // test if there are any census tracts returned
-                        if (parts.length > 117) {
+                        if (parts.length > 119) {
                             addCensus(result, parts, 1990, 116);
                             addCensus(result, parts, 2000, 127);
                             addCensus(result, parts, 2010, 138);
                         }
-                        if (parts.length == 117)
+                        if (parts.length == 119) {
                             result.setMicroMatchStatus(value(parts[116]));
-                        if (parts.length == 150)
+                            result.setPenaltyCode(value(parts[117]));
+                            result.setPenaltyCodeSummary(value(parts[118]));
+                        }
+                        if (parts.length == 152) {
                             result.setMicroMatchStatus(value(parts[149]));
+                            result.setPenaltyCode(value(parts[150]));
+                            result.setPenaltyCodeSummary(value(parts[151]));
+                        }
                         return result;
                     })
                     .collect(Collectors.toList());
