@@ -45,7 +45,7 @@ public class GeocoderTest {
         input.setNotStore(Boolean.FALSE);
 
         List<GeocodeOutput> results = new Geocoder.Builder()
-                .url("https://geo.naaccr.org/Services/Geocode/WebService")
+                .url("https://naaccr-geo-dev.geoservices.tamu.edu/Services/Geocode/WebService")
                 .proxyHost(null)
                 .proxyPort(null)
                 .connect().geocode(input);
