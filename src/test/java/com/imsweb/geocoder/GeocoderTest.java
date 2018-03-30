@@ -45,7 +45,7 @@ public class GeocoderTest {
         input.setNotStore(Boolean.FALSE);
 
         List<GeocodeOutput> results = new Geocoder.Builder()
-                .url("https://naaccr-geo-dev.geoservices.tamu.edu/Services/Geocode/WebService")
+                .url("https://geo.naaccr.org/Services/Geocode/WebService")
                 .proxyHost(null)
                 .proxyPort(null)
                 .connect().geocode(input);
@@ -68,13 +68,13 @@ public class GeocoderTest {
         GeocodeOutput output = results.get(0);
         assertThat(output.getCensusResults().size(), is(0));
         assertThat(output.getUrl(),             // Should contain all parameters except the API Key
-                is("https://naaccr-geo-dev.geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_04.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.04&verbose=true"));
+                is("https://geo.naaccr.org/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsedDetailed_V04_04.aspx?zip=90210&notStore=false&streetAddress=9355%20Burton%20Way&city=Beverly%20Hills&format=tsv&state=CA&version=4.04&verbose=true"));
         assertThat(output.getTransactionId(), is(notNullValue()));
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
         assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
-        assertThat(output.getLatitude(), is(34.0726));
-        assertThat(output.getLongitude(), is(-118.398));
+        assertThat(output.getLatitude(), is(34.07262));
+        assertThat(output.getLongitude(), is(-118.39796));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("00"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("AddressPoint"));
         assertThat(output.getMatchScore(), is(notNullValue()));
@@ -181,14 +181,14 @@ public class GeocoderTest {
 
         assertThat(output.getfArea(), is(0.0));
         assertThat(output.getfAreaType(), is("Meters"));
-        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2016"));
+        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2017"));
         assertThat(output.getfGeometrySrid(), is("4269"));
         assertThat(output.getfGeometry(), is(nullValue()));
-        assertThat(output.getfVintage(), is("2016"));
+        assertThat(output.getfVintage(), is("2017"));
         assertThat(output.getfPrimaryIdField(), is("POINT_ADDRESS_ID"));
         assertThat(output.getfPrimaryIdValue(), is("51710138"));
         assertThat(output.getfSecondaryIdField(), is("OBJECTID"));
-        assertThat(output.getfSecondaryIdValue(), is("7559709"));
+        assertThat(output.getfSecondaryIdValue(), is("9447029"));
 
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("1"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceStreetAddress"));
@@ -218,8 +218,8 @@ public class GeocoderTest {
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
         assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
-        assertThat(output.getLatitude(), is(34.0726));
-        assertThat(output.getLongitude(), is(-118.398));
+        assertThat(output.getLatitude(), is(34.07262));
+        assertThat(output.getLongitude(), is(-118.39796));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("00"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("AddressPoint"));
         assertThat(output.getMatchScore(), is(notNullValue()));
@@ -325,12 +325,12 @@ public class GeocoderTest {
         assertThat(output.getfAreaType(), is("Meters"));
         assertThat(output.getfGeometrySrid(), is("4269"));
         assertThat(output.getfGeometry(), is(nullValue()));
-        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2016"));
-        assertThat(output.getfVintage(), is("2016"));
+        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2017"));
+        assertThat(output.getfVintage(), is("2017"));
         assertThat(output.getfPrimaryIdField(), is("POINT_ADDRESS_ID"));
         assertThat(output.getfPrimaryIdValue(), is("51710138"));
         assertThat(output.getfSecondaryIdField(), is("OBJECTID"));
-        assertThat(output.getfSecondaryIdValue(), is("7559709"));
+        assertThat(output.getfSecondaryIdValue(), is("9447029"));
 
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("1"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceStreetAddress"));
@@ -3063,42 +3063,42 @@ public class GeocoderTest {
         assertThat(results.size(), is(1));
 
         output = results.get(0);
-        assertThat(output.getLatitude(), is(34.0726));
-        assertThat(output.getLongitude(), is(-118.398));
+        assertThat(output.getLatitude(), is(34.07262));
+        assertThat(output.getLongitude(), is(-118.39796));
         assertThat(output.getMatchScore(), is(100.0));
 
         input.setShouldDoExhaustiveSearch(Boolean.TRUE);
         results = new Geocoder.Builder().connect().geocode(input);
-        assertThat(results.size(), is(11));
+        assertThat(results.size(), is(12));
 
         output = results.get(0);
+        assertThat(output.getLatitude(), is(34.07262));
+        assertThat(output.getLongitude(), is(-118.39796));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(1);
         assertThat(output.getLatitude(), is(34.0726));
         assertThat(output.getLongitude(), is(-118.398));
         assertThat(output.getMatchScore(), is(100.0));
 
-        output = results.get(1);
+        output = results.get(2);
         assertThat(output.getLatitude(), is(34.07261));
         assertThat(output.getLongitude(), is(-118.39796));
         assertThat(output.getMatchScore(), is(100.0));
 
-        output = results.get(2);
+        output = results.get(3);
         assertThat(output.getLatitude(), is(34.0723600000001));
         assertThat(output.getLongitude(), is(-118.39811));
         assertThat(output.getMatchScore(), is(100.0));
 
-        output = results.get(3);
+        output = results.get(4);
         assertThat(output.getLatitude(), is(34.0723980881172));
         assertThat(output.getLongitude(), is(-118.398433526357));
         assertThat(output.getMatchScore(), is(100.0));
 
-        output = results.get(4);
+        output = results.get(5);
         assertThat(output.getLatitude(), is(34.0724312845563));
         assertThat(output.getLongitude(), is(-118.397420607361));
-        assertThat(output.getMatchScore(), is(100.0));
-
-        output = results.get(5);
-        assertThat(output.getLatitude(), is(34.0724377236992));
-        assertThat(output.getLongitude(), is(-118.398010629918));
         assertThat(output.getMatchScore(), is(100.0));
 
         output = results.get(6);
@@ -3107,21 +3107,26 @@ public class GeocoderTest {
         assertThat(output.getMatchScore(), is(100.0));
 
         output = results.get(7);
+        assertThat(output.getLatitude(), is(34.0724377236992));
+        assertThat(output.getLongitude(), is(-118.398010629918));
+        assertThat(output.getMatchScore(), is(100.0));
+
+        output = results.get(8);
         assertThat(output.getLatitude(), is(34.0723980881172));
         assertThat(output.getLongitude(), is(-118.398433526357));
         assertThat(output.getMatchScore(), is(98.9940828402367));
 
-        output = results.get(8);
+        output = results.get(9);
         assertThat(output.getLatitude(), is(34.096629));
         assertThat(output.getLongitude(), is(-118.412426));
         assertThat(output.getMatchScore(), is(60.0));
 
-        output = results.get(9);
+        output = results.get(10);
         assertThat(output.getLatitude(), is(34.1010589094986));
         assertThat(output.getLongitude(), is(-118.414726947598));
         assertThat(output.getMatchScore(), is(60.0));
 
-        output = results.get(10);
+        output = results.get(11);
         assertThat(output.getLatitude(), is(34.0785606402012));
         assertThat(output.getLongitude(), is(-118.40211337558));
         assertThat(output.getMatchScore(), is(50.0));
