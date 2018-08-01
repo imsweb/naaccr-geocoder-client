@@ -555,7 +555,7 @@ public class GeocodeOutput {
     /**
      * Helper method to safely convert empty strings to null
      */
-    private static String value(String value) {
+    static String value(String value) {
         if (value == null || value.isEmpty())
             return null;
         return value;
@@ -564,7 +564,7 @@ public class GeocodeOutput {
     /**
      * Helper method to safely convert String to Integer
      */
-    private static Integer intValue(String value) {
+    static Integer intValue(String value) {
         if (value == null || value.isEmpty())
             return null;
         try {
@@ -578,7 +578,7 @@ public class GeocodeOutput {
     /**
      * Helper method to safely convert String to Double
      */
-    private static Double doubleValue(String value) {
+    static Double doubleValue(String value) {
         if (value == null || value.isEmpty())
             return null;
         try {

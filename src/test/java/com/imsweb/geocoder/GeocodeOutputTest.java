@@ -6,69 +6,28 @@ package com.imsweb.geocoder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import junitx.util.PrivateAccessor;
-
 public class GeocodeOutputTest {
 
     // The important behavior in the GeocodeOutput class is tested in GeocoderTest, but wanted a test for some of the helper methods
+
     @Test
-    public void testIntValue() throws Throwable {
-        Class<?>[] clazz = {String.class};
-
-        Object[] param = {"7"};
-        Object result = PrivateAccessor.invoke(GeocodeOutput.class, "intValue", clazz, param);
-        Assert.assertTrue(result instanceof Integer);       //Probably not necessary but should definitely fail if not true
-        Assert.assertEquals(7, result);
-
-        param = new Object[] {"2222"};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "intValue", clazz, param);
-        Assert.assertEquals(2222, result);
-
-        param = new Object[] {"2222.7"};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "intValue", clazz, param);
-        Assert.assertNull(result);
-
-        param = new Object[] {""};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "intValue", clazz, param);
-        Assert.assertNull(result);
-
-        param = new Object[] {"not a number"};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "intValue", clazz, param);
-        Assert.assertNull(result);
-
-        param = new Object[] {null};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "intValue", clazz, param);
-        Assert.assertNull(result);
+    public void testIntValue() {
+        Assert.assertEquals(7, GeocodeOutput.intValue("7").intValue());
+        Assert.assertEquals(2222, GeocodeOutput.intValue("2222").intValue());
+        Assert.assertNull(GeocodeOutput.intValue("2222.7"));
+        Assert.assertNull(GeocodeOutput.intValue("not a number"));
+        Assert.assertNull(GeocodeOutput.intValue(""));
+        Assert.assertNull(GeocodeOutput.intValue(null));
     }
 
     @Test
-    public void testDoubleValue() throws Throwable {
-        Class<?>[] clazz = {String.class};
-
-        Object[] param = {"7"};
-        Object result = PrivateAccessor.invoke(GeocodeOutput.class, "doubleValue", clazz, param);
-        Assert.assertTrue(result instanceof Double);       //Probably not necessary but should definitely fail if not true
-        Assert.assertEquals(7D, result);
-
-        param = new Object[] {"2222"};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "doubleValue", clazz, param);
-        Assert.assertEquals(2222D, result);
-
-        param = new Object[] {"2222.7"};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "doubleValue", clazz, param);
-        Assert.assertEquals(2222.7, result);
-
-        param = new Object[] {""};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "doubleValue", clazz, param);
-        Assert.assertNull(result);
-
-        param = new Object[] {"not a number"};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "doubleValue", clazz, param);
-        Assert.assertNull(result);
-
-        param = new Object[] {null};
-        result = PrivateAccessor.invoke(GeocodeOutput.class, "doubleValue", clazz, param);
-        Assert.assertNull(result);
+    public void testDoubleValue() {
+        Assert.assertEquals(7D, GeocodeOutput.doubleValue("7"), 0.0);
+        Assert.assertEquals(2222D, GeocodeOutput.doubleValue("2222"), 0.0);
+        Assert.assertEquals(2222.7D, GeocodeOutput.doubleValue("2222.7"), 0.0);
+        Assert.assertNull(GeocodeOutput.doubleValue("not a number"));
+        Assert.assertNull(GeocodeOutput.doubleValue(""));
+        Assert.assertNull(GeocodeOutput.doubleValue(null));
     }
 
 }
