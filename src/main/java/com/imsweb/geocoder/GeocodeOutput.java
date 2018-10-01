@@ -467,10 +467,13 @@ public class GeocodeOutput {
                         result.setNaaccrCensusTractCertaintyName(value(parts[115]));
 
                         // test if there are any census tracts returned
-                        if (parts.length > 119) {
+                        if (parts.length > 130) {
                             addCensus(result, parts, 1990, 116);
                             addCensus(result, parts, 2000, 127);
                             addCensus(result, parts, 2010, 138);
+                        }
+                        else if (parts.length > 119) {
+                            addCensus(result, parts, 2010, 116);
                         }
                         if (parts.length == 119) {
                             result.setMicroMatchStatus(value(parts[116]));
