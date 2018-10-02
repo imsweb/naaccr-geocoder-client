@@ -519,9 +519,9 @@ public class GeocoderTest {
 
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("5"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("POBoxZIP"));
-        assertThat(output.getMicroMatchStatus(), is(nullValue()));
-        assertThat(output.getPenaltyCode(), is(nullValue()));
-        assertThat(output.getPenaltyCodeSummary(), is(nullValue()));
+        assertThat(output.getMicroMatchStatus(), is("Non-Match"));
+        assertThat(output.getPenaltyCode(), is("413MMMMMMMMMM2"));
+        assertThat(output.getPenaltyCodeSummary(), is("FMMMMMMMMMMMMM"));
 
         assertThat(output.getCensusResults().keySet(), contains(2010));
         Census census = output.getCensusResults().get(2010);

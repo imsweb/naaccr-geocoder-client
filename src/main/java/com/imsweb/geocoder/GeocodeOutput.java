@@ -17,6 +17,8 @@ import retrofit2.Call;
 
 import com.imsweb.geocoder.exception.BadRequestException;
 
+import static com.imsweb.geocoder.GeocodeInput.CURRENT_CENSUS_YEAR;
+
 public class GeocodeOutput {
 
     private String _url;
@@ -467,23 +469,24 @@ public class GeocodeOutput {
                         result.setNaaccrCensusTractCertaintyName(value(parts[115]));
 
                         // test if there are any census tracts returned
-                        if (parts.length > 130) {
+                        int nextPosition;
+                        if (parts.length > 148) {
                             addCensus(result, parts, 1990, 116);
                             addCensus(result, parts, 2000, 127);
                             addCensus(result, parts, 2010, 138);
+                            nextPosition = 149;
                         }
-                        else if (parts.length > 119) {
-                            addCensus(result, parts, 2010, 116);
+                        else if (parts.length > 126) {
+                            addCensus(result, parts, CURRENT_CENSUS_YEAR, 116);
+                            nextPosition = 127;
                         }
-                        if (parts.length == 119) {
-                            result.setMicroMatchStatus(value(parts[116]));
-                            result.setPenaltyCode(value(parts[117]));
-                            result.setPenaltyCodeSummary(value(parts[118]));
-                        }
-                        if (parts.length == 152) {
-                            result.setMicroMatchStatus(value(parts[149]));
-                            result.setPenaltyCode(value(parts[150]));
-                            result.setPenaltyCodeSummary(value(parts[151]));
+                        else
+                            nextPosition = 116;
+
+                        if (parts.length > nextPosition + 2) {
+                            result.setMicroMatchStatus(value(parts[nextPosition]));
+                            result.setPenaltyCode(value(parts[nextPosition + 1]));
+                            result.setPenaltyCodeSummary(value(parts[nextPosition + 2]));
                         }
                         return result;
                     })
