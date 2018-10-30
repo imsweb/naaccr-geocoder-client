@@ -28,6 +28,7 @@ public class GeocodeInput {
     private String _confidenceLevels;
     private String _minScore;
     private Boolean _shouldDoExhaustiveSearch;
+    private Boolean _useAliasTable;
 
     public String getStreetAddress() {
         return _streetAddress;
@@ -133,6 +134,14 @@ public class GeocodeInput {
         _shouldDoExhaustiveSearch = shouldDoExhaustiveSearch;
     }
 
+    public Boolean getUseAliasTable() {
+        return _useAliasTable;
+    }
+
+    public void setUseAliasTable(Boolean useAliasTable) {
+        _useAliasTable = useAliasTable;
+    }
+
     /**
      * Convert to a map of parameters for the API call
      */
@@ -175,6 +184,8 @@ public class GeocodeInput {
             params.put("minScore", getMinScore());
         if (getShouldDoExhaustiveSearch() != null)
             params.put("shouldDoExhaustiveSearch", getShouldDoExhaustiveSearch() ? "true" : "false");
+        if (getUseAliasTable() != null)
+            params.put("useAliasTable", getUseAliasTable() ? "true" : "false");
 
         return params;
     }
