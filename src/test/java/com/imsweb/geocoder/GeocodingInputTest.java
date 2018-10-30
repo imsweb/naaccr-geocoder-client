@@ -25,9 +25,10 @@ public class GeocodingInputTest {
         input.setCensus(Boolean.TRUE);
         input.setShouldDoExhaustiveSearch(Boolean.TRUE);
         input.setConfidenceLevels("5");
+        input.setUseAliasTable(Boolean.TRUE);
 
         Map<String, String> queryParams = input.toQueryParams();
-        assertEquals(11, queryParams.size());
+        assertEquals(12, queryParams.size());
         assertEquals("3901 Calverton Blvd", queryParams.get("streetAddress"));
         assertEquals("Calverton", queryParams.get("city"));
         assertEquals("MD", queryParams.get("state"));
@@ -39,6 +40,7 @@ public class GeocodingInputTest {
         assertEquals("allAvailable", queryParams.get("censusYear"));
         assertEquals("true", queryParams.get("shouldDoExhaustiveSearch"));
         assertEquals("5", queryParams.get("confidenceLevels"));
+        assertEquals("true", queryParams.get("useAliasTable"));
     }
 
 }

@@ -73,8 +73,8 @@ public class GeocoderTest {
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
         assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
-        assertThat(output.getLatitude(), is(34.07262));
-        assertThat(output.getLongitude(), is(-118.39796));
+        assertThat(output.getLatitude(), is(34.0726));
+        assertThat(output.getLongitude(), is(-118.398));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("00"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("AddressPoint"));
         assertThat(output.getMatchScore(), is(notNullValue()));
@@ -181,21 +181,21 @@ public class GeocoderTest {
 
         assertThat(output.getfArea(), is(0.0));
         assertThat(output.getfAreaType(), is("Meters"));
-        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2017"));
+        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2016"));
         assertThat(output.getfGeometrySrid(), is("4269"));
         assertThat(output.getfGeometry(), is(nullValue()));
-        assertThat(output.getfVintage(), is("2017"));
+        assertThat(output.getfVintage(), is("2016"));
         assertThat(output.getfPrimaryIdField(), is("POINT_ADDRESS_ID"));
         assertThat(output.getfPrimaryIdValue(), is("51710138"));
         assertThat(output.getfSecondaryIdField(), is("OBJECTID"));
-        assertThat(output.getfSecondaryIdValue(), is("9447029"));
+        assertThat(output.getfSecondaryIdValue(), is("7559709"));
 
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("1"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceStreetAddress"));
 
         assertThat(output.getCensusResults().keySet().isEmpty(), is(true));
         assertThat(output.getMicroMatchStatus(), is("Match"));
-        assertThat(output.getPenaltyCode(), is("MMMMM1MMMMMMMB"));
+        assertThat(output.getPenaltyCode(), is("MMMMM1MMMMMMMA"));
         assertThat(output.getPenaltyCodeSummary(), is("MMMMMMMMMMMMMM"));
     }
 
@@ -218,8 +218,8 @@ public class GeocoderTest {
         assertThat(output.getTransactionId(), matchesPattern("[0-9a-f\\-]+"));
         assertThat(output.getApiVersion(), is("4.4"));
         assertThat(output.getStatusCode(), is(200));
-        assertThat(output.getLatitude(), is(34.07262));
-        assertThat(output.getLongitude(), is(-118.39796));
+        assertThat(output.getLatitude(), is(34.0726));
+        assertThat(output.getLongitude(), is(-118.398));
         assertThat(output.getNaaccrGisCoordinateQualityCode(), is("00"));
         assertThat(output.getNaaccrGisCoordinateQualityName(), is("AddressPoint"));
         assertThat(output.getMatchScore(), is(notNullValue()));
@@ -325,17 +325,17 @@ public class GeocoderTest {
         assertThat(output.getfAreaType(), is("Meters"));
         assertThat(output.getfGeometrySrid(), is("4269"));
         assertThat(output.getfGeometry(), is(nullValue()));
-        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2017"));
-        assertThat(output.getfVintage(), is("2017"));
+        assertThat(output.getfSource(), is("SOURCE_NAVTEQ_ADDRESSPOINTS_2016"));
+        assertThat(output.getfVintage(), is("2016"));
         assertThat(output.getfPrimaryIdField(), is("POINT_ADDRESS_ID"));
         assertThat(output.getfPrimaryIdValue(), is("51710138"));
         assertThat(output.getfSecondaryIdField(), is("OBJECTID"));
-        assertThat(output.getfSecondaryIdValue(), is("9447029"));
+        assertThat(output.getfSecondaryIdValue(), is("7559709"));
 
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("1"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceStreetAddress"));
         assertThat(output.getMicroMatchStatus(), is("Match"));
-        assertThat(output.getPenaltyCode(), is("MMMMM1MMMMMMMB"));
+        assertThat(output.getPenaltyCode(), is("MMMMM1MMMMMMMA"));
         assertThat(output.getPenaltyCodeSummary(), is("MMMMMMMMMMMMMM"));
 
         assertThat(output.getCensusResults().keySet(), containsInAnyOrder(1990, 2000, 2010));
@@ -2190,7 +2190,6 @@ public class GeocoderTest {
         //        assertThat(output.getPenaltyCode(), is(nullValue()));
         //        assertThat(output.getPenaltyCodeSummary(), is(nullValue()));
 
-
         output = results.get(1);
         assertThat(output.getCensusResults(), is(notNullValue()));
         assertThat(output.getCensusResults().size(), is(3));
@@ -3028,6 +3027,42 @@ public class GeocoderTest {
         parts = lines.get(0).split("\t");
         Assert.assertEquals(152, parts.length);
 
+    }
+
+    @Test
+    public void testUseAliasTable() throws IOException {
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("9355 Burton Way");
+        input.setCity("Beverly Hills");
+        input.setState("CA");
+        input.setZip("90210");
+
+        List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(1));
+        GeocodeOutput ouputDefault = results.get(0);
+
+        input.setUseAliasTable(Boolean.TRUE);
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(1));
+        GeocodeOutput outputAlias = results.get(0);
+
+        input.setUseAliasTable(Boolean.FALSE);
+        results = new Geocoder.Builder().connect().geocode(input);
+        assertThat(results.size(), is(1));
+        GeocodeOutput outputNoAlias = results.get(0);
+
+        // Unfortunately there's not much to test: the alias table that the parameter refers to is empty for most states
+        // just make sure the call doesn't fail when the parameter is included
+        Assert.assertEquals(ouputDefault.getLatitude(), outputAlias.getLatitude());
+        Assert.assertEquals(ouputDefault.getLongitude(), outputAlias.getLongitude());
+
+        Assert.assertEquals(ouputDefault.getLatitude(), outputNoAlias.getLatitude());
+        Assert.assertEquals(ouputDefault.getLongitude(), outputNoAlias.getLongitude());
+
+        Assert.assertNotEquals(ouputDefault.getUrl(), outputAlias.getUrl());   // these should differ because of the useAliasTable parameter
+        Assert.assertNotEquals(ouputDefault.getUrl(), outputNoAlias.getUrl());
+        Assert.assertNotEquals(outputAlias.getUrl(), outputNoAlias.getUrl());
     }
 
 }
