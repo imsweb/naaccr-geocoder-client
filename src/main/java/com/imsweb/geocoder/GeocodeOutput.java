@@ -25,8 +25,8 @@ public class GeocodeOutput {
     private String _transactionId;
     private String _apiVersion;
     private Integer _statusCode;
-    private Double _latitude;
-    private Double _longitude;
+    private String _latitude;
+    private String _longitude;
     private String _naaccrGisCoordinateQualityCode;
     private String _naaccrGisCoordinateQualityName;
     private Double _matchScore;
@@ -97,19 +97,19 @@ public class GeocodeOutput {
         _statusCode = statusCode;
     }
 
-    public Double getLatitude() {
+    public String getLatitude() {
         return _latitude;
     }
 
-    void setLatitude(Double latitude) {
+    void setLatitude(String latitude) {
         _latitude = latitude;
     }
 
-    public Double getLongitude() {
+    public String getLongitude() {
         return _longitude;
     }
 
-    void setLongitude(Double longitude) {
+    void setLongitude(String longitude) {
         _longitude = longitude;
     }
 
@@ -430,8 +430,8 @@ public class GeocodeOutput {
                         result.setApiVersion(value(parts[1]));
                         result.setStatusCode(intValue(parts[2]));
 
-                        result.setLatitude(doubleValue(parts[3]));
-                        result.setLongitude(doubleValue(parts[4]));
+                        result.setLatitude(parts[3]);
+                        result.setLongitude(parts[4]);
                         result.setNaaccrGisCoordinateQualityCode(value(parts[5]));
                         result.setNaaccrGisCoordinateQualityName(value(parts[6]));
                         result.setMatchScore(doubleValue(value(parts[7])));

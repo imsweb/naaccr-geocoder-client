@@ -195,7 +195,7 @@ public class GeocoderTest {
 
         assertThat(output.getCensusResults().keySet().isEmpty(), is(true));
         assertThat(output.getMicroMatchStatus(), is("Match"));
-        assertThat(output.getPenaltyCode(), is("MMMMM1MMMMMMMA"));
+        assertThat(output.getPenaltyCode(), is("MMMMMMMMMMMMM9"));
         assertThat(output.getPenaltyCodeSummary(), is("MMMMMMMMMMMMMM"));
     }
 
@@ -335,7 +335,7 @@ public class GeocoderTest {
         assertThat(output.getNaaccrCensusTractCertaintyCode(), is("1"));
         assertThat(output.getNaaccrCensusTractCertaintyName(), is("ResidenceStreetAddress"));
         assertThat(output.getMicroMatchStatus(), is("Match"));
-        assertThat(output.getPenaltyCode(), is("MMMMM1MMMMMMMA"));
+        assertThat(output.getPenaltyCode(), is("MMMMMMMMMMMMM9"));
         assertThat(output.getPenaltyCodeSummary(), is("MMMMMMMMMMMMMM"));
 
         assertThat(output.getCensusResults().keySet(), containsInAnyOrder(1990, 2000, 2010));
