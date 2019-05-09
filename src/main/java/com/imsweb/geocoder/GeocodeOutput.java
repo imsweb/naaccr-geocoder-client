@@ -430,8 +430,8 @@ public class GeocodeOutput {
                         result.setApiVersion(value(parts[1]));
                         result.setStatusCode(intValue(parts[2]));
 
-                        result.setLatitude(parts[3]);
-                        result.setLongitude(parts[4]);
+                        result.setLatitude(value(parts[3]));
+                        result.setLongitude(value(parts[4]));
                         result.setNaaccrGisCoordinateQualityCode(value(parts[5]));
                         result.setNaaccrGisCoordinateQualityName(value(parts[6]));
                         result.setMatchScore(doubleValue(value(parts[7])));
