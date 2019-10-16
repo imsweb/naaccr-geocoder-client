@@ -62,7 +62,7 @@ public class PointInPolygonInput {
         if (getState() != null)
             params.put("s", getState());
         if (getNotStore() != null)
-        params.put("notStore", getNotStore() ? "true" : "false");
+            params.put("notStore", getNotStore() ? "true" : "false");
 
         return params;
     }

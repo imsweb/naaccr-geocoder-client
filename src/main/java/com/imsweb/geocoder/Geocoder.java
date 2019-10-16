@@ -36,8 +36,9 @@ public final class Geocoder {
 
     /**
      * Creates a client API root object
-     * @param baseUrl base URL for API
-     * @param apiKey API key
+     *
+     * @param baseUrl   base URL for API
+     * @param apiKey    API key
      * @param proxyHost URL of proxy host
      * @param proxyPort Proxy port
      */
@@ -82,6 +83,7 @@ public final class Geocoder {
 
     /**
      * Main geocoding method
+     *
      * @param input input for API call
      * @return results from the API call
      * @throws IOException thrown if any problems occurred making API call including non-200 status codes
@@ -110,7 +112,6 @@ public final class Geocoder {
         params.put("version", _POINT_IN_POLYGON_VERSION);
         return _geocodingService.pointInPolygon(params);
     }
-
 
     /**
      * Class to build a connection to API
