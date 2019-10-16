@@ -426,47 +426,47 @@ public class GeocodeOutput {
                             throw new IllegalStateException("Unknown format returned from API");
 
                         result.setUrl(url);
-                        result.setTransactionId(value(parts[0]));
-                        result.setApiVersion(value(parts[1]));
-                        result.setStatusCode(intValue(parts[2]));
+                        result.setTransactionId(GeocoderUtils.value(parts[0]));
+                        result.setApiVersion(GeocoderUtils.value(parts[1]));
+                        result.setStatusCode(GeocoderUtils.intValue(parts[2]));
 
-                        result.setLatitude(value(parts[3]));
-                        result.setLongitude(value(parts[4]));
-                        result.setNaaccrGisCoordinateQualityCode(value(parts[5]));
-                        result.setNaaccrGisCoordinateQualityName(value(parts[6]));
-                        result.setMatchScore(doubleValue(value(parts[7])));
-                        result.setMatchType(value(parts[8]));
-                        result.setMatchingGeographyType(value(parts[9]));
-                        result.setRegionSize(doubleValue(parts[10]));
-                        result.setRegionSizeUnit(value(parts[11]));
-                        result.setInterpolationType(value(parts[12]));
-                        result.setInterpolationSubType(value(parts[13]));
-                        result.setMatchedLocationType(value(parts[14]));
-                        result.setFeatureMatchType(value(parts[15]));
-                        result.setFeatureMatchCount(intValue(parts[16]));
-                        result.setFeatureMatchTypeNotes(value(parts[17]));
-                        result.setTieHandlingStrategyType(value(parts[18]));
-                        result.setFeatureMatchTypeTieBreakingNotes(value(parts[19]));       //These two seem to be reversed...
-                        result.setFeatureMatchingSelectionMethod(value(parts[20]));       //These two seem to be reversed...
-                        result.setFeatureMatchingSelectionMethodNotes(value(parts[21]));
-                        result.setTimeTaken(doubleValue(parts[22]));
+                        result.setLatitude(GeocoderUtils.value(parts[3]));
+                        result.setLongitude(GeocoderUtils.value(parts[4]));
+                        result.setNaaccrGisCoordinateQualityCode(GeocoderUtils.value(parts[5]));
+                        result.setNaaccrGisCoordinateQualityName(GeocoderUtils.value(parts[6]));
+                        result.setMatchScore(GeocoderUtils.doubleValue(GeocoderUtils.value(parts[7])));
+                        result.setMatchType(GeocoderUtils.value(parts[8]));
+                        result.setMatchingGeographyType(GeocoderUtils.value(parts[9]));
+                        result.setRegionSize(GeocoderUtils.doubleValue(parts[10]));
+                        result.setRegionSizeUnit(GeocoderUtils.value(parts[11]));
+                        result.setInterpolationType(GeocoderUtils.value(parts[12]));
+                        result.setInterpolationSubType(GeocoderUtils.value(parts[13]));
+                        result.setMatchedLocationType(GeocoderUtils.value(parts[14]));
+                        result.setFeatureMatchType(GeocoderUtils.value(parts[15]));
+                        result.setFeatureMatchCount(GeocoderUtils.intValue(parts[16]));
+                        result.setFeatureMatchTypeNotes(GeocoderUtils.value(parts[17]));
+                        result.setTieHandlingStrategyType(GeocoderUtils.value(parts[18]));
+                        result.setFeatureMatchTypeTieBreakingNotes(GeocoderUtils.value(parts[19]));       //These two seem to be reversed...
+                        result.setFeatureMatchingSelectionMethod(GeocoderUtils.value(parts[20]));       //These two seem to be reversed...
+                        result.setFeatureMatchingSelectionMethodNotes(GeocoderUtils.value(parts[21]));
+                        result.setTimeTaken(GeocoderUtils.doubleValue(parts[22]));
 
                         result.setMatchAddress(createAddress(parts, 23));
                         result.setParsedAddress(createAddress(parts, 50));
                         result.setFeatureAddress(createAddress(parts, 77));
 
-                        result.setfArea(doubleValue(parts[104]));
-                        result.setfAreaType(value(parts[105]));
-                        result.setfGeometrySrid(value(parts[106]));
-                        result.setfGeometry(value(parts[107]));
-                        result.setfSource(value(parts[108]));
-                        result.setfVintage(value(parts[109]));
-                        result.setfPrimaryIdField(value(parts[110]));
-                        result.setfPrimaryIdValue(value(parts[111]));
-                        result.setfSecondaryIdField(value(parts[112]));
-                        result.setfSecondaryIdValue(value(parts[113]));
-                        result.setNaaccrCensusTractCertaintyCode(value(parts[114]));
-                        result.setNaaccrCensusTractCertaintyName(value(parts[115]));
+                        result.setfArea(GeocoderUtils.doubleValue(parts[104]));
+                        result.setfAreaType(GeocoderUtils.value(parts[105]));
+                        result.setfGeometrySrid(GeocoderUtils.value(parts[106]));
+                        result.setfGeometry(GeocoderUtils.value(parts[107]));
+                        result.setfSource(GeocoderUtils.value(parts[108]));
+                        result.setfVintage(GeocoderUtils.value(parts[109]));
+                        result.setfPrimaryIdField(GeocoderUtils.value(parts[110]));
+                        result.setfPrimaryIdValue(GeocoderUtils.value(parts[111]));
+                        result.setfSecondaryIdField(GeocoderUtils.value(parts[112]));
+                        result.setfSecondaryIdValue(GeocoderUtils.value(parts[113]));
+                        result.setNaaccrCensusTractCertaintyCode(GeocoderUtils.value(parts[114]));
+                        result.setNaaccrCensusTractCertaintyName(GeocoderUtils.value(parts[115]));
 
                         // test if there are any census tracts returned
                         int nextPosition;
@@ -484,9 +484,9 @@ public class GeocodeOutput {
                             nextPosition = 116;
 
                         if (parts.length > nextPosition + 2) {
-                            result.setMicroMatchStatus(value(parts[nextPosition]));
-                            result.setPenaltyCode(value(parts[nextPosition + 1]));
-                            result.setPenaltyCodeSummary(value(parts[nextPosition + 2]));
+                            result.setMicroMatchStatus(GeocoderUtils.value(parts[nextPosition]));
+                            result.setPenaltyCode(GeocoderUtils.value(parts[nextPosition + 1]));
+                            result.setPenaltyCodeSummary(GeocoderUtils.value(parts[nextPosition + 2]));
                         }
                         return result;
                     })
@@ -505,17 +505,17 @@ public class GeocodeOutput {
         // check there is a census tract value
         if (parts[position + 2].length() > 0) {
             Census census = new Census();
-            census.setBlock(value(parts[position]));
-            census.setBlockGroup(value(parts[position + 1]));
-            census.setTract(value(parts[position + 2]));
-            census.setCountyFips(value(parts[position + 3]));
-            census.setCbsaFips(value(parts[position + 4]));
-            census.setCbsaMicro(value(parts[position + 5]));
-            census.setMcdFips(value(parts[position + 6]));
-            census.setMetDivFips(value(parts[position + 7]));
-            census.setMsaFips(value(parts[position + 8]));
-            census.setPlaceFips(value(parts[position + 9]));
-            census.setStateFips(value(parts[position + 10]));
+            census.setBlock(GeocoderUtils.value(parts[position]));
+            census.setBlockGroup(GeocoderUtils.value(parts[position + 1]));
+            census.setTract(GeocoderUtils.value(parts[position + 2]));
+            census.setCountyFips(GeocoderUtils.value(parts[position + 3]));
+            census.setCbsaFips(GeocoderUtils.value(parts[position + 4]));
+            census.setCbsaMicro(GeocoderUtils.value(parts[position + 5]));
+            census.setMcdFips(GeocoderUtils.value(parts[position + 6]));
+            census.setMetDivFips(GeocoderUtils.value(parts[position + 7]));
+            census.setMsaFips(GeocoderUtils.value(parts[position + 8]));
+            census.setPlaceFips(GeocoderUtils.value(parts[position + 9]));
+            census.setStateFips(GeocoderUtils.value(parts[position + 10]));
 
             result.getCensusResults().put(year, census);
         }
@@ -527,71 +527,35 @@ public class GeocodeOutput {
     private static Address createAddress(String[] parts, int position) {
 
         Address address = new Address();
-        address.setNumber(value(parts[position]));
-        address.setNumberFractional(value(parts[position + 1]));
-        address.setPreDirectional(value(parts[position + 2]));
-        address.setPreQualifier(value(parts[position + 3]));
-        address.setPreType(value(parts[position + 4]));
-        address.setPreArticle(value(parts[position + 5]));
-        address.setName(value(parts[position + 6]));
-        address.setPostArticle(value(parts[position + 7]));
-        address.setPostQualifier(value(parts[position + 8]));
-        address.setSuffix(value(parts[position + 9]));
-        address.setPostDirectional(value(parts[position + 10]));
-        address.setSuiteType(value(parts[position + 11]));
-        address.setSuiteNumber(value(parts[position + 12]));
-        address.setPoBoxType(value(parts[position + 13]));
-        address.setPoBoxNumber(value(parts[position + 14]));
-        address.setCity(value(parts[position + 15]));
-        address.setConsolidatedCity(value(parts[position + 16]));
-        address.setMinorCivilDivision(value(parts[position + 17]));
-        address.setCountySubregion(value(parts[position + 18]));
-        address.setCounty(value(parts[position + 19]));
-        address.setState(value(parts[position + 20]));
-        address.setZip(value(parts[position + 21]));
-        address.setZipPlus1(value(parts[position + 22]));
-        address.setZipPlus2(value(parts[position + 23]));
-        address.setZipPlus3(value(parts[position + 24]));
-        address.setZipPlus4(value(parts[position + 25]));
-        address.setZipPlus5(value(parts[position + 26]));
+        address.setNumber(GeocoderUtils.value(parts[position]));
+        address.setNumberFractional(GeocoderUtils.value(parts[position + 1]));
+        address.setPreDirectional(GeocoderUtils.value(parts[position + 2]));
+        address.setPreQualifier(GeocoderUtils.value(parts[position + 3]));
+        address.setPreType(GeocoderUtils.value(parts[position + 4]));
+        address.setPreArticle(GeocoderUtils.value(parts[position + 5]));
+        address.setName(GeocoderUtils.value(parts[position + 6]));
+        address.setPostArticle(GeocoderUtils.value(parts[position + 7]));
+        address.setPostQualifier(GeocoderUtils.value(parts[position + 8]));
+        address.setSuffix(GeocoderUtils.value(parts[position + 9]));
+        address.setPostDirectional(GeocoderUtils.value(parts[position + 10]));
+        address.setSuiteType(GeocoderUtils.value(parts[position + 11]));
+        address.setSuiteNumber(GeocoderUtils.value(parts[position + 12]));
+        address.setPoBoxType(GeocoderUtils.value(parts[position + 13]));
+        address.setPoBoxNumber(GeocoderUtils.value(parts[position + 14]));
+        address.setCity(GeocoderUtils.value(parts[position + 15]));
+        address.setConsolidatedCity(GeocoderUtils.value(parts[position + 16]));
+        address.setMinorCivilDivision(GeocoderUtils.value(parts[position + 17]));
+        address.setCountySubregion(GeocoderUtils.value(parts[position + 18]));
+        address.setCounty(GeocoderUtils.value(parts[position + 19]));
+        address.setState(GeocoderUtils.value(parts[position + 20]));
+        address.setZip(GeocoderUtils.value(parts[position + 21]));
+        address.setZipPlus1(GeocoderUtils.value(parts[position + 22]));
+        address.setZipPlus2(GeocoderUtils.value(parts[position + 23]));
+        address.setZipPlus3(GeocoderUtils.value(parts[position + 24]));
+        address.setZipPlus4(GeocoderUtils.value(parts[position + 25]));
+        address.setZipPlus5(GeocoderUtils.value(parts[position + 26]));
 
         return address;
     }
 
-    /**
-     * Helper method to safely convert empty strings to null
-     */
-    static String value(String value) {
-        if (value == null || value.isEmpty())
-            return null;
-        return value;
-    }
-
-    /**
-     * Helper method to safely convert String to Integer
-     */
-    static Integer intValue(String value) {
-        if (value == null || value.isEmpty())
-            return null;
-        try {
-            return Integer.valueOf(value);
-        }
-        catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Helper method to safely convert String to Double
-     */
-    static Double doubleValue(String value) {
-        if (value == null || value.isEmpty())
-            return null;
-        try {
-            return Double.valueOf(value);
-        }
-        catch (NumberFormatException e) {
-            return null;
-        }
-    }
 }
