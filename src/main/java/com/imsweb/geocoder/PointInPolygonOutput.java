@@ -170,7 +170,7 @@ public class PointInPolygonOutput {
         if (resultString.startsWith("invalid request - "))
             throw new BadRequestException("API indicated invalid request; could indicate API key issue");
 
-        String[] parts = resultString.split("\t");
+        String[] parts = resultString.split("\t", -1);
 
         if (parts.length != 16)
             throw new IllegalStateException("Unknown format returned from API");
