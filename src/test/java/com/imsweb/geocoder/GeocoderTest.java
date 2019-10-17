@@ -3052,10 +3052,8 @@ public class GeocoderTest {
         assertThat(results.size(), is(1));
         GeocodeOutput outputNoAlias = results.get(0);
 
-        // Unfortunately there's not much to test: the alias table that the parameter refers to is empty for most states
-        // just make sure the call doesn't fail when the parameter is included
-        Assert.assertEquals(ouputDefault.getLatitude(), outputAlias.getLatitude());
-        Assert.assertEquals(ouputDefault.getLongitude(), outputAlias.getLongitude());
+        Assert.assertNotEquals(ouputDefault.getLatitude(), outputAlias.getLatitude());
+        Assert.assertNotEquals(ouputDefault.getLongitude(), outputAlias.getLongitude());
 
         Assert.assertEquals(ouputDefault.getLatitude(), outputNoAlias.getLatitude());
         Assert.assertEquals(ouputDefault.getLongitude(), outputNoAlias.getLongitude());
