@@ -15,10 +15,14 @@ public interface GeocodingService {
     /**
      * Perform a geocoding call; had a lot of issues with parsing the XML version so this method returns the raw
      * response body and we parse the TSV format
+     *
      * @param searchParams A Map of query parameters.
      * @return a GeocodingResult
      */
     @GET("GeocoderWebServiceHttpNonParsedDetailed_V04_04.aspx")
     Call<ResponseBody> geocode(@QueryMap Map<String, String> searchParams);
+
+    @GET("CensusIntersectionWebServiceHttp_V03_01.aspx")
+    Call<ResponseBody> pointInPolygon(@QueryMap Map<String, String> searchParams);
 
 }

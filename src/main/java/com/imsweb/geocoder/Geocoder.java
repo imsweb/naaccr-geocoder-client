@@ -27,16 +27,18 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
  */
 public final class Geocoder {
 
-    private static final String _GEOCODER_FORMAT = "tsv";
+    private static final String _OUTPUT_FORMAT = "tsv";
     private static final String _GEOCODER_VERSION = "4.04";
+    private static final String _POINT_IN_POLYGON_VERSION = "3.01";
     private static final String _GEOCODER_VERBOSE = "true";
 
     private GeocodingService _geocodingService;
 
     /**
      * Creates a client API root object
-     * @param baseUrl base URL for API
-     * @param apiKey API key
+     *
+     * @param baseUrl   base URL for API
+     * @param apiKey    API key
      * @param proxyHost URL of proxy host
      * @param proxyPort Proxy port
      */
@@ -81,21 +83,34 @@ public final class Geocoder {
 
     /**
      * Main geocoding method
+     *
      * @param input input for API call
      * @return results from the API call
      * @throws IOException thrown if any problems occurred making API call including non-200 status codes
      */
     public List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
-        Call<ResponseBody> call = getCall(input);
+        Call<ResponseBody> call = getGeocoderCall(input);
         return GeocodeOutput.toResults(call);
     }
 
-    Call<ResponseBody> getCall(GeocodeInput input) throws IOException {
+    Call<ResponseBody> getGeocoderCall(GeocodeInput input) throws IOException {
         Map<String, String> params = input.toQueryParams();
-        params.put("format", _GEOCODER_FORMAT);
+        params.put("format", _OUTPUT_FORMAT);
         params.put("version", _GEOCODER_VERSION);
         params.put("verbose", _GEOCODER_VERBOSE);
         return _geocodingService.geocode(params);
+    }
+
+    public PointInPolygonOutput pointInPolygon(PointInPolygonInput input) throws IOException {
+        Call<ResponseBody> call = getPipCall(input);
+        return PointInPolygonOutput.toResults(call);
+    }
+
+    Call<ResponseBody> getPipCall(PointInPolygonInput input) {
+        Map<String, String> params = input.toQueryParams();
+        params.put("format", _OUTPUT_FORMAT);
+        params.put("version", _POINT_IN_POLYGON_VERSION);
+        return _geocodingService.pointInPolygon(params);
     }
 
     /**
@@ -105,6 +120,7 @@ public final class Geocoder {
 
         // default base URL
         private static final String _GEOCODER_URL = "https://geo.naaccr.org/Services/Geocode/WebService";
+        private static final String _POINT_IN_POLYGON_URL = "https://geo.naaccr.org/Services/CensusIntersection/WebService";
 
         // environment variable for URL and API key
         private static final String _ENV_URL = "GEOCODER_URL";
@@ -194,6 +210,10 @@ public final class Geocoder {
         public Builder readTimeout(long seconds) {
             _readTimeout = seconds;
             return this;
+        }
+
+        public Builder pointInPolygon() {
+            return url(_POINT_IN_POLYGON_URL);
         }
 
         public Geocoder connect() {
