@@ -12,10 +12,10 @@ import com.imsweb.geocoder.exception.BadRequestException;
 
 public class PointInPolygonOutput {
 
-    public static String CENSUS_CODE_1990 = "NineteenNinety";
-    public static String CENSUS_CODE_2000 = "TwoThousand";
-    public static String CENSUS_CODE_2010 = "TwoThousandTen";
-    public static String CENSUS_CODE_ALL = "AllAvailable";
+    public static final String CENSUS_CODE_1990 = "NineteenNinety";
+    public static final String CENSUS_CODE_2000 = "TwoThousand";
+    public static final String CENSUS_CODE_2010 = "TwoThousandTen";
+    public static final String CENSUS_CODE_ALL = "AllAvailable";
 
     private Integer _statusCode;
     private String _apiVersion;
@@ -179,7 +179,7 @@ public class PointInPolygonOutput {
         result.setStatusCode(GeocoderUtils.intValue(parts[0]));
         result.setApiVersion(GeocoderUtils.value(parts[1]));
         result.setTransactionId(GeocoderUtils.value(parts[2]));
-        result.setCensusYear(GeocoderUtils.value(parts[3]));
+        result.setCensusYear(decodeCensusYear(GeocoderUtils.value(parts[3])));
         result.setCensusBlock(GeocoderUtils.value(parts[4]));
         result.setCensusBlockGroup(GeocoderUtils.value(parts[5]));
         result.setCensusTract(GeocoderUtils.value(parts[6]));
@@ -194,5 +194,18 @@ public class PointInPolygonOutput {
         result.setTimeTaken(GeocoderUtils.doubleValue(parts[15]));
 
         return result;
+    }
+
+    private static String decodeCensusYear(String code) {
+        switch (code) {
+            case CENSUS_CODE_1990:
+                return "1990";
+            case CENSUS_CODE_2000:
+                return "2000";
+            case CENSUS_CODE_2010:
+                return "2010";
+            default:
+                return "";
+        }
     }
 }

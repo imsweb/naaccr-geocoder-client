@@ -8,33 +8,33 @@ import java.util.Map;
 
 public class PointInPolygonInput {
 
-    private Integer _censusYear;
-    private Double _lat;
-    private Double _lon;
+    private String _censusYear;
+    private String _lat;
+    private String _lon;
     private String _state;
     private Boolean _notStore;
 
-    public Integer getCensusYear() {
+    public String getCensusYear() {
         return _censusYear;
     }
 
-    public void setCensusYear(Integer censusYear) {
+    public void setCensusYear(String censusYear) {
         _censusYear = censusYear;
     }
 
-    public Double getLat() {
+    public String getLat() {
         return _lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(String lat) {
         _lat = lat;
     }
 
-    public Double getLon() {
+    public String getLon() {
         return _lon;
     }
 
-    public void setLon(Double lon) {
+    public void setLon(String lon) {
         _lon = lon;
     }
 
@@ -56,9 +56,9 @@ public class PointInPolygonInput {
 
     Map<String, String> toQueryParams() {
         Map<String, String> params = new HashMap<>();
-        params.put("censusYear", getCensusYear().toString());
-        params.put("lat", getLat().toString());
-        params.put("lon", getLon().toString());
+        params.put("censusYear", getCensusYear());
+        params.put("lat", getLat());
+        params.put("lon", getLon());
         if (getState() != null)
             params.put("s", getState());
         if (getNotStore() != null)

@@ -3067,16 +3067,16 @@ public class GeocoderTest {
     public void testPointInPolygon() throws IOException {
         PointInPolygonInput input = new PointInPolygonInput();
 
-        input.setCensusYear(2010);
-        input.setLat(34.0726207996348D);
-        input.setLon(-118.397965182076D);
+        input.setCensusYear("2010");
+        input.setLat("34.0726207996348");
+        input.setLon("-118.397965182076");
 
         PointInPolygonOutput result = new Geocoder.Builder().pointInPolygon().connect().pointInPolygon(input);
 
         Assert.assertEquals(200, result.getStatusCode().intValue());
         Assert.assertEquals("3.01", result.getApiVersion());
         Assert.assertNotNull(result.getTransactionId());
-        Assert.assertEquals("TwoThousandTen", result.getCensusYear());
+        Assert.assertEquals("2010", result.getCensusYear());
         Assert.assertEquals("1023", result.getCensusBlock());
         Assert.assertEquals("1", result.getCensusBlockGroup());
         Assert.assertEquals("7008.01", result.getCensusTract());
