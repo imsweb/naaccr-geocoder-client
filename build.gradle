@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'com.imsweb'
-version = '1.12'
+version = '1.13'
 description = 'Java client library for NAACCR Geocoding Service'
 sourceCompatibility = JavaVersion.VERSION_1_8
 
