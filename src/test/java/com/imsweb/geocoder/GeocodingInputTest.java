@@ -4,8 +4,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.imsweb.geocoder.GeocodeInput.FeatureMatchingHierarchy;
+
 import static com.imsweb.geocoder.GeocodeInput.TieBreakingStrategy.FLIP_A_COIN;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class GeocodingInputTest {
 
@@ -26,9 +29,16 @@ public class GeocodingInputTest {
         input.setShouldDoExhaustiveSearch(Boolean.TRUE);
         input.setConfidenceLevels("5");
         input.setUseAliasTable(Boolean.TRUE);
+        input.setShouldUseRelaxation(true);
+        input.setRelaxedAttributes("pre,suffix");
+        input.setAllowSubstringMatching(true);
+        input.setAllowSoundex(true);
+        input.setSoundexAttributes("bad value");
+        input.setFeatureMatchingHierarchy(FeatureMatchingHierarchy.UNCERTAINTY_BASED);
+        input.setReferenceDataSources("MicrosoftFootprints");
 
         Map<String, String> queryParams = input.toQueryParams();
-        assertEquals(12, queryParams.size());
+        assertEquals(18, queryParams.size());
         assertEquals("3901 Calverton Blvd", queryParams.get("streetAddress"));
         assertEquals("Calverton", queryParams.get("city"));
         assertEquals("MD", queryParams.get("state"));
@@ -40,7 +50,14 @@ public class GeocodingInputTest {
         assertEquals("allAvailable", queryParams.get("censusYear"));
         assertEquals("true", queryParams.get("shouldDoExhaustiveSearch"));
         assertEquals("5", queryParams.get("confidenceLevels"));
-        assertEquals("true", queryParams.get("useAliasTable"));
+        assertEquals("true", queryParams.get("r"));
+        assertEquals("pre,suffix", queryParams.get("ratts"));
+        assertEquals("true", queryParams.get("sub"));
+        assertEquals("true", queryParams.get("sou"));
+        assertFalse(queryParams.containsKey("souatts"));
+        assertEquals("uncertaintyBased", queryParams.get("h"));
+        assertEquals("MicrosoftFootprints", queryParams.get("refs"));
+
     }
 
 }

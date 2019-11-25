@@ -3,7 +3,11 @@
  */
 package com.imsweb.geocoder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GeocodeInput {
@@ -13,6 +17,67 @@ public class GeocodeInput {
     public enum TieBreakingStrategy {
         FLIP_A_COIN,         // choose and return one of the ties at random
         REVERT_TO_HIERARCHY  // fail on a tie and match to the next level of the geographic hierarchy - parcel, then street, then ZIP, then city, etc.
+    }
+
+    public enum FeatureMatchingHierarchy {
+        UNCERTAINTY_BASED,         // choose and return one of the ties at random
+        FEATURE_MATCHING_SELECTION_METHOD  // fail on a tie and match to the next level of the geographic hierarchy - parcel, then street, then ZIP, then city, etc.
+    }
+
+    private static final List<String> _RATTS_VALUES;
+    private static final List<String> _SOUATTS_VALUES;
+    private static final List<String> _REFS_VALUES;
+
+    static {
+        List<String> rv = new ArrayList<>();
+        rv.add("pre");
+        rv.add("suffix");
+        rv.add("post");
+        rv.add("city");
+        rv.add("zip");
+        _RATTS_VALUES = Collections.unmodifiableList(rv);
+        List<String> sv = new ArrayList<>();
+        sv.add("name");
+        sv.add("city");
+        _SOUATTS_VALUES = Collections.unmodifiableList(sv);
+        List<String> refs = new ArrayList<>();
+        refs.add("MicrosoftFootprints");
+        refs.add("countyParcelData");
+        refs.add("OpenAddresses");
+        refs.add("navteqAddressPoints2017");
+        refs.add("navteqAddressPoints2016");
+        refs.add("navteqAddressPoints2014");
+        refs.add("navteqAddressPoints2013");
+        refs.add("navteqAddressPoints2012");
+        refs.add("parcelCentroids");
+        refs.add("boundarySolutionsParcelCentroids");
+        refs.add("parcelGeometries");
+        refs.add("navteqStreets2012");
+        refs.add("navteqStreets2008");
+        refs.add("tiger2016");
+        refs.add("tiger2015");
+        refs.add("tiger2010");
+        refs.add("zipPlus4");
+        refs.add("census2010Places");
+        refs.add("census2008Places");
+        refs.add("census2000Places");
+        refs.add("census2010ConsolidatedCities");
+        refs.add("census2010ConsolidatedCities");
+        refs.add("census2000ConsolidatedCities");
+        refs.add("census2000MCDs");
+        refs.add("census2010ZCTAs");
+        refs.add("census2008ZCTAs");
+        refs.add("census2000ZCTAs");
+        refs.add("zcdZips2013");
+        refs.add("census2010CountySubRegions");
+        refs.add("census2008CountySubRegions");
+        refs.add("census2000CountySubRegions");
+        refs.add("census2010Counties");
+        refs.add("census2008Counties");
+        refs.add("census2000Counties");
+        refs.add("census2010States");
+        refs.add("census2008States");
+        _REFS_VALUES = Collections.unmodifiableList(refs);
     }
 
     private String _streetAddress;
@@ -29,6 +94,13 @@ public class GeocodeInput {
     private String _minScore;
     private Boolean _shouldDoExhaustiveSearch;
     private Boolean _useAliasTable;
+    private Boolean _shouldUseRelaxation;
+    private String _relaxedAttributes;
+    private Boolean _allowSubstringMatching;
+    private Boolean _allowSoundex;
+    private String _soundexAttributes;
+    private FeatureMatchingHierarchy _featureMatchingHierarchy;
+    private String _referenceDataSources;
 
     public String getStreetAddress() {
         return _streetAddress;
@@ -142,6 +214,62 @@ public class GeocodeInput {
         _useAliasTable = useAliasTable;
     }
 
+    public Boolean getShouldUseRelaxation() {
+        return _shouldUseRelaxation;
+    }
+
+    public void setShouldUseRelaxation(Boolean shouldUseRelaxation) {
+        this._shouldUseRelaxation = shouldUseRelaxation;
+    }
+
+    public String getRelaxedAttributes() {
+        return _relaxedAttributes;
+    }
+
+    public void setRelaxedAttributes(String relaxedAttributes) {
+        this._relaxedAttributes = relaxedAttributes;
+    }
+
+    public Boolean getAllowSubstringMatching() {
+        return _allowSubstringMatching;
+    }
+
+    public void setAllowSubstringMatching(Boolean allowSubstringMatching) {
+        this._allowSubstringMatching = allowSubstringMatching;
+    }
+
+    public Boolean getAllowSoundex() {
+        return _allowSoundex;
+    }
+
+    public void setAllowSoundex(Boolean allowSoundex) {
+        this._allowSoundex = allowSoundex;
+    }
+
+    public String getSoundexAttributes() {
+        return _soundexAttributes;
+    }
+
+    public void setSoundexAttributes(String soundexAttributes) {
+        this._soundexAttributes = soundexAttributes;
+    }
+
+    public FeatureMatchingHierarchy getFeatureMatchingHierarchy() {
+        return _featureMatchingHierarchy;
+    }
+
+    public void setFeatureMatchingHierarchy(FeatureMatchingHierarchy featureMatchingHierarchy) {
+        this._featureMatchingHierarchy = featureMatchingHierarchy;
+    }
+
+    public String getReferenceDataSources() {
+        return _referenceDataSources;
+    }
+
+    public void setReferenceDataSources(String referenceDataSources) {
+        this._referenceDataSources = referenceDataSources;
+    }
+
     /**
      * Convert to a map of parameters for the API call
      */
@@ -187,6 +315,26 @@ public class GeocodeInput {
         if (getUseAliasTable() != null)
             params.put("useAliasTable", getUseAliasTable() ? "true" : "false");
 
+        if (getShouldUseRelaxation() != null && !getShouldUseRelaxation())
+            params.put("r", "false");
+        else if (getRelaxedAttributes() != null) {
+            params.put("r", "true");
+            if (_RATTS_VALUES.containsAll(Arrays.asList(getRelaxedAttributes().split(","))))
+                params.put("ratts", getRelaxedAttributes());
+        }
+        if (getAllowSubstringMatching() != null)
+            params.put("sub", getAllowSubstringMatching() ? "true" : "false");
+        if (getAllowSoundex() != null && !getAllowSoundex())
+            params.put("sou", "false");
+        else if (getSoundexAttributes() != null) {
+            params.put("sou", "true");
+            if (_SOUATTS_VALUES.containsAll(Arrays.asList(getSoundexAttributes().split(","))))
+                params.put("souatts", getSoundexAttributes());
+        }
+        if (getFeatureMatchingHierarchy() != null)
+            params.put("h", FeatureMatchingHierarchy.UNCERTAINTY_BASED.equals(getFeatureMatchingHierarchy()) ? "uncertaintyBased" : "FeatureMatchingSelectionMethod");
+        if (getReferenceDataSources() != null && _REFS_VALUES.containsAll(Arrays.asList(getReferenceDataSources().split(","))))
+            params.put("refs", getReferenceDataSources());
         return params;
     }
 }
