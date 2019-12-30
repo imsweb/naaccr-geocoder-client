@@ -3,11 +3,7 @@
  */
 package com.imsweb.geocoder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GeocodeInput {
@@ -22,62 +18,6 @@ public class GeocodeInput {
     public enum FeatureMatchingHierarchy {
         UNCERTAINTY_BASED,         // choose and return one of the ties at random
         FEATURE_MATCHING_SELECTION_METHOD  // fail on a tie and match to the next level of the geographic hierarchy - parcel, then street, then ZIP, then city, etc.
-    }
-
-    private static final List<String> _RATTS_VALUES;
-    private static final List<String> _SOUATTS_VALUES;
-    private static final List<String> _REFS_VALUES;
-
-    static {
-        List<String> rv = new ArrayList<>();
-        rv.add("pre");
-        rv.add("suffix");
-        rv.add("post");
-        rv.add("city");
-        rv.add("zip");
-        _RATTS_VALUES = Collections.unmodifiableList(rv);
-        List<String> sv = new ArrayList<>();
-        sv.add("name");
-        sv.add("city");
-        _SOUATTS_VALUES = Collections.unmodifiableList(sv);
-        List<String> refs = new ArrayList<>();
-        refs.add("MicrosoftFootprints");
-        refs.add("countyParcelData");
-        refs.add("OpenAddresses");
-        refs.add("navteqAddressPoints2017");
-        refs.add("navteqAddressPoints2016");
-        refs.add("navteqAddressPoints2014");
-        refs.add("navteqAddressPoints2013");
-        refs.add("navteqAddressPoints2012");
-        refs.add("parcelCentroids");
-        refs.add("boundarySolutionsParcelCentroids");
-        refs.add("parcelGeometries");
-        refs.add("navteqStreets2012");
-        refs.add("navteqStreets2008");
-        refs.add("tiger2016");
-        refs.add("tiger2015");
-        refs.add("tiger2010");
-        refs.add("zipPlus4");
-        refs.add("census2010Places");
-        refs.add("census2008Places");
-        refs.add("census2000Places");
-        refs.add("census2010ConsolidatedCities");
-        refs.add("census2010ConsolidatedCities");
-        refs.add("census2000ConsolidatedCities");
-        refs.add("census2000MCDs");
-        refs.add("census2010ZCTAs");
-        refs.add("census2008ZCTAs");
-        refs.add("census2000ZCTAs");
-        refs.add("zcdZips2013");
-        refs.add("census2010CountySubRegions");
-        refs.add("census2008CountySubRegions");
-        refs.add("census2000CountySubRegions");
-        refs.add("census2010Counties");
-        refs.add("census2008Counties");
-        refs.add("census2000Counties");
-        refs.add("census2010States");
-        refs.add("census2008States");
-        _REFS_VALUES = Collections.unmodifiableList(refs);
     }
 
     private String _streetAddress;
@@ -319,7 +259,6 @@ public class GeocodeInput {
             params.put("r", "false");
         else if (getRelaxedAttributes() != null) {
             params.put("r", "true");
-            if (_RATTS_VALUES.containsAll(Arrays.asList(getRelaxedAttributes().split(","))))
                 params.put("ratts", getRelaxedAttributes());
         }
         if (getAllowSubstringMatching() != null)
@@ -328,12 +267,11 @@ public class GeocodeInput {
             params.put("sou", "false");
         else if (getSoundexAttributes() != null) {
             params.put("sou", "true");
-            if (_SOUATTS_VALUES.containsAll(Arrays.asList(getSoundexAttributes().split(","))))
                 params.put("souatts", getSoundexAttributes());
         }
         if (getFeatureMatchingHierarchy() != null)
             params.put("h", FeatureMatchingHierarchy.UNCERTAINTY_BASED.equals(getFeatureMatchingHierarchy()) ? "uncertaintyBased" : "FeatureMatchingSelectionMethod");
-        if (getReferenceDataSources() != null && _REFS_VALUES.containsAll(Arrays.asList(getReferenceDataSources().split(","))))
+        if (getReferenceDataSources() != null)
             params.put("refs", getReferenceDataSources());
         return params;
     }

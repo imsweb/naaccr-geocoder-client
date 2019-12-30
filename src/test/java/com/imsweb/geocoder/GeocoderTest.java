@@ -118,7 +118,6 @@ public class GeocoderTest {
         input.setState("CA");
         input.setZip("90210");
         input.setNotStore(Boolean.FALSE);
-
         List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
         assertThat(results.size(), is(1));
         GeocodeOutput output = results.get(0);
