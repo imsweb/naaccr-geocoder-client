@@ -259,7 +259,7 @@ public class GeocodeInput {
             params.put("r", "false");
         else if (getRelaxedAttributes() != null) {
             params.put("r", "true");
-                params.put("ratts", getRelaxedAttributes());
+            params.put("ratts", getRelaxedAttributes());
         }
         if (getAllowSubstringMatching() != null)
             params.put("sub", getAllowSubstringMatching() ? "true" : "false");
@@ -267,7 +267,7 @@ public class GeocodeInput {
             params.put("sou", "false");
         else if (getSoundexAttributes() != null) {
             params.put("sou", "true");
-                params.put("souatts", getSoundexAttributes());
+            params.put("souatts", getSoundexAttributes());
         }
         if (getFeatureMatchingHierarchy() != null)
             params.put("h", FeatureMatchingHierarchy.UNCERTAINTY_BASED.equals(getFeatureMatchingHierarchy()) ? "uncertaintyBased" : "FeatureMatchingSelectionMethod");

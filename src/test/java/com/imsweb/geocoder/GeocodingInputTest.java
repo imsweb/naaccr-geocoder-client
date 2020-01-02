@@ -8,7 +8,6 @@ import com.imsweb.geocoder.GeocodeInput.FeatureMatchingHierarchy;
 
 import static com.imsweb.geocoder.GeocodeInput.TieBreakingStrategy.FLIP_A_COIN;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class GeocodingInputTest {
 
@@ -38,7 +37,7 @@ public class GeocodingInputTest {
         input.setReferenceDataSources("MicrosoftFootprints");
 
         Map<String, String> queryParams = input.toQueryParams();
-        assertEquals(18, queryParams.size());
+        assertEquals(19, queryParams.size());
         assertEquals("3901 Calverton Blvd", queryParams.get("streetAddress"));
         assertEquals("Calverton", queryParams.get("city"));
         assertEquals("MD", queryParams.get("state"));
@@ -54,10 +53,8 @@ public class GeocodingInputTest {
         assertEquals("pre,suffix", queryParams.get("ratts"));
         assertEquals("true", queryParams.get("sub"));
         assertEquals("true", queryParams.get("sou"));
-        assertFalse(queryParams.containsKey("souatts"));
+        assertEquals("bad value", queryParams.get("souatts"));      // bad values for Soundex Attributes are ignored
         assertEquals("uncertaintyBased", queryParams.get("h"));
         assertEquals("MicrosoftFootprints", queryParams.get("refs"));
-
     }
-
 }
