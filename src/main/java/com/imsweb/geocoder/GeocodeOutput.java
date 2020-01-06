@@ -472,13 +472,13 @@ public class GeocodeOutput {
                         int nextPosition;
                         if (parts.length > 148) {
                             addCensus(result, parts, 1990, 116);
-                            addCensus(result, parts, 2000, 127);
-                            addCensus(result, parts, 2010, 138);
-                            nextPosition = 149;
+                            addCensus(result, parts, 2000, 128);
+                            addCensus(result, parts, 2010, 140);
+                            nextPosition = 152;
                         }
                         else if (parts.length > 126) {
                             addCensus(result, parts, CURRENT_CENSUS_YEAR, 116);
-                            nextPosition = 127;
+                            nextPosition = 128;
                         }
                         else
                             nextPosition = 116;
@@ -516,6 +516,7 @@ public class GeocodeOutput {
             census.setMsaFips(GeocoderUtils.value(parts[position + 8]));
             census.setPlaceFips(GeocoderUtils.value(parts[position + 9]));
             census.setStateFips(GeocoderUtils.value(parts[position + 10]));
+            census.setGeoLocationID(GeocoderUtils.value(parts[position + 11]));
 
             result.getCensusResults().put(year, census);
         }

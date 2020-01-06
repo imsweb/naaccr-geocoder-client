@@ -15,6 +15,11 @@ public class GeocodeInput {
         REVERT_TO_HIERARCHY  // fail on a tie and match to the next level of the geographic hierarchy - parcel, then street, then ZIP, then city, etc.
     }
 
+    public enum FeatureMatchingHierarchy {
+        UNCERTAINTY_BASED,         // choose and return one of the ties at random
+        FEATURE_MATCHING_SELECTION_METHOD  // fail on a tie and match to the next level of the geographic hierarchy - parcel, then street, then ZIP, then city, etc.
+    }
+
     private String _streetAddress;
     private String _city;
     private String _state;
@@ -29,6 +34,13 @@ public class GeocodeInput {
     private String _minScore;
     private Boolean _shouldDoExhaustiveSearch;
     private Boolean _useAliasTable;
+    private Boolean _shouldUseRelaxation;
+    private String _relaxedAttributes;
+    private Boolean _allowSubstringMatching;
+    private Boolean _allowSoundex;
+    private String _soundexAttributes;
+    private FeatureMatchingHierarchy _featureMatchingHierarchy;
+    private String _referenceDataSources;
 
     public String getStreetAddress() {
         return _streetAddress;
@@ -142,6 +154,62 @@ public class GeocodeInput {
         _useAliasTable = useAliasTable;
     }
 
+    public Boolean getShouldUseRelaxation() {
+        return _shouldUseRelaxation;
+    }
+
+    public void setShouldUseRelaxation(Boolean shouldUseRelaxation) {
+        this._shouldUseRelaxation = shouldUseRelaxation;
+    }
+
+    public String getRelaxedAttributes() {
+        return _relaxedAttributes;
+    }
+
+    public void setRelaxedAttributes(String relaxedAttributes) {
+        this._relaxedAttributes = relaxedAttributes;
+    }
+
+    public Boolean getAllowSubstringMatching() {
+        return _allowSubstringMatching;
+    }
+
+    public void setAllowSubstringMatching(Boolean allowSubstringMatching) {
+        this._allowSubstringMatching = allowSubstringMatching;
+    }
+
+    public Boolean getAllowSoundex() {
+        return _allowSoundex;
+    }
+
+    public void setAllowSoundex(Boolean allowSoundex) {
+        this._allowSoundex = allowSoundex;
+    }
+
+    public String getSoundexAttributes() {
+        return _soundexAttributes;
+    }
+
+    public void setSoundexAttributes(String soundexAttributes) {
+        this._soundexAttributes = soundexAttributes;
+    }
+
+    public FeatureMatchingHierarchy getFeatureMatchingHierarchy() {
+        return _featureMatchingHierarchy;
+    }
+
+    public void setFeatureMatchingHierarchy(FeatureMatchingHierarchy featureMatchingHierarchy) {
+        this._featureMatchingHierarchy = featureMatchingHierarchy;
+    }
+
+    public String getReferenceDataSources() {
+        return _referenceDataSources;
+    }
+
+    public void setReferenceDataSources(String referenceDataSources) {
+        this._referenceDataSources = referenceDataSources;
+    }
+
     /**
      * Convert to a map of parameters for the API call
      */
@@ -187,6 +255,24 @@ public class GeocodeInput {
         if (getUseAliasTable() != null)
             params.put("useAliasTable", getUseAliasTable() ? "true" : "false");
 
+        if (getShouldUseRelaxation() != null && !getShouldUseRelaxation())
+            params.put("r", "false");
+        else if (getRelaxedAttributes() != null) {
+            params.put("r", "true");
+            params.put("ratts", getRelaxedAttributes());
+        }
+        if (getAllowSubstringMatching() != null)
+            params.put("sub", getAllowSubstringMatching() ? "true" : "false");
+        if (getAllowSoundex() != null && !getAllowSoundex())
+            params.put("sou", "false");
+        else if (getSoundexAttributes() != null) {
+            params.put("sou", "true");
+            params.put("souatts", getSoundexAttributes());
+        }
+        if (getFeatureMatchingHierarchy() != null)
+            params.put("h", FeatureMatchingHierarchy.UNCERTAINTY_BASED.equals(getFeatureMatchingHierarchy()) ? "uncertaintyBased" : "FeatureMatchingSelectionMethod");
+        if (getReferenceDataSources() != null)
+            params.put("refs", getReferenceDataSources());
         return params;
     }
 }

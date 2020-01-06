@@ -16,6 +16,7 @@ public class Census {
     private String _msaFips;
     private String _placeFips;
     private String _stateFips;
+    private String _geoLocationID;
 
     public String getBlock() {
         return _block;
@@ -103,5 +104,13 @@ public class Census {
 
     public void setStateFips(String stateFips) {
         _stateFips = stateFips;
+    }
+
+    public String getGeoLocationID() {
+        return _geoLocationID;
+    }
+
+    public void setGeoLocationID(String geoLocationID) {
+        _geoLocationID = geoLocationID;
     }
 }
