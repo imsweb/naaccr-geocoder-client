@@ -27,8 +27,8 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
  */
 public final class Geocoder {
 
-    private static final String _OUTPUT_FORMAT = "tsv";
-    private static final String _GEOCODER_VERSION = "4.05";
+    private static final String _OUTPUT_FORMAT = "json";
+    private static final String _GEOCODER_VERSION = "5.0.0";
     private static final String _POINT_IN_POLYGON_VERSION = "3.01";
     private static final String _GEOCODER_VERBOSE = "true";
 
@@ -119,7 +119,7 @@ public final class Geocoder {
     public static class Builder {
 
         // default base URL
-        private static final String _GEOCODER_URL = "https://geo.naaccr.org/Services/Geocode/WebService";
+        private static final String _GEOCODER_URL = "https://geo.naaccr.org/Api/";
         private static final String _POINT_IN_POLYGON_URL = "https://geo.naaccr.org/Services/CensusIntersection/WebService";
 
         // environment variable for URL and API key
