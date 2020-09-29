@@ -3,18 +3,14 @@
  */
 package com.imsweb.geocoder;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,9 +34,16 @@ public class GeocodeOutput {
     private String _apiVersion;
     @JsonIgnore
     private Integer _statusCode;
+    @JsonIgnore
+    private String _error;
+    @JsonIgnore
+    private String _message;
 
     @JsonProperty("results")
-    private Set<GeocoderResult> _results = new HashSet<>();
+    private List<GeocoderResult> _results = new ArrayList<>();
+
+    @JsonProperty("parsedAddress")
+    private Address _parsedAddress;
 
     public String getUrl() {
         return _url;
@@ -74,6 +77,22 @@ public class GeocodeOutput {
         _statusCode = statusCode;
     }
 
+    public String getError() {
+        return _error;
+    }
+
+    public void setError(String error) {
+        _error = error;
+    }
+
+    public String getMessage() {
+        return _message;
+    }
+
+    public void setMessage(String message) {
+        _message = message;
+    }
+
     public Double getTimeTaken() {
         return _timeTaken;
     }
@@ -82,109 +101,53 @@ public class GeocodeOutput {
         _timeTaken = timeTaken;
     }
 
-    public Set<GeocoderResult> getResults() {
+    public List<GeocoderResult> getResults() {
         return _results;
     }
 
-    public void setResults(Set<GeocoderResult> results) {
+    public void setResults(List<GeocoderResult> results) {
         _results = results;
     }
 
-    static List<GeocodeOutput> toResults(Call<ResponseBody> call) throws IOException {
+    public Address getParsedAddress() {
+        return _parsedAddress;
+    }
+
+    public void setParsedAddress(Address parsedAddress) {
+        _parsedAddress = parsedAddress;
+    }
+
+    static GeocodeOutput toResults(Call<ResponseBody> call) throws IOException {
         String url = call.request().url().toString();
         ResponseBody body = call.execute().body();
-        String resultString = body.string().trim();
+        String resultString = body.string().replaceAll("\"\"", "null").trim();      // this is cheesy but it's the easiest way to handle blank values
 
         if (resultString.isEmpty())
-            return Collections.emptyList();
+            return null;
         if (resultString.startsWith("invalid request - "))
             throw new BadRequestException("API indicated invalid request; could indicate API key issue");
 
-        JsonNode node = _OBJECT_MAPPER.readTree(resultString);
+        try {
+            JsonNode node = _OBJECT_MAPPER.readTree(resultString);
 
-        String statusCode = node.get("statusCode").asText();
-        GeocodeOutput output = _OBJECT_MAPPER.convertValue(node.get("data"), GeocodeOutput.class);
+            JsonNode data = node.get("data");
+            JsonNode versionNode = data.get("version");
+            String apiVersion = versionNode.get("major").asText() + "." + versionNode.get("minor").asText() + "." + versionNode.get("build").asText();
 
-        try (BufferedReader reader = new BufferedReader(new StringReader(resultString))) {
-            //            reader.lines().forEach(System.out::println);
-            //            return reader.lines()
-            //                    .peek(System.out::println)      // uncomment for debugging
-            //                    .map((String line) -> {
-            //                        GeocodeOutput result = new GeocodeOutput();
-            //
-            //                        String[] parts = line.split("\t");
-            //
-            //                        if (parts.length < 116)
-            //                            throw new IllegalStateException("Unknown format returned from API");
-            //
-            //                        result.setUrl(url);
-            //                        result.setTransactionId(GeocoderUtils.value(parts[0]));
-            //                        result.setApiVersion(GeocoderUtils.value(parts[1]));
-            //                        result.setStatusCode(GeocoderUtils.intValue(parts[2]));
-            //
-            //                        result.setLatitude(GeocoderUtils.value(parts[3]));
-            //                        result.setLongitude(GeocoderUtils.value(parts[4]));
-            //                        result.setNaaccrGisCoordinateQualityCode(GeocoderUtils.value(parts[5]));
-            //                        result.setNaaccrGisCoordinateQualityName(GeocoderUtils.value(parts[6]));
-            //                        result.setMatchScore(GeocoderUtils.doubleValue(GeocoderUtils.value(parts[7])));
-            //                        result.setMatchType(GeocoderUtils.value(parts[8]));
-            //                        result.setMatchingGeographyType(GeocoderUtils.value(parts[9]));
-            //                        result.setRegionSize(GeocoderUtils.doubleValue(parts[10]));
-            //                        result.setRegionSizeUnit(GeocoderUtils.value(parts[11]));
-            //                        result.setInterpolationType(GeocoderUtils.value(parts[12]));
-            //                        result.setInterpolationSubType(GeocoderUtils.value(parts[13]));
-            //                        result.setMatchedLocationType(GeocoderUtils.value(parts[14]));
-            //                        result.setFeatureMatchType(GeocoderUtils.value(parts[15]));
-            //                        result.setFeatureMatchCount(GeocoderUtils.intValue(parts[16]));
-            //                        result.setFeatureMatchTypeNotes(GeocoderUtils.value(parts[17]));
-            //                        result.setTieHandlingStrategyType(GeocoderUtils.value(parts[18]));
-            //                        result.setFeatureMatchTypeTieBreakingNotes(GeocoderUtils.value(parts[19]));       //These two seem to be reversed...
-            //                        result.setFeatureMatchingSelectionMethod(GeocoderUtils.value(parts[20]));       //These two seem to be reversed...
-            //                        result.setFeatureMatchingSelectionMethodNotes(GeocoderUtils.value(parts[21]));
-            //                        result.setTimeTaken(GeocoderUtils.doubleValue(parts[22]));
-            //
-            //                        result.setMatchAddress(createAddress(parts, 23));
-            //                        result.setParsedAddress(createAddress(parts, 50));
-            //                        result.setFeatureAddress(createAddress(parts, 77));
-            //
-            //                        result.setfArea(GeocoderUtils.doubleValue(parts[104]));
-            //                        result.setfAreaType(GeocoderUtils.value(parts[105]));
-            //                        result.setfGeometrySrid(GeocoderUtils.value(parts[106]));
-            //                        result.setfGeometry(GeocoderUtils.value(parts[107]));
-            //                        result.setfSource(GeocoderUtils.value(parts[108]));
-            //                        result.setfVintage(GeocoderUtils.value(parts[109]));
-            //                        result.setfPrimaryIdField(GeocoderUtils.value(parts[110]));
-            //                        result.setfPrimaryIdValue(GeocoderUtils.value(parts[111]));
-            //                        result.setfSecondaryIdField(GeocoderUtils.value(parts[112]));
-            //                        result.setfSecondaryIdValue(GeocoderUtils.value(parts[113]));
-            //                        result.setNaaccrCensusTractCertaintyCode(GeocoderUtils.value(parts[114]));
-            //                        result.setNaaccrCensusTractCertaintyName(GeocoderUtils.value(parts[115]));
-            //
-            //                        // test if there are any census tracts returned
-            //                        int nextPosition;
-            //                        if (parts.length > 148) {
-            //                            addCensus(result, parts, 1990, 116);
-            //                            addCensus(result, parts, 2000, 128);
-            //                            addCensus(result, parts, 2010, 140);
-            //                            nextPosition = 152;
-            //                        }
-            //                        else if (parts.length > 126) {
-            //                            addCensus(result, parts, CURRENT_CENSUS_YEAR, 116);
-            //                            nextPosition = 128;
-            //                        }
-            //                        else
-            //                            nextPosition = 116;
-            //
-            //                        if (parts.length > nextPosition + 2) {
-            //                            result.setMicroMatchStatus(GeocoderUtils.value(parts[nextPosition]));
-            //                            result.setPenaltyCode(GeocoderUtils.value(parts[nextPosition + 1]));
-            //                            result.setPenaltyCodeSummary(GeocoderUtils.value(parts[nextPosition + 2]));
-            //                        }
-            //                        return result;
-            //                    })
-            //                    .collect(Collectors.toList());
+            GeocodeOutput output = _OBJECT_MAPPER.convertValue(node.get("data"), GeocodeOutput.class);
+            output.setApiVersion(apiVersion);
+            output.setUrl(url);
+            output.setStatusCode(node.get("statusCode").asInt());
+            if (!node.get("error").isNull())
+                output.setError(node.get("error").asText());
+            output.setTransactionId(data.get("transactionId").asText());
+            output.setTimeTaken(data.get("transactionId").asDouble());
+
+            return output;
         }
-        return new ArrayList<>();
+        catch (JsonProcessingException e) {
+            throw new BadRequestException(resultString);
+        }
     }
 
     /**
@@ -208,7 +171,7 @@ public class GeocodeOutput {
             census.setMsaFips(GeocoderUtils.value(parts[position + 8]));
             census.setPlaceFips(GeocoderUtils.value(parts[position + 9]));
             census.setStateFips(GeocoderUtils.value(parts[position + 10]));
-            census.setGeoLocationID(GeocoderUtils.value(parts[position + 11]));
+            census.setGeoLocationId(GeocoderUtils.value(parts[position + 11]));
 
             //            result.getCensusResults().put(year, census);
         }
@@ -250,5 +213,4 @@ public class GeocodeOutput {
 
         return address;
     }
-
 }

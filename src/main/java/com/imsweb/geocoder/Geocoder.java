@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -83,12 +82,11 @@ public final class Geocoder {
 
     /**
      * Main geocoding method
-     *
      * @param input input for API call
      * @return results from the API call
      * @throws IOException thrown if any problems occurred making API call including non-200 status codes
      */
-    public List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
+    public GeocodeOutput geocode(GeocodeInput input) throws IOException {
         Call<ResponseBody> call = getGeocoderCall(input);
         return GeocodeOutput.toResults(call);
     }

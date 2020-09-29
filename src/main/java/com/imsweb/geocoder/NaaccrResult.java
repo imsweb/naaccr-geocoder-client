@@ -6,7 +6,7 @@ package com.imsweb.geocoder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties("penaltyCodeDetails")
 public class NaaccrResult {
 
     @JsonProperty("gisCoordinateQualityCode")

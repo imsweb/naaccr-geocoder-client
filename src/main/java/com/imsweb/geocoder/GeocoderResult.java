@@ -3,10 +3,22 @@
  */
 package com.imsweb.geocoder;
 
-import java.util.Set;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.core.TreeNode;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GeocoderResult {
@@ -16,7 +28,7 @@ public class GeocoderResult {
     @JsonProperty("longitude")
     private String _longitude;
     @JsonProperty("matchScore")
-    private String _matchScore;
+    private Double _matchScore;
     @JsonProperty("geocodeQualityType")
     private String _geocodeQualityType;
     @JsonProperty("featureMatchingGeographyType")
@@ -40,8 +52,12 @@ public class GeocoderResult {
     @JsonProperty("matchedAddress")
     private Address _matchedAddress;
 
+    @JsonProperty("referenceFeature")
+    private FeatureResult _feature;
+
     @JsonProperty("censusRecords")
-    private Set<Census> _censusRecords;
+    @JsonDeserialize(using = CensusMapDeserializer.class)
+    private Map<Integer, Census> _censusRecords;
 
     public String getLatitude() {
         return _latitude;
@@ -59,11 +75,11 @@ public class GeocoderResult {
         _longitude = longitude;
     }
 
-    public String getMatchScore() {
+    public Double getMatchScore() {
         return _matchScore;
     }
 
-    public void setMatchScore(String matchScore) {
+    public void setMatchScore(Double matchScore) {
         _matchScore = matchScore;
     }
 
@@ -147,11 +163,43 @@ public class GeocoderResult {
         _matchedAddress = matchedAddress;
     }
 
-    public Set<Census> getCensusRecords() {
+    public FeatureResult getFeature() {
+        return _feature;
+    }
+
+    public void setFeature(FeatureResult feature) {
+        _feature = feature;
+    }
+
+    public Map<Integer, Census> getCensusRecords() {
         return _censusRecords;
     }
 
-    public void setCensusRecords(Set<Census> censusRecords) {
+    public void setCensusRecords(Map<Integer, Census> censusRecords) {
         _censusRecords = censusRecords;
+    }
+}
+
+class CensusMapDeserializer extends JsonDeserializer<Map<Integer, Census>> {
+
+    @Override
+    public Map<Integer, Census> deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
+        Map<Integer, Census> result = new HashMap<>();
+
+        ObjectCodec codec = jp.getCodec();
+        TreeNode node = codec.readTree(jp);
+
+        if (node.isArray()) {
+            Iterator<JsonNode> iter = ((ArrayNode)node).elements();
+            while (iter.hasNext()) {
+                JsonNode n = iter.next();
+                Census c = codec.treeToValue(n, Census.class);
+                if (c != null)
+                    result.put(c.getYear(), c);
+
+            }
+        }
+        return result;
     }
 }
