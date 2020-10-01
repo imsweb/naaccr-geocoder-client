@@ -32,6 +32,7 @@ public class PointInPolygonOutput {
     private String _censusMetDivFips;
     private String _censusCountyFips;
     private String _censusStateFips;
+    private String _geoLocationId;
     private Double _timeTaken;
 
     public Integer getStatusCode() {
@@ -154,6 +155,14 @@ public class PointInPolygonOutput {
         _censusStateFips = censusStateFips;
     }
 
+    public String getGeoLocationId() {
+        return _geoLocationId;
+    }
+
+    public void setGeoLocationId(String geoLocationId) {
+        _geoLocationId = geoLocationId;
+    }
+
     public Double getTimeTaken() {
         return _timeTaken;
     }
@@ -171,7 +180,7 @@ public class PointInPolygonOutput {
 
         String[] parts = resultString.split("\t", -1);
 
-        if (parts.length != 16)
+        if (parts.length != 19)
             throw new IllegalStateException("Unknown format returned from API");
 
         PointInPolygonOutput result = new PointInPolygonOutput();
@@ -179,19 +188,22 @@ public class PointInPolygonOutput {
         result.setStatusCode(GeocoderUtils.intValue(parts[0]));
         result.setApiVersion(GeocoderUtils.value(parts[1]));
         result.setTransactionId(GeocoderUtils.value(parts[2]));
-        result.setCensusYear(decodeCensusYear(GeocoderUtils.value(parts[3])));
-        result.setCensusBlock(GeocoderUtils.value(parts[4]));
-        result.setCensusBlockGroup(GeocoderUtils.value(parts[5]));
-        result.setCensusTract(GeocoderUtils.value(parts[6]));
-        result.setCensusPlaceFips(GeocoderUtils.value(parts[7]));
-        result.setCensusMcdFips(GeocoderUtils.value(parts[8]));
-        result.setCensusMsaFips(GeocoderUtils.value(parts[9]));
-        result.setCensusCbsaFips(GeocoderUtils.value(parts[10]));
-        result.setCensusCbsaMicro(GeocoderUtils.value(parts[11]));
-        result.setCensusMetDivFips(GeocoderUtils.value(parts[12]));
-        result.setCensusCountyFips(GeocoderUtils.value(parts[13]));
-        result.setCensusStateFips(GeocoderUtils.value(parts[14]));
-        result.setTimeTaken(GeocoderUtils.doubleValue(parts[15]));
+        // skip parts[3]
+        result.setCensusYear(decodeCensusYear(GeocoderUtils.value(parts[4])));
+        result.setCensusBlock(GeocoderUtils.value(parts[5]));
+        result.setCensusBlockGroup(GeocoderUtils.value(parts[6]));
+        result.setCensusTract(GeocoderUtils.value(parts[7]));
+        result.setCensusPlaceFips(GeocoderUtils.value(parts[8]));
+        result.setCensusMcdFips(GeocoderUtils.value(parts[9]));
+        result.setCensusMsaFips(GeocoderUtils.value(parts[10]));
+        result.setCensusCbsaFips(GeocoderUtils.value(parts[11]));
+        result.setCensusCbsaMicro(GeocoderUtils.value(parts[12]));
+        result.setCensusMetDivFips(GeocoderUtils.value(parts[13]));
+        result.setGeoLocationId(GeocoderUtils.value(parts[14]));
+        result.setCensusCountyFips(GeocoderUtils.value(parts[15]));
+        result.setCensusStateFips(GeocoderUtils.value(parts[16]));
+        // skip parts[17]
+        result.setTimeTaken(GeocoderUtils.doubleValue(parts[18]));
 
         return result;
     }

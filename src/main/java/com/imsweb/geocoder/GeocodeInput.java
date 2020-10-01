@@ -216,6 +216,9 @@ public class GeocodeInput {
     Map<String, String> toQueryParams() {
         Map<String, String> params = new HashMap<>();
 
+        // may want to turn this on for debugging
+        //        params.put("includeHeader", "true");
+
         // address information
         if (getStreetAddress() != null)
             params.put("streetAddress", getStreetAddress());
