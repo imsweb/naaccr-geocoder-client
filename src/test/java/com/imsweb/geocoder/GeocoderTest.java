@@ -690,7 +690,7 @@ public class GeocoderTest {
         PointInPolygonOutput result = new Geocoder.Builder().pointInPolygon().connect().pointInPolygon(input);
 
         Assert.assertEquals(200, result.getStatusCode().intValue());
-        Assert.assertEquals("3.01", result.getApiVersion());
+        Assert.assertEquals("3.1.0", result.getApiVersion());
         Assert.assertNotNull(result.getTransactionId());
         Assert.assertEquals("2010", result.getCensusYear());
         Assert.assertEquals("1023", result.getCensusBlock());
