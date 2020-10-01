@@ -27,9 +27,9 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
  */
 public final class Geocoder {
 
-    private static final String _OUTPUT_FORMAT = "tsv";
+    private static final String _OUTPUT_FORMAT = "json";
     private static final String _GEOCODER_VERSION = "4.05";
-    private static final String _POINT_IN_POLYGON_VERSION = "3.01";
+    private static final String _POINT_IN_POLYGON_VERSION = "4.06";
     private static final String _GEOCODER_VERBOSE = "true";
 
     private GeocodingService _geocodingService;
