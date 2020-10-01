@@ -23,7 +23,6 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -547,6 +546,7 @@ public class GeocoderTest {
         assertThat(output.getMicroMatchStatus(), is("Non-Match"));
         assertThat(output.getPenaltyCode(), matchesPattern("[M1-5F][M1-4F][M1-3F][M1-7F][M1-3F][M1-4F][M1-9A-F][M1-9A-F][M1-5F][M1-9AF][M12F][M12F][M12F][1-9A-G]"));
         assertThat(output.getPenaltyCodeSummary(), matchesPattern("[MF]{14}"));
+    }
 
     @Test
     public void testCallWithGeom() throws IOException {
@@ -567,8 +567,7 @@ public class GeocoderTest {
         results = new Geocoder.Builder().connect().geocode(input);
         output = results.get(0);
         // Not sure why this fails in version 4.05 but it's not really used so I'm just going to make the test pass
-        //        assertThat(output.getfGeometry(), is(notNullValue()));
-        assertThat(output.getfGeometry(), is(nullValue()));
+        assertThat(output.getfGeometry(), is(notNullValue()));
     }
 
     @Test
@@ -3029,7 +3028,7 @@ public class GeocoderTest {
         result = new Geocoder.Builder().connect().getGeocoderCall(input).execute().body().string().trim();
         lines = Arrays.asList(result.split("\r\n"));
         Assert.assertEquals(1, lines.size());
-        parts = lines.get(0).split("\t")
+        parts = lines.get(0).split("\t");
         Assert.assertEquals(155, parts.length);
 
         input.setCurrentCensusYearOnly(Boolean.FALSE);
@@ -3101,5 +3100,20 @@ public class GeocoderTest {
         Assert.assertEquals("037", result.getCensusCountyFips());
         Assert.assertEquals("06", result.getCensusStateFips());
         Assert.assertNotNull(result.getTimeTaken());
+    }
+
+    private void assertCensus(Census census) {
+        assertThat(census.getTract(), matchesPattern("^\\d{4}\\.\\d{2}$"));
+        assertThat(census.getCountyFips(), matchesPattern("^\\d{3}$"));
+        assertThat(census.getStateFips(), matchesPattern("^\\d{2}$"));
+        Assert.assertTrue(census.getBlock(), census.getBlock() == null || Pattern.compile("^\\d{4}$").matcher(census.getBlock()).matches());
+        Assert.assertTrue(census.getBlockGroup(), census.getBlockGroup() == null || Pattern.compile("^\\d$").matcher(census.getBlockGroup()).matches());
+        Assert.assertTrue(census.getCbsaFips(), census.getCbsaFips() == null || Pattern.compile("^\\d{5}$").matcher(census.getCbsaFips()).matches());
+        Assert.assertTrue(census.getCbsaMicro(), census.getCbsaMicro() == null || Pattern.compile("^\\d$").matcher(census.getCbsaMicro()).matches());
+        Assert.assertTrue(census.getMcdFips(), census.getMcdFips() == null || Pattern.compile("^\\d{5}$").matcher(census.getMcdFips()).matches());
+        Assert.assertTrue(census.getMetDivFips(), census.getMetDivFips() == null || Pattern.compile("^\\d{5}$").matcher(census.getMetDivFips()).matches());
+        Assert.assertTrue(census.getMsaFips(), census.getMsaFips() == null || Pattern.compile("^\\d{4}$").matcher(census.getMsaFips()).matches());
+        Assert.assertTrue(census.getPlaceFips(), census.getPlaceFips() == null || Pattern.compile("^\\d{5}$").matcher(census.getPlaceFips()).matches());
+        Assert.assertTrue(census.getGeoLocationId(), Pattern.compile("^\\d+$").matcher(census.getGeoLocationId()).matches());
     }
 }
