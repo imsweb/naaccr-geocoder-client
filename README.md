@@ -34,7 +34,7 @@ Download [the latest JAR][1] or grab via Maven:
 or via Gradle:
 
 ```
-compile 'com.imsweb:naaccr-geocoder-client:1.13'
+compile 'com.imsweb:naaccr-geocoder-client:1.15'
 ```
 
 ## Usage

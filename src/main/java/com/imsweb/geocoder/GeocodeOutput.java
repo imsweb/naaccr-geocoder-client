@@ -416,6 +416,18 @@ public class GeocodeOutput {
             throw new BadRequestException("API indicated invalid request; could indicate API key issue");
 
         try (BufferedReader reader = new BufferedReader(new StringReader(resultString))) {
+            //            String[] head = reader.readLine().split("\t");
+            //            String[] data = reader.readLine().split("\t");
+            //            int maxLen = 45;
+            //            for (int i = 0; i < head.length || i < data.length; i++) {
+            //                StringBuilder li = new StringBuilder(Integer.toString(i)).append("\t");
+            //                li.append((head.length >= i ? head[i] : "_"));
+            //                for (int j = 0; j < maxLen - head[i].length(); j++)
+            //                li.append(" ");
+            //                li.append((data.length >= i ? (data[i] == null || data[i].equals("") ? "<blank>" : data[i]) : "?\t\t")).append("\t");
+            //                System.out.println(li.toString());
+            //            }
+
             return reader.lines()
                     .map((String line) -> {
                         GeocodeOutput result = new GeocodeOutput();
@@ -470,15 +482,15 @@ public class GeocodeOutput {
 
                         // test if there are any census tracts returned
                         int nextPosition;
-                        if (parts.length > 148) {
+                        if (parts.length > 151) {
                             addCensus(result, parts, 1990, 116);
-                            addCensus(result, parts, 2000, 127);
-                            addCensus(result, parts, 2010, 138);
-                            nextPosition = 149;
+                            addCensus(result, parts, 2000, 128);
+                            addCensus(result, parts, 2010, 140);
+                            nextPosition = 152;
                         }
-                        else if (parts.length > 126) {
+                        else if (parts.length > 127) {
                             addCensus(result, parts, CURRENT_CENSUS_YEAR, 116);
-                            nextPosition = 127;
+                            nextPosition = 128;
                         }
                         else
                             nextPosition = 116;
@@ -516,6 +528,7 @@ public class GeocodeOutput {
             census.setMsaFips(GeocoderUtils.value(parts[position + 8]));
             census.setPlaceFips(GeocoderUtils.value(parts[position + 9]));
             census.setStateFips(GeocoderUtils.value(parts[position + 10]));
+            census.setGeoLocationId(GeocoderUtils.value(parts[position + 11]));
 
             result.getCensusResults().put(year, census);
         }
