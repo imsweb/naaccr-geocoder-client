@@ -2,6 +2,7 @@
 /build
 /dist
 /classes
+/out
 /.gradle
 /.idea
 /.extract
