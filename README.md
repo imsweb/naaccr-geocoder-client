@@ -1,6 +1,5 @@
 # naaccr-geocoder-client
 
-[![Build Status](https://travis-ci.org/imsweb/naaccr-geocoder-client.svg?branch=master)](https://travis-ci.org/imsweb/naaccr-geocoder-client)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client)
 
 A [NAACCR Geocoder](https://geo.naaccr.org) client for Java applications.  This library supports most of the APIs and
