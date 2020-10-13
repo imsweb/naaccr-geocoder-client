@@ -140,77 +140,13 @@ public class GeocodeOutput {
             output.setStatusCode(node.get("statusCode").asInt());
             if (!node.get("error").isNull())
                 output.setError(node.get("error").asText());
-            output.setTransactionId(data.get("transactionId").asText());
-            output.setTimeTaken(data.get("transactionId").asDouble());
+            output.setTransactionId(data.get("transactionGuid").asText());
+            output.setTimeTaken(data.get("transactionGuid").asDouble());
 
             return output;
         }
         catch (JsonProcessingException e) {
             throw new BadRequestException(resultString);
         }
-    }
-
-    /**
-     * Helper method to add a census mapping to the result
-     */
-    private static void addCensus(GeocodeOutput result, String[] parts, int year, int position) {
-        if (parts.length < position + 1)
-            return;
-
-        // check there is a census tract value
-        if (parts[position + 2].length() > 0) {
-            Census census = new Census();
-            census.setBlock(GeocoderUtils.value(parts[position]));
-            census.setBlockGroup(GeocoderUtils.value(parts[position + 1]));
-            census.setTract(GeocoderUtils.value(parts[position + 2]));
-            census.setCountyFips(GeocoderUtils.value(parts[position + 3]));
-            census.setCbsaFips(GeocoderUtils.value(parts[position + 4]));
-            census.setCbsaMicro(GeocoderUtils.value(parts[position + 5]));
-            census.setMcdFips(GeocoderUtils.value(parts[position + 6]));
-            census.setMetDivFips(GeocoderUtils.value(parts[position + 7]));
-            census.setMsaFips(GeocoderUtils.value(parts[position + 8]));
-            census.setPlaceFips(GeocoderUtils.value(parts[position + 9]));
-            census.setStateFips(GeocoderUtils.value(parts[position + 10]));
-            census.setGeoLocationId(GeocoderUtils.value(parts[position + 11]));
-
-            //            result.getCensusResults().put(year, census);
-        }
-    }
-
-    /**
-     * Helper method to add an address mapping to the result
-     */
-    private static Address createAddress(String[] parts, int position) {
-
-        Address address = new Address();
-        address.setNumber(GeocoderUtils.value(parts[position]));
-        address.setNumberFractional(GeocoderUtils.value(parts[position + 1]));
-        address.setPreDirectional(GeocoderUtils.value(parts[position + 2]));
-        address.setPreQualifier(GeocoderUtils.value(parts[position + 3]));
-        address.setPreType(GeocoderUtils.value(parts[position + 4]));
-        address.setPreArticle(GeocoderUtils.value(parts[position + 5]));
-        address.setName(GeocoderUtils.value(parts[position + 6]));
-        address.setPostArticle(GeocoderUtils.value(parts[position + 7]));
-        address.setPostQualifier(GeocoderUtils.value(parts[position + 8]));
-        address.setSuffix(GeocoderUtils.value(parts[position + 9]));
-        address.setPostDirectional(GeocoderUtils.value(parts[position + 10]));
-        address.setSuiteType(GeocoderUtils.value(parts[position + 11]));
-        address.setSuiteNumber(GeocoderUtils.value(parts[position + 12]));
-        address.setPoBoxType(GeocoderUtils.value(parts[position + 13]));
-        address.setPoBoxNumber(GeocoderUtils.value(parts[position + 14]));
-        address.setCity(GeocoderUtils.value(parts[position + 15]));
-        address.setConsolidatedCity(GeocoderUtils.value(parts[position + 16]));
-        address.setMinorCivilDivision(GeocoderUtils.value(parts[position + 17]));
-        address.setCountySubRegion(GeocoderUtils.value(parts[position + 18]));
-        address.setCounty(GeocoderUtils.value(parts[position + 19]));
-        address.setState(GeocoderUtils.value(parts[position + 20]));
-        address.setZip(GeocoderUtils.value(parts[position + 21]));
-        address.setZipPlus1(GeocoderUtils.value(parts[position + 22]));
-        address.setZipPlus2(GeocoderUtils.value(parts[position + 23]));
-        address.setZipPlus3(GeocoderUtils.value(parts[position + 24]));
-        address.setZipPlus4(GeocoderUtils.value(parts[position + 25]));
-        address.setZipPlus5(GeocoderUtils.value(parts[position + 26]));
-
-        return address;
     }
 }
