@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +29,7 @@ public final class Geocoder {
 
     private static final String _OUTPUT_FORMAT = "json";
     private static final String _GEOCODER_VERSION = "5.0.0";
-    private static final String _POINT_IN_POLYGON_VERSION = "3.01";
+    private static final String _POINT_IN_POLYGON_VERSION = "4.06";
     private static final String _GEOCODER_VERBOSE = "true";
 
     private GeocodingService _geocodingService;
