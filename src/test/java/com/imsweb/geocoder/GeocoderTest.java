@@ -208,24 +208,7 @@ public class GeocoderTest {
         Assert.assertNull(result.getFeature().getAddress().getZipPlus3());
         Assert.assertNull(result.getFeature().getAddress().getZipPlus4());
 
-        Assert.assertEquals(Double.valueOf(0.0), result.getFeature().getArea());
-        Assert.assertEquals("Meters", result.getFeature().getAreaType());
-        Assert.assertNull(result.getFeature().getGeometrySrid());
-        Assert.assertNull(result.getFeature().getGeometry());
-        Assert.assertEquals("NavteqAddressPoints2017", result.getFeature().getSource());
-        Assert.assertEquals(2017, (int)result.getFeature().getVintage());
-        Assert.assertEquals("POINT_ADDRESS_ID", result.getFeature().getPrimaryIdField());
-        Assert.assertEquals("51710138", result.getFeature().getPrimaryIdValue());
-        Assert.assertEquals("OBJECTID", result.getFeature().getSecondaryIdField());
-        Assert.assertEquals("9447029", result.getFeature().getSecondaryIdValue());
-        Assert.assertEquals("ArealInterpolation", result.getFeature().getInterpolationType());
-        Assert.assertEquals("ArealInterpolationGeometricCentroid", result.getFeature().getInterpolationSubType());
-
-        Assert.assertEquals(_POSSIBLE_GIS_CODES.get(result.getNaaccr().getGisCoordinateQualityCode()), result.getNaaccr().getGisCoordinateQualityType());
-        Assert.assertEquals(_POSSIBLE_CENSUS_TRACT_CERTAINTY_CODES.get(result.getNaaccr().getCensusTractCertaintyCode()), result.getNaaccr().getCensusTractCertaintyType());
-        Assert.assertEquals("Match", result.getNaaccr().getMicroMatchStatus());
-        Assert.assertEquals("MMMMMMMMMMFFF1", result.getNaaccr().getPenaltyCode());
-        Assert.assertEquals("MMMMMMMMMMMMMM", result.getNaaccr().getPenaltyCodeSummary());
+        assertResultNonAddressNonCensusFields(result);
 
         Assert.assertTrue(result.getCensusRecords().isEmpty());
     }
@@ -567,7 +550,7 @@ public class GeocoderTest {
         PointInPolygonOutput result = new Geocoder.Builder().pointInPolygon().connect().pointInPolygon(input);
 
         Assert.assertEquals(200, result.getStatusCode().intValue());
-        Assert.assertEquals("3.01", result.getApiVersion());
+        Assert.assertEquals("5.0.0", result.getApiVersion());
         Assert.assertNotNull(result.getTransactionId());
         Assert.assertEquals("2010", result.getCensusYear());
         Assert.assertEquals("1023", result.getCensusBlock());
@@ -642,5 +625,4 @@ public class GeocoderTest {
         Assert.assertTrue(census.getPlaceFips(), census.getPlaceFips() == null || Pattern.compile("^\\d{5}$").matcher(census.getPlaceFips()).matches());
         Assert.assertTrue(census.getGeoLocationId(), Pattern.compile("^\\d+$").matcher(census.getGeoLocationId()).matches());
     }
-
 }

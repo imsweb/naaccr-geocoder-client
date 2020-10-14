@@ -6,8 +6,11 @@ package com.imsweb.geocoder;
 import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,6 +19,7 @@ import retrofit2.Call;
 
 import com.imsweb.geocoder.exception.BadRequestException;
 
+@JsonIgnoreProperties({"exceptionOccurred", "exceptionMessage"})
 public class PointInPolygonOutput {
 
     private static ObjectMapper _OBJECT_MAPPER = new ObjectMapper();
@@ -26,36 +30,39 @@ public class PointInPolygonOutput {
     public static final String CENSUS_CODE_2020 = "TwoThousandTwenty";
     public static final String CENSUS_CODE_ALL = "AllAvailable";
 
+    @JsonIgnore
     private Integer _statusCode;
-    @JsonProperty("Version")
+    @JsonIgnore
     private String _apiVersion;
-    @JsonProperty("TransactionId")
+    @JsonIgnore
     private String _transactionId;
-    @JsonProperty("CensusYear")
+    @JsonProperty("censusYear")
     private String _censusYear;
-    @JsonProperty("CensusBlock")
+    @JsonProperty("geoLocationId")
+    private String _geoLocationId;
+    @JsonProperty("censusBlock")
     private String _censusBlock;
-    @JsonProperty("CensusBlockGroup")
+    @JsonProperty("censusBlockGroup")
     private String _censusBlockGroup;
-    @JsonProperty("CensusTract")
+    @JsonProperty("censusTract")
     private String _censusTract;
-    @JsonProperty("CensusPlaceFips")
+    @JsonProperty("censusPlaceFips")
     private String _censusPlaceFips;
-    @JsonProperty("CensusMcdFips")
+    @JsonProperty("censusMcdFips")
     private String _censusMcdFips;
-    @JsonProperty("CensusMsaFips")
+    @JsonProperty("censusMsaFips")
     private String _censusMsaFips;
-    @JsonProperty("CensusCbsaFips")
+    @JsonProperty("censusCbsaFips")
     private String _censusCbsaFips;
-    @JsonProperty("CensusCbsaMicro")
+    @JsonProperty("censusCbsaMicro")
     private String _censusCbsaMicro;
-    @JsonProperty("CensusMetDivFips")
+    @JsonProperty("censusMetDivFips")
     private String _censusMetDivFips;
-    @JsonProperty("CensusCountyFips")
+    @JsonProperty("censusCountyFips")
     private String _censusCountyFips;
-    @JsonProperty("CensusStateFips")
+    @JsonProperty("censusStateFips")
     private String _censusStateFips;
-    @JsonProperty("TransactionId")
+    @JsonIgnore
     private Double _timeTaken;
 
     public Integer getStatusCode() {
@@ -88,6 +95,14 @@ public class PointInPolygonOutput {
 
     public void setCensusYear(String censusYear) {
         _censusYear = censusYear;
+    }
+
+    public String getGeoLocationId() {
+        return _geoLocationId;
+    }
+
+    public void setGeoLocationId(String geoLocationId) {
+        _geoLocationId = geoLocationId;
     }
 
     public String getCensusBlock() {
@@ -199,39 +214,22 @@ public class PointInPolygonOutput {
             JsonNode data = node.get("data");
             JsonNode versionNode = data.get("version");
             String apiVersion = versionNode.get("major").asText() + "." + versionNode.get("minor").asText() + "." + versionNode.get("build").asText();
+            Integer statusCode = node.get("statusCode").asInt();
+            String transaction = data.get("transactionGuid").asText();
+            Double time = data.get("timeTaken").asDouble();
 
-            List<PointInPolygonOutput> output = _OBJECT_MAPPER.convertValue(node.get("CensusResults"), List.class);
+            List<PointInPolygonOutput> output = _OBJECT_MAPPER.convertValue(data.get("results"), new TypeReference<List<PointInPolygonOutput>>() {});
 
-            return output.get(0);
+            PointInPolygonOutput result = output.get(0);
+            result.setStatusCode(statusCode);
+            result.setApiVersion(apiVersion);
+            result.setTransactionId(transaction);
+            result.setTimeTaken(time);
+            return result;
         }
         catch (JsonProcessingException e) {
             throw new BadRequestException(resultString);
         }
-        //        String[] parts = resultString.split("\t", -1);
-        //
-        //        if (parts.length != 16)
-        //            throw new IllegalStateException("Unknown format returned from API");
-        //
-        //        PointInPolygonOutput result = new PointInPolygonOutput();
-        //
-        //        result.setStatusCode(GeocoderUtils.intValue(parts[0]));
-        //        result.setApiVersion(GeocoderUtils.value(parts[1]));
-        //        result.setTransactionId(GeocoderUtils.value(parts[2]));
-        //        result.setCensusYear(decodeCensusYear(GeocoderUtils.value(parts[3])));
-        //        result.setCensusBlock(GeocoderUtils.value(parts[4]));
-        //        result.setCensusBlockGroup(GeocoderUtils.value(parts[5]));
-        //        result.setCensusTract(GeocoderUtils.value(parts[6]));
-        //        result.setCensusPlaceFips(GeocoderUtils.value(parts[7]));
-        //        result.setCensusMcdFips(GeocoderUtils.value(parts[8]));
-        //        result.setCensusMsaFips(GeocoderUtils.value(parts[9]));
-        //        result.setCensusCbsaFips(GeocoderUtils.value(parts[10]));
-        //        result.setCensusCbsaMicro(GeocoderUtils.value(parts[11]));
-        //        result.setCensusMetDivFips(GeocoderUtils.value(parts[12]));
-        //        result.setCensusCountyFips(GeocoderUtils.value(parts[13]));
-        //        result.setCensusStateFips(GeocoderUtils.value(parts[14]));
-        //        result.setTimeTaken(GeocoderUtils.doubleValue(parts[15]));
-        //
-        //        return result;
     }
 
     private static String decodeCensusYear(String code) {
