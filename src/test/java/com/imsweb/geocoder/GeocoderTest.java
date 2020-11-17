@@ -18,9 +18,6 @@ import com.imsweb.geocoder.GeocodeInput.TieBreakingStrategy;
 import com.imsweb.geocoder.exception.BadRequestException;
 import com.imsweb.geocoder.exception.NotAuthorizedException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-
 public class GeocoderTest {
 
     private static final Set<String> _POSSIBLE_MATCH_TYPES = new HashSet<>(Arrays.asList("NoMatch", "Exact", "Relaxed", "Substring", "Soundex", "Composite", "Nearby", "Unknown"));
@@ -110,7 +107,7 @@ public class GeocoderTest {
                 .proxyPort(null)
                 .connect().geocode(input);
 
-        assertThat(result.getResults().size(), is(1));
+        Assert.assertEquals(1, result.getResults().size());
     }
 
     @Test
@@ -274,7 +271,7 @@ public class GeocoderTest {
 
         GeocodeOutput output = new Geocoder.Builder().connect().geocode(input);
         List<GeocoderResult> results = output.getResults();
-        assertThat(results.size(), is(1));
+        Assert.assertEquals(1, results.size());
 
         GeocoderResult result = results.get(0);
 
@@ -306,8 +303,8 @@ public class GeocoderTest {
         Assert.assertNull(output.getParsedAddress().getZipPlus4());
         Assert.assertNull(output.getParsedAddress().getZipPlus5());
 
-        assertThat(result.getLatitude(), is("34.096629"));
-        assertThat(result.getLongitude(), is("-118.412426"));
+        Assert.assertEquals("34.096629", result.getLatitude());
+        Assert.assertEquals("-118.412426", result.getLongitude());
 
         Assert.assertNull(result.getMatchedAddress().getNumber());
         Assert.assertNull(result.getMatchedAddress().getName());
@@ -335,9 +332,9 @@ public class GeocoderTest {
         Assert.assertNull(result.getMatchedAddress().getZipPlus4());
         Assert.assertNull(result.getMatchedAddress().getZipPlus5());
 
-        assertThat(result.getFeature().getAddress().getCity(), is("Beverly Hills"));
-        assertThat(result.getFeature().getAddress().getState(), is("CA"));
-        assertThat(result.getFeature().getAddress().getZip(), is("90210"));
+        Assert.assertEquals("Beverly Hills", result.getFeature().getAddress().getCity());
+        Assert.assertEquals("CA", result.getFeature().getAddress().getState());
+        Assert.assertEquals("90210", result.getFeature().getAddress().getZip());
         Assert.assertNull(result.getFeature().getAddress().getNumber());
         Assert.assertNull(result.getFeature().getAddress().getName());
         Assert.assertNull(result.getFeature().getAddress().getSuffix());
@@ -402,19 +399,19 @@ public class GeocoderTest {
         input.setCensus(Boolean.TRUE);
 
         GeocodeOutput output = new Geocoder.Builder().connect().geocode(input);
-        assertThat(output.getResults().size(), is(1));
+        Assert.assertEquals(1, output.getResults().size());
 
         input.setAllowTies(Boolean.TRUE);
         input.setMinScore("100");
         output = new Geocoder.Builder().connect().geocode(input);
-        assertThat(output.getResults().size(), is(1));
+        Assert.assertEquals(1, output.getResults().size());
         GeocoderResult result = output.getResults().get(0);
         Assert.assertEquals(0, result.getCensusRecords().size());
         Assert.assertNotNull(output.getTransactionId());
         Assert.assertTrue(Pattern.compile("[0-9a-f\\-]+").matcher(output.getTransactionId()).matches());
         Assert.assertNotNull(output.getTimeTaken());
-        assertThat(output.getApiVersion(), is("5.0.0"));
-        assertThat(output.getStatusCode(), is(200));
+        Assert.assertEquals("5.0.0", output.getApiVersion());
+        Assert.assertEquals(200, output.getStatusCode().intValue());
         Assert.assertEquals("0.0", result.getLatitude());
         Assert.assertEquals("0.0", result.getLongitude());
         Assert.assertEquals("9", result.getNaaccr().getCensusTractCertaintyCode());
@@ -451,12 +448,12 @@ public class GeocoderTest {
         Assert.assertNull(result.getMatchedAddress().getZipPlus3());
         Assert.assertNull(result.getMatchedAddress().getZipPlus4());
         Assert.assertNull(result.getMatchedAddress().getZipPlus5());
-        assertThat(output.getParsedAddress().getNumber(), is("123"));
-        assertThat(output.getParsedAddress().getName(), is("MAIN"));
-        assertThat(output.getParsedAddress().getSuffix(), is("ST"));
-        assertThat(output.getParsedAddress().getCity(), is("LOS ANGELES"));
-        assertThat(output.getParsedAddress().getState(), is("CA"));
-        assertThat(output.getParsedAddress().getZip(), is("90007"));
+        Assert.assertEquals("123", output.getParsedAddress().getNumber());
+        Assert.assertEquals("MAIN", output.getParsedAddress().getName());
+        Assert.assertEquals("ST", output.getParsedAddress().getSuffix());
+        Assert.assertEquals("LOS ANGELES", output.getParsedAddress().getCity());
+        Assert.assertEquals("CA", output.getParsedAddress().getState());
+        Assert.assertEquals("90007", output.getParsedAddress().getZip());
         Assert.assertNull(output.getParsedAddress().getNumberFractional());
         Assert.assertNull(output.getParsedAddress().getPreDirectional());
         Assert.assertNull(output.getParsedAddress().getPreQualifier());
@@ -591,7 +588,7 @@ public class GeocoderTest {
         //            Assert.assertNotNull(result.getFeatureMatchCount());
         //            Assert.assertNull(result.getFeatureMatchingSelectionMethodNotes());
         //            Assert.assertTrue(result.getFeatureMatchTypeTieBreakingNotes(), _POSSIBLE_TIE_HANDLING_STRATEGIES.contains(result.getFeatureMatchTypeTieBreakingNotes()));
-        //        assertThat(result.getFeatureMatchTypeNotes(), is(nullValue()));
+        //            Assert.assertNull(result.getFeatureMatchTypeNotes());
     }
 
     private void assertCensus(Census census) {
