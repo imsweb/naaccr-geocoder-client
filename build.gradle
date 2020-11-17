@@ -10,8 +10,8 @@ plugins {
 group = 'com.imsweb'
 version = '1.15'
 description = 'Java client library for NAACCR Geocoding Service'
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
 
 println "Starting build using JDK ${Runtime.version().feature()}"
 
