@@ -1,6 +1,5 @@
 # naaccr-geocoder-client
 
-[![Build Status](https://travis-ci.org/imsweb/naaccr-geocoder-client.svg?branch=master)](https://travis-ci.org/imsweb/naaccr-geocoder-client)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client)
 
 A [NAACCR Geocoder](https://geo.naaccr.org) client for Java applications.  This library supports most of the APIs and
@@ -27,14 +26,14 @@ Download [the latest JAR][1] or grab via Maven:
 <dependency>
     <groupId>com.imsweb</groupId>
     <artifactId>naaccr-geocoder-client</artifactId>
-    <version>1.14</version>
+    <version>1.15</version>
 </dependency>
 ```
 
 or via Gradle:
 
 ```
-compile 'com.imsweb:naaccr-geocoder-client:1.14'
+compile 'com.imsweb:naaccr-geocoder-client:1.15'
 ```
 
 ## Usage
