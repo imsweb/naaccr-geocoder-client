@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,10 +20,38 @@ import retrofit2.Call;
 
 import com.imsweb.geocoder.exception.BadRequestException;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties({"version",
+        "transactionGuid",
+        "apiHost",
+        "clientHost",
+        "queryStatusCode",
+        "inputParameterSet",
+        "apiKey",
+        "dontStoreTransactionDetails",
+        "allowTies",
+        "tieHandlingStrategyType",
+        "relaxableAttributes",
+        "relaxation",
+        "substring",
+        "soundex",
+        "soundexAttributes",
+        "referenceSources",
+        "featureMatchingSelectionMethod",
+        "attributeWeightingScheme",
+        "minimumMatchScore",
+        "confidenceLevels",
+        "exhaustiveSearch",
+        "aliasTables",
+        "multiThreading",
+        "censusYears",
+        "includeHeader",
+        "verbose",
+        "outputCensusVariables",
+        "outputReferenceFeatureGeometry",
+        "outputFormat"})
 public class GeocodeOutput {
 
-    private static ObjectMapper _OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper _OBJECT_MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     @JsonIgnore
     private String _url;
@@ -148,5 +177,9 @@ public class GeocodeOutput {
         catch (JsonProcessingException e) {
             throw new BadRequestException(resultString);
         }
+    }
+
+    static void ignoreUnknown(boolean shouldIgnore) {
+        _OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, !shouldIgnore);
     }
 }

@@ -66,6 +66,24 @@ public class GeocoderTest {
             "9", "Missing",
             "99", "Unmatchable");
 
+    @Test
+    public void testUnmappedFields() throws IOException {
+        try {
+            GeocodeOutput.ignoreUnknown(false);
+            GeocodeInput input = new GeocodeInput();
+
+            input.setStreetAddress("9355 Burton Way");
+            input.setCity("Beverly Hills");
+            input.setState("CA");
+            input.setZip("90210");
+            input.setNotStore(Boolean.FALSE);
+            new Geocoder.Builder().connect().geocode(input);     // this should throw an exception if a new field is added to the returned json
+        }
+        finally {
+            GeocodeOutput.ignoreUnknown(true);
+        }
+    }
+
     @Test(expected = NotAuthorizedException.class)
     public void testMissingApiKey() throws IOException {
         new Geocoder.Builder().apiKey("").connect().geocode(new GeocodeInput());
@@ -503,41 +521,6 @@ public class GeocoderTest {
         for (GeocoderResult r : output.getResults())
             assertResultNonAddressNonCensusFields(r);
     }
-
-    //
-    //    @Test
-    //    public void testUseAliasTable() throws IOException {
-    //        GeocodeInput input = new GeocodeInput();
-    //
-    //        input.setStreetAddress("9355 Burton Way");
-    //        input.setCity("Beverly Hills");
-    //        input.setState("CA");
-    //        input.setZip("90210");
-    //
-    //        List<GeocodeOutput> results = new Geocoder.Builder().connect().geocode(input);
-    //        assertThat(results.size(), is(1));
-    //        GeocodeOutput ouputDefault = results.get(0);
-    //
-    //        input.setUseAliasTable(Boolean.TRUE);
-    //        results = new Geocoder.Builder().connect().geocode(input);
-    //        assertThat(results.size(), is(1));
-    //        GeocodeOutput outputAlias = results.get(0);
-    //
-    //        input.setUseAliasTable(Boolean.FALSE);
-    //        results = new Geocoder.Builder().connect().geocode(input);
-    //        assertThat(results.size(), is(1));
-    //        GeocodeOutput outputNoAlias = results.get(0);
-    //
-    //        //        Assert.assertNotEquals(ouputDefault.getLatitude(), outputAlias.getLatitude());
-    //        //        Assert.assertNotEquals(ouputDefault.getLongitude(), outputAlias.getLongitude());
-    //
-    //        Assert.assertEquals(ouputDefault.getLatitude(), outputNoAlias.getLatitude());
-    //        Assert.assertEquals(ouputDefault.getLongitude(), outputNoAlias.getLongitude());
-    //
-    //        Assert.assertNotEquals(ouputDefault.getUrl(), outputAlias.getUrl());   // these should differ because of the useAliasTable parameter
-    //        Assert.assertNotEquals(ouputDefault.getUrl(), outputNoAlias.getUrl());
-    //        Assert.assertNotEquals(outputAlias.getUrl(), outputNoAlias.getUrl());
-    //    }
 
     @Test
     public void testPointInPolygon() throws IOException {

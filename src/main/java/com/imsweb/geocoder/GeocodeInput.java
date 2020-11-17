@@ -253,7 +253,7 @@ public class GeocodeInput {
         if (getShouldDoExhaustiveSearch() != null)
             params.put("shouldDoExhaustiveSearch", getShouldDoExhaustiveSearch() ? "true" : "false");
         if (getUseAliasTable() != null)
-            params.put("useAliasTable", getUseAliasTable() ? "true" : "false");
+            params.put("aliasTables", getUseAliasTable() ? "true" : "false");
 
         if (getShouldUseRelaxation() != null && !getShouldUseRelaxation())
             params.put("r", "false");
