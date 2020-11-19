@@ -149,8 +149,10 @@ public class GeocodeOutput {
     static GeocodeOutput toResults(Call<ResponseBody> call) throws IOException {
         String url = call.request().url().toString();
         ResponseBody body = call.execute().body();
-        String resultString = body.string().replaceAll("\"\"", "null").trim();      // this is cheesy but it's the easiest way to handle blank values
+        if (body == null)
+            return null;
 
+        String resultString = body.string().replaceAll("\"\"", "null").trim();      // this is cheesy but it's the easiest way to handle blank values
         if (resultString.isEmpty())
             return null;
         if (resultString.startsWith("invalid request - "))
