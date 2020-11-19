@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -92,7 +91,7 @@ public final class Geocoder {
         return GeocodeOutput.toResults(call);
     }
 
-    Call<ResponseBody> getGeocoderCall(GeocodeInput input) throws IOException {
+    Call<ResponseBody> getGeocoderCall(GeocodeInput input) {
         Map<String, String> params = input.toQueryParams();
         params.put("format", _OUTPUT_FORMAT);
         params.put("version", _GEOCODER_VERSION);
