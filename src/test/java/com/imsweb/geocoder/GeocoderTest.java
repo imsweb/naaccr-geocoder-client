@@ -102,7 +102,7 @@ public class GeocoderTest {
         input.setNotStore(Boolean.FALSE);
 
         GeocodeOutput result = new Geocoder.Builder()
-                .url("https://geo.naaccr.org/Services/Geocode/WebService")
+                .url("https://geo.naaccr.org/Api/")
                 .proxyHost(null)
                 .proxyPort(null)
                 .connect().geocode(input);
