@@ -10,73 +10,73 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class NaaccrResult {
 
     @JsonProperty("gisCoordinateQualityCode")
-    private String gisCoordinateQualityCode;
+    private String _gisCoordinateQualityCode;
     @JsonProperty("gisCoordinateQualityType")
-    private String gisCoordinateQualityType;
+    private String _gisCoordinateQualityType;
     @JsonProperty("censusTractCertaintyCode")
-    private String censusTractCertaintyCode;
+    private String _censusTractCertaintyCode;
     @JsonProperty("censusTractCertaintyType")
-    private String censusTractCertaintyType;
+    private String _censusTractCertaintyType;
     @JsonProperty("microMatchStatus")
-    private String microMatchStatus;
+    private String _microMatchStatus;
     @JsonProperty("penaltyCode")
-    private String penaltyCode;
+    private String _penaltyCode;
     @JsonProperty("penaltyCodeSummary")
-    private String penaltyCodeSummary;
+    private String _penaltyCodeSummary;
 
     public String getGisCoordinateQualityCode() {
-        return gisCoordinateQualityCode;
+        return _gisCoordinateQualityCode;
     }
 
     public void setGisCoordinateQualityCode(String gisCoordinateQualityCode) {
-        this.gisCoordinateQualityCode = gisCoordinateQualityCode;
+        _gisCoordinateQualityCode = gisCoordinateQualityCode;
     }
 
     public String getGisCoordinateQualityType() {
-        return gisCoordinateQualityType;
+        return _gisCoordinateQualityType;
     }
 
     public void setGisCoordinateQualityType(String gisCoordinateQualityType) {
-        this.gisCoordinateQualityType = gisCoordinateQualityType;
+        _gisCoordinateQualityType = gisCoordinateQualityType;
     }
 
     public String getCensusTractCertaintyCode() {
-        return censusTractCertaintyCode;
+        return _censusTractCertaintyCode;
     }
 
     public void setCensusTractCertaintyCode(String censusTractCertaintyCode) {
-        this.censusTractCertaintyCode = censusTractCertaintyCode;
+        _censusTractCertaintyCode = censusTractCertaintyCode;
     }
 
     public String getCensusTractCertaintyType() {
-        return censusTractCertaintyType;
+        return _censusTractCertaintyType;
     }
 
     public void setCensusTractCertaintyType(String censusTractCertaintyType) {
-        this.censusTractCertaintyType = censusTractCertaintyType;
+        _censusTractCertaintyType = censusTractCertaintyType;
     }
 
     public String getMicroMatchStatus() {
-        return microMatchStatus;
+        return _microMatchStatus;
     }
 
     public void setMicroMatchStatus(String microMatchStatus) {
-        this.microMatchStatus = microMatchStatus;
+        _microMatchStatus = microMatchStatus;
     }
 
     public String getPenaltyCode() {
-        return penaltyCode;
+        return _penaltyCode;
     }
 
     public void setPenaltyCode(String penaltyCode) {
-        this.penaltyCode = penaltyCode;
+        _penaltyCode = penaltyCode;
     }
 
     public String getPenaltyCodeSummary() {
-        return penaltyCodeSummary;
+        return _penaltyCodeSummary;
     }
 
     public void setPenaltyCodeSummary(String penaltyCodeSummary) {
-        this.penaltyCodeSummary = penaltyCodeSummary;
+        _penaltyCodeSummary = penaltyCodeSummary;
     }
 }
