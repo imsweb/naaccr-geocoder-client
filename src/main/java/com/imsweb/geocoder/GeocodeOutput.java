@@ -172,7 +172,7 @@ public class GeocodeOutput {
             if (!node.get("error").isNull())
                 output.setError(node.get("error").asText());
             output.setTransactionId(data.get("transactionGuid").asText());
-            output.setTimeTaken(data.get("transactionGuid").asDouble());
+            output.setTimeTaken(data.get("timeTaken").asDouble());
 
             return output;
         }
