@@ -10,10 +10,14 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -52,6 +56,13 @@ import com.imsweb.geocoder.exception.BadRequestException;
 public class GeocodeOutput {
 
     private static final ObjectMapper _OBJECT_MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    static {
+        // AGGIE API occasionally returns empty string; we want to set the corresponding java properties to null instead
+        SimpleModule sm = new SimpleModule();
+        sm.addDeserializer(String.class, new TrimToNullDeserializer());
+        _OBJECT_MAPPER.registerModule(sm);
+    }
 
     @JsonIgnore
     private String _url;
@@ -152,7 +163,7 @@ public class GeocodeOutput {
         if (body == null)
             return null;
 
-        String resultString = body.string().replaceAll("\"\"", "null").trim();      // this is cheesy but it's the easiest way to handle blank values
+        String resultString = body.string().trim();
         if (resultString.isEmpty())
             return null;
         if (resultString.startsWith("invalid request - "))
@@ -183,5 +194,16 @@ public class GeocodeOutput {
 
     static void ignoreUnknown(boolean shouldIgnore) {
         _OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, !shouldIgnore);
+    }
+
+    static class TrimToNullDeserializer extends JsonDeserializer<String> {
+
+        @Override
+        public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            String text = p.getText().trim();
+            if (text.length() == 0)
+                return null;
+            return text;
+        }
     }
 }
