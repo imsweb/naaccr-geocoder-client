@@ -3,35 +3,80 @@
  */
 package com.imsweb.geocoder;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Address {
 
+    @JsonProperty("nonParsedStreetAddress")
+    private String _nonParsedStreetAddress;
+    @JsonProperty("number")
     private String _number;
+    @JsonProperty("numberFractional")
     private String _numberFractional;
+    @JsonProperty("preDirectional")
     private String _preDirectional;
+    @JsonProperty("preQualifier")
     private String _preQualifier;
+    @JsonProperty("preType")
     private String _preType;
+    @JsonProperty("preArticle")
     private String _preArticle;
+    @JsonProperty("name")
     private String _name;
+    @JsonProperty("postArticle")
     private String _postArticle;
+    @JsonProperty("postQualifier")
     private String _postQualifier;
+    @JsonProperty("suffix")
     private String _suffix;
+    @JsonProperty("postDirectional")
     private String _postDirectional;
+    @JsonProperty("suiteType")
     private String _suiteType;
+    @JsonProperty("suiteNumber")
     private String _suiteNumber;
+    @JsonProperty("poBoxType")
     private String _poBoxType;
+    @JsonProperty("poBoxNumber")
     private String _poBoxNumber;
+    @JsonProperty("city")
     private String _city;
+    @JsonProperty("consolidatedCity")
     private String _consolidatedCity;
+    @JsonProperty("minorCivilDivision")
     private String _minorCivilDivision;
-    private String _countySubregion;
+    @JsonProperty("countySubRegion")
+    private String _countySubRegion;
+    @JsonProperty("county")
     private String _county;
+    @JsonProperty("state")
     private String _state;
+    @JsonProperty("country")
+    private String _country;
+    @JsonProperty("zip")
     private String _zip;
+    @JsonProperty("zipPlus1")
     private String _zipPlus1;
+    @JsonProperty("zipPlus2")
     private String _zipPlus2;
+    @JsonProperty("zipPlus3")
     private String _zipPlus3;
+    @JsonProperty("zipPlus4")
     private String _zipPlus4;
+    @JsonProperty("zipPlus5")
     private String _zipPlus5;
+    @JsonProperty("addressLocationType")
+    private String _addressLocationType;
+    @JsonProperty("addressFormatType")
+    private String _addressFormatType;
+
+    public String getNonParsedStreetAddress() {
+        return _nonParsedStreetAddress;
+    }
+
+    public void setNonParsedStreetAddress(String nonParsedStreetAddress) {
+        _nonParsedStreetAddress = nonParsedStreetAddress;
+    }
 
     public String getNumber() {
         return _number;
@@ -177,12 +222,12 @@ public class Address {
         _minorCivilDivision = minorCivilDivision;
     }
 
-    public String getCountySubregion() {
-        return _countySubregion;
+    public String getCountySubRegion() {
+        return _countySubRegion;
     }
 
-    public void setCountySubregion(String countySubregion) {
-        _countySubregion = countySubregion;
+    public void setCountySubRegion(String countySubRegion) {
+        _countySubRegion = countySubRegion;
     }
 
     public String getCounty() {
@@ -199,6 +244,14 @@ public class Address {
 
     public void setState(String state) {
         _state = state;
+    }
+
+    public String getCountry() {
+        return _country;
+    }
+
+    public void setCountry(String country) {
+        _country = country;
     }
 
     public String getZip() {
@@ -249,4 +302,19 @@ public class Address {
         _zipPlus5 = zipPlus5;
     }
 
+    public String getAddressLocationType() {
+        return _addressLocationType;
+    }
+
+    public void setAddressLocationType(String addressLocationType) {
+        _addressLocationType = addressLocationType;
+    }
+
+    public String getAddressFormatType() {
+        return _addressFormatType;
+    }
+
+    public void setAddressFormatType(String addressFormatType) {
+        _addressFormatType = addressFormatType;
+    }
 }

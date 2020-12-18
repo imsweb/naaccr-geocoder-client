@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -27,9 +26,9 @@ import com.imsweb.geocoder.exception.NotAuthorizedException;
  */
 public final class Geocoder {
 
-    private static final String _OUTPUT_FORMAT = "tsv";
-    private static final String _GEOCODER_VERSION = "4.05";
-    private static final String _POINT_IN_POLYGON_VERSION = "3.01";
+    private static final String _OUTPUT_FORMAT = "json";
+    private static final String _GEOCODER_VERSION = "5.0.0";
+    private static final String _POINT_IN_POLYGON_VERSION = "4.06";
     private static final String _GEOCODER_VERBOSE = "true";
 
     private GeocodingService _geocodingService;
@@ -83,17 +82,16 @@ public final class Geocoder {
 
     /**
      * Main geocoding method
-     *
      * @param input input for API call
      * @return results from the API call
      * @throws IOException thrown if any problems occurred making API call including non-200 status codes
      */
-    public List<GeocodeOutput> geocode(GeocodeInput input) throws IOException {
+    public GeocodeOutput geocode(GeocodeInput input) throws IOException {
         Call<ResponseBody> call = getGeocoderCall(input);
         return GeocodeOutput.toResults(call);
     }
 
-    Call<ResponseBody> getGeocoderCall(GeocodeInput input) throws IOException {
+    Call<ResponseBody> getGeocoderCall(GeocodeInput input) {
         Map<String, String> params = input.toQueryParams();
         params.put("format", _OUTPUT_FORMAT);
         params.put("version", _GEOCODER_VERSION);
@@ -119,7 +117,7 @@ public final class Geocoder {
     public static class Builder {
 
         // default base URL
-        private static final String _GEOCODER_URL = "https://geo.naaccr.org/Services/Geocode/WebService";
+        private static final String _GEOCODER_URL = "https://geo.naaccr.org/Api/";
         private static final String _POINT_IN_POLYGON_URL = "https://geo.naaccr.org/Services/CensusIntersection/WebService";
 
         // environment variable for URL and API key
