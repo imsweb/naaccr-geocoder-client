@@ -266,7 +266,7 @@ public class GeocoderTest {
         input.setZip("90210");
         input.setCensus(Boolean.TRUE);
         input.setCurrentCensusYearOnly(Boolean.TRUE);
-        input.setGeom(Boolean.TRUE);
+        input.setGeometry(Boolean.TRUE);
         input.setMinScore("59");        // Contemporary with version 4.03 release, PO Box matches are scored at 60
 
         GeocodeOutput output = new Geocoder.Builder().connect().geocode(input);
@@ -373,17 +373,38 @@ public class GeocoderTest {
         input.setCity("Beverly Hills");
         input.setState("CA");
         input.setZip("90210");
-        input.setGeom(Boolean.FALSE);
+        input.setGeometry(Boolean.FALSE);
         input.setMinScore("59");
 
         GeocodeOutput output = new Geocoder.Builder().connect().geocode(input);
         GeocoderResult result = output.getResults().get(0);
         Assert.assertNull(result.getFeature().getGeometry());
 
-        input.setGeom(Boolean.TRUE);
+        input.setGeometry(Boolean.TRUE);
         output = new Geocoder.Builder().connect().geocode(input);
         result = output.getResults().get(0);
         Assert.assertNotNull(result.getFeature().getGeometry());
+    }
+
+    @Test
+    public void testCallWithExhaustiveSearch() throws IOException {
+        GeocodeInput input = new GeocodeInput();
+
+        input.setStreetAddress("123 main street");
+        input.setCity("los angeles");
+        input.setState("ca");
+        input.setZip("90007");
+        input.setAllowTies(Boolean.FALSE);
+        input.setTieBreakingStrategy(TieBreakingStrategy.REVERT_TO_HIERARCHY);
+        input.setCensus(Boolean.FALSE);
+        input.setExhaustiveSearch(Boolean.TRUE);
+
+        GeocodeOutput output = new Geocoder.Builder().connect().geocode(input);
+        Assert.assertEquals(11, output.getResults().size());
+
+        input.setExhaustiveSearch(Boolean.FALSE);
+        output = new Geocoder.Builder().connect().geocode(input);
+        Assert.assertEquals(1, output.getResults().size());
     }
 
     @Test
