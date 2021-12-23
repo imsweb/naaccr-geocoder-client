@@ -11,10 +11,10 @@ plugins {
 }
 
 group = 'com.imsweb'
-version = '1.15'
+version = '1.17'
 description = 'Java client library for NAACCR Geocoding Service'
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
 
 println "Starting build using JDK ${Runtime.version().feature()}"
 
@@ -25,8 +25,12 @@ repositories {
 dependencies {
     api 'com.squareup.retrofit2:retrofit:2.9.0'
 
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'junit-addons:junit-addons:1.4'
+    testImplementation 'org.assertj:assertj-core:3.16.1'
     testImplementation 'com.jcabi:jcabi-matchers:1.5.3'
 }
 
@@ -132,7 +136,7 @@ publishing {
                     developer {
                         id = 'jlorentson'
                         name = 'Jesse Lorentson'
-                        email = 'jlorentson@imsweb.com'
+                        email = 'lorentsonj@imsweb.com'
                     }
                     developer {
                         id = 'depryf'
@@ -182,11 +186,10 @@ publishing {
     }
 
 // don't try to release a snapshot to a non-snapshot repository, that won't work anyway
-    if (version.endsWith('-SNAPSHOT')) {
-        gradle.startParameter.excludedTaskNames += 'signMavenJavaPublication'
-        gradle.startParameter.excludedTaskNames += 'closeAndReleaseSonatypeStagingRepository'
-    }
-
+if (version.endsWith('-SNAPSHOT')) {
+    gradle.startParameter.excludedTaskNames += 'signMavenJavaPublication'
+    gradle.startParameter.excludedTaskNames += 'closeAndReleaseSonatypeStagingRepository'
+}
 // Gradle wrapper, this allows to build the project without having to install Gradle!
     wrapper {
         gradleVersion = '7.3.3'

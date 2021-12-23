@@ -28,18 +28,18 @@ public class GeocodeInput {
     private TieBreakingStrategy _tieBreakingStrategy;
     private Boolean _census;
     private Boolean _currentCensusYearOnly;
-    private Boolean _geom;
+    private Boolean _geometry;
     private Boolean _notStore;
     private String _confidenceLevels;
     private String _minScore;
-    private Boolean _shouldDoExhaustiveSearch;
-    private Boolean _useAliasTable;
-    private Boolean _shouldUseRelaxation;
+    private Boolean _exhaustiveSearch;
+    private Boolean _aliasTable;
+    private Boolean _attributeRelaxation;
     private String _relaxedAttributes;
-    private Boolean _allowSubstringMatching;
-    private Boolean _allowSoundex;
-    private String _soundexAttributes;
-    private FeatureMatchingHierarchy _featureMatchingHierarchy;
+    private Boolean _substringMatching;
+    private Boolean _soundex;
+    private String _soundexableAttributes;
+    private FeatureMatchingHierarchy _hierarchy;    // FeatureMatchingHierarchy
     private String _referenceDataSources;
 
     public String getStreetAddress() {
@@ -114,12 +114,12 @@ public class GeocodeInput {
         _notStore = notStore;
     }
 
-    public Boolean getGeom() {
-        return _geom;
+    public Boolean getGeometry() {
+        return _geometry;
     }
 
-    public void setGeom(Boolean geom) {
-        _geom = geom;
+    public void setGeometry(Boolean geometry) {
+        _geometry = geometry;
     }
 
     public String getConfidenceLevels() {
@@ -138,28 +138,28 @@ public class GeocodeInput {
         _minScore = minScore;
     }
 
-    public Boolean getShouldDoExhaustiveSearch() {
-        return _shouldDoExhaustiveSearch;
+    public Boolean getExhaustiveSearch() {
+        return _exhaustiveSearch;
     }
 
-    public void setShouldDoExhaustiveSearch(Boolean shouldDoExhaustiveSearch) {
-        _shouldDoExhaustiveSearch = shouldDoExhaustiveSearch;
+    public void setExhaustiveSearch(Boolean exhaustiveSearch) {
+        _exhaustiveSearch = exhaustiveSearch;
     }
 
-    public Boolean getUseAliasTable() {
-        return _useAliasTable;
+    public Boolean getAliasTable() {
+        return _aliasTable;
     }
 
-    public void setUseAliasTable(Boolean useAliasTable) {
-        _useAliasTable = useAliasTable;
+    public void setAliasTable(Boolean aliasTable) {
+        _aliasTable = aliasTable;
     }
 
-    public Boolean getShouldUseRelaxation() {
-        return _shouldUseRelaxation;
+    public Boolean getAttributeRelaxation() {
+        return _attributeRelaxation;
     }
 
-    public void setShouldUseRelaxation(Boolean shouldUseRelaxation) {
-        this._shouldUseRelaxation = shouldUseRelaxation;
+    public void setAttributeRelaxation(Boolean attributeRelaxation) {
+        this._attributeRelaxation = attributeRelaxation;
     }
 
     public String getRelaxedAttributes() {
@@ -170,36 +170,36 @@ public class GeocodeInput {
         this._relaxedAttributes = relaxedAttributes;
     }
 
-    public Boolean getAllowSubstringMatching() {
-        return _allowSubstringMatching;
+    public Boolean getSubstringMatching() {
+        return _substringMatching;
     }
 
-    public void setAllowSubstringMatching(Boolean allowSubstringMatching) {
-        this._allowSubstringMatching = allowSubstringMatching;
+    public void setSubstringMatching(Boolean substringMatching) {
+        this._substringMatching = substringMatching;
     }
 
-    public Boolean getAllowSoundex() {
-        return _allowSoundex;
+    public Boolean getSoundex() {
+        return _soundex;
     }
 
-    public void setAllowSoundex(Boolean allowSoundex) {
-        this._allowSoundex = allowSoundex;
+    public void setSoundex(Boolean soundex) {
+        this._soundex = soundex;
     }
 
-    public String getSoundexAttributes() {
-        return _soundexAttributes;
+    public String getSoundexableAttributes() {
+        return _soundexableAttributes;
     }
 
-    public void setSoundexAttributes(String soundexAttributes) {
-        this._soundexAttributes = soundexAttributes;
+    public void setSoundexableAttributes(String soundexableAttributes) {
+        this._soundexableAttributes = soundexableAttributes;
     }
 
-    public FeatureMatchingHierarchy getFeatureMatchingHierarchy() {
-        return _featureMatchingHierarchy;
+    public FeatureMatchingHierarchy getHierarchy() {
+        return _hierarchy;
     }
 
-    public void setFeatureMatchingHierarchy(FeatureMatchingHierarchy featureMatchingHierarchy) {
-        this._featureMatchingHierarchy = featureMatchingHierarchy;
+    public void setHierarchy(FeatureMatchingHierarchy hierarchy) {
+        this._hierarchy = hierarchy;
     }
 
     public String getReferenceDataSources() {
@@ -244,8 +244,8 @@ public class GeocodeInput {
                 params.put("censusYear", "allAvailable");   // default to allAvailable
         }
 
-        if (getGeom() != null)
-            params.put("geom", getGeom() ? "true" : "false");
+        if (getGeometry() != null)
+            params.put("geom", getGeometry() ? "true" : "false");       // use the short name "geom" here because the full name "geometry" doesn't work
         if (getNotStore() != null)
             params.put("notStore", getNotStore() ? "true" : "false");
 
@@ -253,29 +253,29 @@ public class GeocodeInput {
             params.put("confidenceLevels", getConfidenceLevels());
         if (getMinScore() != null)
             params.put("minScore", getMinScore());
-        if (getShouldDoExhaustiveSearch() != null)
-            params.put("shouldDoExhaustiveSearch", getShouldDoExhaustiveSearch() ? "true" : "false");
-        if (getUseAliasTable() != null)
-            params.put("useAliasTable", getUseAliasTable() ? "true" : "false");
+        if (getExhaustiveSearch() != null)
+            params.put("exhaustiveSearch", getExhaustiveSearch() ? "true" : "false");
+        if (getAliasTable() != null)
+            params.put("aliasTables", getAliasTable() ? "true" : "false");
 
-        if (getShouldUseRelaxation() != null && !getShouldUseRelaxation())
-            params.put("r", "false");
+        if (getAttributeRelaxation() != null && !getAttributeRelaxation())
+            params.put("attributeRelaxation", "false");
         else if (getRelaxedAttributes() != null) {
-            params.put("r", "true");
-            params.put("ratts", getRelaxedAttributes());
+            params.put("attributeRelaxation", "true");
+            params.put("relaxedAttributes", getRelaxedAttributes());
         }
-        if (getAllowSubstringMatching() != null)
-            params.put("sub", getAllowSubstringMatching() ? "true" : "false");
-        if (getAllowSoundex() != null && !getAllowSoundex())
-            params.put("sou", "false");
-        else if (getSoundexAttributes() != null) {
-            params.put("sou", "true");
-            params.put("souatts", getSoundexAttributes());
+        if (getSubstringMatching() != null)
+            params.put("substringMatching", getSubstringMatching() ? "true" : "false");
+        if (getSoundex() != null && !getSoundex())
+            params.put("soundex", "false");
+        else if (getSoundexableAttributes() != null) {
+            params.put("soundex", "true");
+            params.put("soundexableAttributes", getSoundexableAttributes());
         }
-        if (getFeatureMatchingHierarchy() != null)
-            params.put("h", FeatureMatchingHierarchy.UNCERTAINTY_BASED.equals(getFeatureMatchingHierarchy()) ? "uncertaintyBased" : "FeatureMatchingSelectionMethod");
+        if (getHierarchy() != null)
+            params.put("hierarchy", FeatureMatchingHierarchy.UNCERTAINTY_BASED.equals(getHierarchy()) ? "uncertaintyBased" : "featureMatchingSelectionMethod");
         if (getReferenceDataSources() != null)
-            params.put("refs", getReferenceDataSources());
+            params.put("referenceDataSources", getReferenceDataSources());
         return params;
     }
 }

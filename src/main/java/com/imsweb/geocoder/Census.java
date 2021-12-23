@@ -3,20 +3,46 @@
  */
 package com.imsweb.geocoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties({"exceptionOccurred", "exceptionMessage"})
 public class Census {
 
+    @JsonProperty("censusYear")
+    private Integer _year;
+    @JsonProperty("censusBlock")
     private String _block;
+    @JsonProperty("censusBlockGroup")
     private String _blockGroup;
+    @JsonProperty("censusTract")
     private String _tract;
+    @JsonProperty("censusCountyFips")
     private String _countyFips;
+    @JsonProperty("censusCbsaFips")
     private String _cbsaFips;
+    @JsonProperty("censusCbsaMicro")
     private String _cbsaMicro;
+    @JsonProperty("censusMcdFips")
     private String _mcdFips;
+    @JsonProperty("censusMetDivFips")
     private String _metDivFips;
+    @JsonProperty("censusMsaFips")
     private String _msaFips;
+    @JsonProperty("censusPlaceFips")
     private String _placeFips;
+    @JsonProperty("censusStateFips")
     private String _stateFips;
+    @JsonProperty("geoLocationId")
     private String _geoLocationId;
+
+    public Integer getYear() {
+        return _year;
+    }
+
+    public void setYear(Integer year) {
+        _year = year;
+    }
 
     public String getBlock() {
         return _block;

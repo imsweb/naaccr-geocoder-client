@@ -25,15 +25,15 @@ public class GeocodingInputTest {
         input.setAllowTies(Boolean.TRUE);
         input.setTieBreakingStrategy(FLIP_A_COIN);
         input.setCensus(Boolean.TRUE);
-        input.setShouldDoExhaustiveSearch(Boolean.TRUE);
+        input.setExhaustiveSearch(Boolean.TRUE);
         input.setConfidenceLevels("5");
-        input.setUseAliasTable(Boolean.TRUE);
-        input.setShouldUseRelaxation(true);
+        input.setAliasTable(Boolean.TRUE);
+        input.setAttributeRelaxation(true);
         input.setRelaxedAttributes("pre,suffix");
-        input.setAllowSubstringMatching(true);
-        input.setAllowSoundex(true);
-        input.setSoundexAttributes("bad value");
-        input.setFeatureMatchingHierarchy(FeatureMatchingHierarchy.UNCERTAINTY_BASED);
+        input.setSubstringMatching(true);
+        input.setSoundex(true);
+        input.setSoundexableAttributes("bad value");
+        input.setHierarchy(FeatureMatchingHierarchy.UNCERTAINTY_BASED);
         input.setReferenceDataSources("MicrosoftFootprints");
 
         Map<String, String> queryParams = input.toQueryParams();
@@ -47,14 +47,14 @@ public class GeocodingInputTest {
         assertEquals("false", queryParams.get("notStore"));
         assertEquals("true", queryParams.get("census"));
         assertEquals("allAvailable", queryParams.get("censusYear"));
-        assertEquals("true", queryParams.get("shouldDoExhaustiveSearch"));
+        assertEquals("true", queryParams.get("exhaustiveSearch"));
         assertEquals("5", queryParams.get("confidenceLevels"));
-        assertEquals("true", queryParams.get("r"));
-        assertEquals("pre,suffix", queryParams.get("ratts"));
-        assertEquals("true", queryParams.get("sub"));
-        assertEquals("true", queryParams.get("sou"));
-        assertEquals("bad value", queryParams.get("souatts"));      // bad values for Soundex Attributes are ignored
-        assertEquals("uncertaintyBased", queryParams.get("h"));
-        assertEquals("MicrosoftFootprints", queryParams.get("refs"));
+        assertEquals("true", queryParams.get("attributeRelaxation"));
+        assertEquals("pre,suffix", queryParams.get("relaxedAttributes"));
+        assertEquals("true", queryParams.get("substringMatching"));
+        assertEquals("true", queryParams.get("soundex"));
+        assertEquals("bad value", queryParams.get("soundexableAttributes"));      // bad values for Soundex Attributes are ignored
+        assertEquals("uncertaintyBased", queryParams.get("hierarchy"));
+        assertEquals("MicrosoftFootprints", queryParams.get("referenceDataSources"));
     }
 }

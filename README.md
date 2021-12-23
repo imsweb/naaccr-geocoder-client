@@ -26,14 +26,14 @@ Download [the latest JAR][1] or grab via Maven:
 <dependency>
     <groupId>com.imsweb</groupId>
     <artifactId>naaccr-geocoder-client</artifactId>
-    <version>1.15</version>
+    <version>1.16</version>
 </dependency>
 ```
 
 or via Gradle:
 
 ```
-compile 'com.imsweb:naaccr-geocoder-client:1.15'
+compile 'com.imsweb:naaccr-geocoder-client:1.17'
 ```
 
 ## Usage
