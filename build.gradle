@@ -25,12 +25,12 @@ repositories {
 dependencies {
     api 'com.squareup.retrofit2:retrofit:2.9.0'
 
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.0'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'junit-addons:junit-addons:1.4'
-    testImplementation 'org.assertj:assertj-core:3.16.1'
+    testImplementation 'org.assertj:assertj-core:3.21.0'
     testImplementation 'com.jcabi:jcabi-matchers:1.5.3'
 }
 
