@@ -18,7 +18,7 @@ From the [NAACCR Geocoder](https://geo.naaccr.org) website:
 
 ## Download
 
-The library requires Java 8 or greater.
+The library requires Java 9 or greater.
 
 Download [the latest JAR][1] or grab via Maven:
 
@@ -26,7 +26,7 @@ Download [the latest JAR][1] or grab via Maven:
 <dependency>
     <groupId>com.imsweb</groupId>
     <artifactId>naaccr-geocoder-client</artifactId>
-    <version>1.16</version>
+    <version>1.17</version>
 </dependency>
 ```
 

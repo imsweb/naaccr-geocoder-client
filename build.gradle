@@ -1,13 +1,15 @@
+import java.time.Duration
+
 plugins {
     id 'java-library'
     id 'jacoco'
     id 'checkstyle'
-    id 'com.github.spotbugs' version '5.0.3'
+    id 'com.github.spotbugs' version '5.0.12'
     id 'maven-publish'
     id 'signing'
     id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
-    id 'org.sonatype.gradle.plugins.scan' version '2.2.2'
-    id "com.github.ben-manes.versions" version '0.39.0'
+    id 'org.sonatype.gradle.plugins.scan' version '2.5.5'
+    id "com.github.ben-manes.versions" version '0.43.0'
 }
 
 group = 'com.imsweb'
@@ -80,17 +82,8 @@ jacocoTestReport {
 
 // Nexus vulnerability scan (https://github.com/sonatype-nexus-community/scan-gradle-plugin)
 ossIndexAudit {
-    dependencyGraph = true
+    outputFormat = 'DEPENDENCY_GRAPH'
     printBanner = false
-
-    // only set proxy if running outside of Github Actions
-    if (!System.getenv().GITHUB_ACTIONS) {
-        proxyConfiguration {
-            protocol = 'http'
-            host = 'webproxy-btp.imsweb.com'
-            port = 8080
-        }
-    }
 }
 check.dependsOn 'ossIndexAudit'
 
@@ -176,12 +169,12 @@ publishing {
             }
         }
 
-        clientTimeout = java.time.Duration.ofSeconds(300)
-        connectTimeout = java.time.Duration.ofSeconds(60)
+        clientTimeout = Duration.ofSeconds(300)
+        connectTimeout = Duration.ofSeconds(60)
 
         transitionCheckOptions {
             maxRetries.set(50)
-            delayBetween.set(java.time.Duration.ofMillis(5000))
+            delayBetween.set(Duration.ofMillis(5000))
         }
     }
 
