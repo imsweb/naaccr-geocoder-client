@@ -170,6 +170,8 @@ public final class Geocoder {
             if (_apiKey == null)
                 _apiKey = System.getenv(_ENV_API_KEY);
 
+            System.out.println("apiKey: " + _apiKey);
+
             // read proxy information
             _proxyHost = props.getProperty("proxyHost");
             if (_proxyHost == null && System.getenv(_ENV_PROXY_HOST_KEY) != null)
