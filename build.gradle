@@ -77,9 +77,9 @@ spotbugs {
 jacocoTestReport {
     reports {
         xml.required = true
-        html.required = false
     }
 }
+test.finalizedBy jacocoTestReport
 
 // Nexus vulnerability scan (https://github.com/sonatype-nexus-community/scan-gradle-plugin)
 ossIndexAudit {
