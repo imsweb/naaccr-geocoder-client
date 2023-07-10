@@ -1,8 +1,10 @@
 # naaccr-geocoder-client
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=imsweb_naaccr-geocoder-client&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=imsweb_naaccr-geocoder-client)
+[![integration](https://github.com/imsweb/naaccr-geocoder-client/workflows/integration/badge.svg)](https://github.com/imsweb/naaccr-geocoder-client/actions)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.imsweb/naaccr-geocoder-client)
 
-A [NAACCR Geocoder](https://geo.naaccr.org) client for Java applications.  This library supports most of the APIs and
+A [NAACCR Geocoder](https://geo.naaccr.org) client for Java applications. This library supports most of the APIs and
 makes them easy to incorporate into Java applications.
 
 ## Description
@@ -41,8 +43,8 @@ compile 'com.imsweb:naaccr-geocoder-client:1.17'
 From the [NAACCR Geocoder](https://geo.naaccr.org) website:
 
 > This NAACCR geocoding service is provided as a service to NAACCR Full Member registries following the rules set forth on the 
-[usage rules page](https://geo.naaccr.org/About/UsageCosts.aspx). Please [contact](https://geo.naaccr.org/Support/ContactUs.aspx) 
-us if you need more information.
+[usage rules page](https://geo.naaccr.org/About/UsageCosts.aspx). Please [contact](https://geo.naaccr.org/Support/ContactUs.aspx)
+> us if you need more information.
 
 Your API key will need to be supplied to make calls.  It can be supplied on each call, or it can be stored in a
 configuration file in your home directory called `.naaccr-geocoder`.  The file should look like this
