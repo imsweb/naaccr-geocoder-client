@@ -75,6 +75,7 @@ public class GeocoderTest {
             input.setZip("90210");
             input.setNotStore(Boolean.FALSE);
             new Geocoder.Builder().connect().geocode(input);     // this should throw an exception if a new field is added to the returned json
+            Assert.fail("Expected an exception");
         }
         finally {
             GeocodeOutput.ignoreUnknown(true);

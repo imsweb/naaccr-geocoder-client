@@ -31,7 +31,7 @@ public final class Geocoder {
     private static final String _POINT_IN_POLYGON_VERSION = "4.06";
     private static final String _GEOCODER_VERBOSE = "true";
 
-    private GeocodingService _geocodingService;
+    private final GeocodingService _geocodingService;
 
     /**
      * Creates a client API root object
@@ -41,7 +41,7 @@ public final class Geocoder {
      * @param proxyHost URL of proxy host
      * @param proxyPort Proxy port
      */
-    private Geocoder(String baseUrl, String apiKey, String proxyHost, Integer proxyPort, Long connectTimeout, Long readTimeout) {
+    private Geocoder(String baseUrl, String apiKey, String proxyHost, Integer proxyPort, Long connectTimeout, Long readTimeout, boolean retryOnConnectionFailure) {
         if (!baseUrl.endsWith("/"))
             baseUrl += "/";
 
@@ -69,6 +69,7 @@ public final class Geocoder {
                 .proxy(proxyHost != null ? new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort)) : null)
                 .connectTimeout(connectTimeout, TimeUnit.SECONDS)
                 .readTimeout(readTimeout, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(retryOnConnectionFailure)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -114,6 +115,7 @@ public final class Geocoder {
     /**
      * Class to build a connection to API
      */
+    @SuppressWarnings("unused")
     public static class Builder {
 
         // default base URL
@@ -132,6 +134,8 @@ public final class Geocoder {
         private Integer _proxyPort;
         private Long _connectTimeout = 10L;
         private Long _readTimeout = 10L;
+        
+        private boolean _retryOnConnectionFailure;
 
         /**
          * Return a list of user properties from the local .naaccr-geocoder file
@@ -178,6 +182,8 @@ public final class Geocoder {
             _proxyPort = props.getProperty("proxyPort") != null ? Integer.valueOf(props.getProperty("proxyPort")) : null;
             if (_proxyPort == null && System.getenv(_ENV_PROXY_PORT_KEY) != null)
                 _proxyPort = Integer.valueOf(System.getenv(_ENV_PROXY_PORT_KEY));
+
+            _retryOnConnectionFailure = true;
         }
 
         public Builder url(String url) {
@@ -209,13 +215,18 @@ public final class Geocoder {
             _readTimeout = seconds;
             return this;
         }
+        
+        public Builder retryOnConnectionFailure(boolean retryOnConnectionFailure) {
+            _retryOnConnectionFailure = retryOnConnectionFailure;
+            return this;
+        }
 
         public Builder pointInPolygon() {
             return url(_POINT_IN_POLYGON_URL);
         }
 
         public Geocoder connect() {
-            return new Geocoder(_url, _apiKey, _proxyHost, _proxyPort, _connectTimeout, _readTimeout);
+            return new Geocoder(_url, _apiKey, _proxyHost, _proxyPort, _connectTimeout, _readTimeout, _retryOnConnectionFailure);
         }
     }
 
