@@ -168,6 +168,7 @@ public class GeocodeOutput {
             String resultString = body.string().trim();
             if (resultString.isEmpty())
                 return null;
+            
             if (resultString.startsWith("invalid request - "))
                 throw new BadRequestException("API indicated invalid request; could indicate API key issue");
 

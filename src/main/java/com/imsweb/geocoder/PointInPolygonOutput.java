@@ -208,6 +208,8 @@ public class PointInPolygonOutput {
                 return null;
 
             String resultString = body.string().trim();
+            if (resultString.isEmpty())
+                return null;
 
             if (resultString.startsWith("invalid request - "))
                 throw new BadRequestException("API indicated invalid request; could indicate API key issue");
@@ -223,8 +225,8 @@ public class PointInPolygonOutput {
                 Double time = data.get("timeTaken").asDouble();
 
                 List<PointInPolygonOutput> output = _OBJECT_MAPPER.convertValue(data.get("results"), new TypeReference<>() {});
-
-                PointInPolygonOutput result = output.get(0);
+                
+                PointInPolygonOutput result = output.isEmpty() ? new PointInPolygonOutput() : output.get(0);
                 result.setStatusCode(statusCode);
                 result.setApiVersion(apiVersion);
                 result.setTransactionId(transaction);
