@@ -126,7 +126,7 @@ tasks.named("dependencyUpdates").configure {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'validation'
+            artifactId = 'naaccr-geocoder-client'
             from components.java
             versionMapping {
                 usage('java-api') {
@@ -174,9 +174,9 @@ publishing {
                 }
 
                 scm {
-                    url = 'https://github.com/imsweb/naaccr-geocoder'
-                    connection = 'scm:https://github.com/imsweb/naaccr-geocoder.git'
-                    developerConnection = 'scm:git@github.com:imsweb/naaccr-geocoder.git'
+                    url = 'https://github.com/imsweb/naaccr-geocoder-client'
+                    connection = 'scm:https://github.com/imsweb/naaccr-geocoder-client.git'
+                    developerConnection = 'scm:git@github.com:imsweb/naaccr-geocoder-client.git'
                 }
             }
         }
