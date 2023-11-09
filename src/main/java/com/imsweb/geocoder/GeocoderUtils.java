@@ -3,7 +3,11 @@
  */
 package com.imsweb.geocoder;
 
-public class GeocoderUtils {
+public final class GeocoderUtils {
+
+    private GeocoderUtils() {
+        // utility class
+    }
 
     /**
      * Helper method to safely convert empty strings to null

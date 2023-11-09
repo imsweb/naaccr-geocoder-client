@@ -10,7 +10,6 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -19,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
+@SuppressWarnings("unused")
 public class GeocoderResult {
 
     @JsonProperty("latitude")
@@ -181,8 +181,7 @@ public class GeocoderResult {
 class CensusMapDeserializer extends JsonDeserializer<Map<Integer, Census>> {
 
     @Override
-    public Map<Integer, Census> deserialize(JsonParser jp, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+    public Map<Integer, Census> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         Map<Integer, Census> result = new HashMap<>();
 
         ObjectCodec codec = jp.getCodec();

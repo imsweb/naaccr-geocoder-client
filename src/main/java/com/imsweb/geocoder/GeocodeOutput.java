@@ -24,6 +24,7 @@ import retrofit2.Call;
 
 import com.imsweb.geocoder.exception.BadRequestException;
 
+@SuppressWarnings("unused")
 @JsonIgnoreProperties({"version",
         "transactionGuid",
         "apiHost",
@@ -159,36 +160,38 @@ public class GeocodeOutput {
 
     static GeocodeOutput toResults(Call<ResponseBody> call) throws IOException {
         String url = call.request().url().toString();
-        ResponseBody body = call.execute().body();
-        if (body == null)
-            return null;
+        
+        try (ResponseBody body = call.execute().body()) {
+            if (body == null)
+                return null;
 
-        String resultString = body.string().trim();
-        if (resultString.isEmpty())
-            return null;
-        if (resultString.startsWith("invalid request - "))
-            throw new BadRequestException("API indicated invalid request; could indicate API key issue");
+            String resultString = body.string().trim();
+            if (resultString.isEmpty())
+                return null;
+            if (resultString.startsWith("invalid request - "))
+                throw new BadRequestException("API indicated invalid request; could indicate API key issue");
 
-        try {
-            JsonNode node = _OBJECT_MAPPER.readTree(resultString);
+            try {
+                JsonNode node = _OBJECT_MAPPER.readTree(resultString);
 
-            JsonNode data = node.get("data");
-            JsonNode versionNode = data.get("version");
-            String apiVersion = versionNode.get("major").asText() + "." + versionNode.get("minor").asText() + "." + versionNode.get("build").asText();
+                JsonNode data = node.get("data");
+                JsonNode versionNode = data.get("version");
+                String apiVersion = versionNode.get("major").asText() + "." + versionNode.get("minor").asText() + "." + versionNode.get("build").asText();
 
-            GeocodeOutput output = _OBJECT_MAPPER.convertValue(node.get("data"), GeocodeOutput.class);
-            output.setApiVersion(apiVersion);
-            output.setUrl(url);
-            output.setStatusCode(node.get("statusCode").asInt());
-            if (!node.get("error").isNull())
-                output.setError(node.get("error").asText());
-            output.setTransactionId(data.get("transactionGuid").asText());
-            output.setTimeTaken(data.get("timeTaken").asDouble());
+                GeocodeOutput output = _OBJECT_MAPPER.convertValue(node.get("data"), GeocodeOutput.class);
+                output.setApiVersion(apiVersion);
+                output.setUrl(url);
+                output.setStatusCode(node.get("statusCode").asInt());
+                if (!node.get("error").isNull())
+                    output.setError(node.get("error").asText());
+                output.setTransactionId(data.get("transactionGuid").asText());
+                output.setTimeTaken(data.get("timeTaken").asDouble());
 
-            return output;
-        }
-        catch (JsonProcessingException e) {
-            throw new BadRequestException(resultString);
+                return output;
+            }
+            catch (JsonProcessingException e) {
+                throw new BadRequestException(resultString);
+            }
         }
     }
 
@@ -199,9 +202,9 @@ public class GeocodeOutput {
     static class TrimToNullDeserializer extends JsonDeserializer<String> {
 
         @Override
-        public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
             String text = p.getText().trim();
-            if (text.length() == 0)
+            if (text.isEmpty())
                 return null;
             return text;
         }

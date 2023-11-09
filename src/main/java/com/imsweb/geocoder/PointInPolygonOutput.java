@@ -19,10 +19,11 @@ import retrofit2.Call;
 
 import com.imsweb.geocoder.exception.BadRequestException;
 
+@SuppressWarnings("unused")
 @JsonIgnoreProperties({"exceptionOccurred", "exceptionMessage"})
 public class PointInPolygonOutput {
 
-    private static ObjectMapper _OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper _OBJECT_MAPPER = new ObjectMapper();
 
     public static final String CENSUS_CODE_1990 = "NineteenNinety";
     public static final String CENSUS_CODE_2000 = "TwoThousand";
@@ -202,33 +203,37 @@ public class PointInPolygonOutput {
     }
 
     static PointInPolygonOutput toResults(Call<ResponseBody> call) throws IOException {
-        ResponseBody body = call.execute().body();
-        String resultString = body.string().trim();
+        try (ResponseBody body = call.execute().body()) {
+            if (body == null)
+                return null;
 
-        if (resultString.startsWith("invalid request - "))
-            throw new BadRequestException("API indicated invalid request; could indicate API key issue");
+            String resultString = body.string().trim();
 
-        try {
-            JsonNode node = _OBJECT_MAPPER.readTree(resultString);
+            if (resultString.startsWith("invalid request - "))
+                throw new BadRequestException("API indicated invalid request; could indicate API key issue");
 
-            JsonNode data = node.get("data");
-            JsonNode versionNode = data.get("version");
-            String apiVersion = versionNode.get("major").asText() + "." + versionNode.get("minor").asText() + "." + versionNode.get("build").asText();
-            Integer statusCode = node.get("statusCode").asInt();
-            String transaction = data.get("transactionGuid").asText();
-            Double time = data.get("timeTaken").asDouble();
+            try {
+                JsonNode node = _OBJECT_MAPPER.readTree(resultString);
 
-            List<PointInPolygonOutput> output = _OBJECT_MAPPER.convertValue(data.get("results"), new TypeReference<List<PointInPolygonOutput>>() {});
+                JsonNode data = node.get("data");
+                JsonNode versionNode = data.get("version");
+                String apiVersion = versionNode.get("major").asText() + "." + versionNode.get("minor").asText() + "." + versionNode.get("build").asText();
+                Integer statusCode = node.get("statusCode").asInt();
+                String transaction = data.get("transactionGuid").asText();
+                Double time = data.get("timeTaken").asDouble();
 
-            PointInPolygonOutput result = output.get(0);
-            result.setStatusCode(statusCode);
-            result.setApiVersion(apiVersion);
-            result.setTransactionId(transaction);
-            result.setTimeTaken(time);
-            return result;
-        }
-        catch (JsonProcessingException e) {
-            throw new BadRequestException(resultString);
+                List<PointInPolygonOutput> output = _OBJECT_MAPPER.convertValue(data.get("results"), new TypeReference<>() {});
+
+                PointInPolygonOutput result = output.get(0);
+                result.setStatusCode(statusCode);
+                result.setApiVersion(apiVersion);
+                result.setTransactionId(transaction);
+                result.setTimeTaken(time);
+                return result;
+            }
+            catch (JsonProcessingException e) {
+                throw new BadRequestException(resultString);
+            }
         }
     }
 

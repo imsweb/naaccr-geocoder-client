@@ -231,7 +231,7 @@ public class GeocodeInput {
 
         // tie settings
         if (getAllowTies() != null)
-            params.put("allowTies", getAllowTies() ? "true" : "false");
+            params.put("allowTies", Boolean.TRUE.equals(getAllowTies()) ? "true" : "false");
         if (Boolean.TRUE.equals(getAllowTies()) && getTieBreakingStrategy() != null)
             params.put("tieBreakingStrategy", TieBreakingStrategy.FLIP_A_COIN.equals(getTieBreakingStrategy()) ? "flipACoin" : "revertToHierarchy");
 
@@ -245,18 +245,18 @@ public class GeocodeInput {
         }
 
         if (getGeometry() != null)
-            params.put("geom", getGeometry() ? "true" : "false");       // use the short name "geom" here because the full name "geometry" doesn't work
+            params.put("geom", Boolean.TRUE.equals(getGeometry()) ? "true" : "false");       // use the short name "geom" here because the full name "geometry" doesn't work
         if (getNotStore() != null)
-            params.put("notStore", getNotStore() ? "true" : "false");
+            params.put("notStore", Boolean.TRUE.equals(getNotStore()) ? "true" : "false");
 
         if (getConfidenceLevels() != null)
             params.put("confidenceLevels", getConfidenceLevels());
         if (getMinScore() != null)
             params.put("minScore", getMinScore());
         if (getExhaustiveSearch() != null)
-            params.put("exhaustiveSearch", getExhaustiveSearch() ? "true" : "false");
+            params.put("exhaustiveSearch", Boolean.TRUE.equals(getExhaustiveSearch()) ? "true" : "false");
         if (getAliasTable() != null)
-            params.put("aliasTables", getAliasTable() ? "true" : "false");
+            params.put("aliasTables", Boolean.TRUE.equals(getAliasTable()) ? "true" : "false");
 
         if (getAttributeRelaxation() != null && !getAttributeRelaxation())
             params.put("attributeRelaxation", "false");
@@ -265,7 +265,7 @@ public class GeocodeInput {
             params.put("relaxedAttributes", getRelaxedAttributes());
         }
         if (getSubstringMatching() != null)
-            params.put("substringMatching", getSubstringMatching() ? "true" : "false");
+            params.put("substringMatching", Boolean.TRUE.equals(getSubstringMatching()) ? "true" : "false");
         if (getSoundex() != null && !getSoundex())
             params.put("soundex", "false");
         else if (getSoundexableAttributes() != null) {
