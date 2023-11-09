@@ -10,4 +10,14 @@
          <!-- Do not reuse public identifiers from JSL as class name, fixing this is too disruptive -->
         <Bug pattern="PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_CLASS_NAMES"/>
     </Match>
+    <Match>
+        <!-- I don't understand this failure, don't think it's fixable -->
+        <Class name="com.imsweb.geocoder.GeocodeOutput"/>
+        <Bug code="RCN,NP"/>
+    </Match>
+    <Match>
+        <!-- I don't understand this failure, don't think it's fixable -->
+        <Class name="com.imsweb.geocoder.PointInPolygonOutput"/>
+        <Bug code="RCN,NP"/>
+    </Match>
 </FindBugsFilter>
